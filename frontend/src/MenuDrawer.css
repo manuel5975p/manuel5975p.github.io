@@ -1,0 +1,33 @@
+.menu-drawer {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    right: 10px;
+    background-color: rgb(148, 159, 176);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #222;
+    padding: 10px 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.menu-drawer-header hr, .menu-drawer-header h3 {
+    margin: 0;
+}
+
+.menu-drawer-content {
+    box-sizing: border-box;
+    height: 300px;
+    transition: height 0.2s ease-in-out;
+}
+
+.menu-drawer-content.closed {
+    height: 0px;
+    overflow: hidden;
+}
+
+.drag-target-area {
+    margin-top: 5px;
+    background-color: rgb(231, 234, 240);
+    padding: 5px;
+}

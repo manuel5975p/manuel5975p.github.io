@@ -1,0 +1,62 @@
+:root {
+    --separator-border: rgba(196, 196, 196, 0.739) !important;
+    --sash-size: 10px !important;
+    --sash-hover-size: 4px !important;
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+}
+
+h2 {
+    font-weight: normal;
+    animation: ease-in-out fadein 5s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.App {
+    height: 100vh;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+    height: 100vh;
+}
+
+.output-viewer {
+    background-color: #2e3440;
+    height: 100vh;
+    position: relative;
+}
+
+.output-viewer-scrollable {
+    padding-left: 20px;
+    padding-top: 20px;
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+.typst-output {
+    border: 1px solid rgb(189, 189, 189);
+    display: inline-block;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 20px;
+    margin-right: 20px;
+    background-color: white;
+}
+
+.typst-diagnostic {
+    padding: 10px;
+    border: 1px solid rgb(117, 40, 40);
+    background-color: #6428284f;
+    border-radius: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+}
