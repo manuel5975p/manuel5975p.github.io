@@ -1,0 +1,100 @@
+#version 300 es
+
+precision highp float;
+in vec2 fragTexCoord;
+in vec4 fragColor;
+
+// Input uniform values
+uniform sampler2D texture0;
+uniform vec4 colDiffuse;
+uniform vec2 blur_dir;
+
+// Output fragment color
+out vec4 finalColor;
+
+// NOTE: Add here your custom variables
+int constrain(int x, int minv, int maxv){
+    return max(minv, min(x, maxv));
+}
+uniform float kernel[501];
+
+uniform int kernel_size;
+uniform int blurx;
+uniform int blury;
+uniform float scale;
+vec4 square(vec4 v) {
+    return vec4(v.x * v.x, v.y * v.y, v.z * v.z, v.w * v.w);
+}
+float rand(vec2 co, float offset){
+    //return fract(3.0f + sin(dot(co, vec2(935.0, 8123.0))));
+    return fract(sin(dot(vec2(co.x + offset, co.y + 2.0f * offset), vec2(12.9898, 78.233))) * 43758.5453);
+}
+void main()
+{
+    // Texel color fetching from texture sampler
+    vec2 xdir = blur_dir;
+    int kernel_size2 = kernel_size / 2;
+    vec4 akchual = texture(texture0, fragTexCoord) * 0.0f;
+    ivec2 texelCoord = ivec2(int(fragTexCoord.x * float(textureSize(texture0, 0).x)), int(fragTexCoord.y * float(textureSize(texture0, 0).y)));
+    for (int i = 0; i < kernel_size; i++) {
+        ivec2 coord = ivec2(constrain(texelCoord.x + blurx * (i - kernel_size / 2), 0, textureSize(texture0, 0).x),
+                             constrain(texelCoord.y + blury * (i - kernel_size / 2), 0, textureSize(texture0, 0).y));
+        vec4 texel = texelFetch(texture0, coord, 0);
+        vec4 squared_texel = (texel);
+        akchual += kernel[i] * squared_texel;
+    }
+    const float one_256th = 1.0f / 256.0f;
+    //akchual.x = rand(fragTexCoord);
+    // NOTE: Implement here your fragment shader code
+    float c255 = akchual.x * 256.0f;
+    float f = fract(c255);
+    if(rand(fragTexCoord, 0.0f) < f){
+        akchual.x = ceil(akchual.x * 256.0f) / 256.0f;
+    }
+    else{
+        akchual.x = floor(akchual.x * 256.0f) / 256.0f;
+    }
+    c255 = akchual.y * 259.99f;
+    f = fract(c255);
+    if(rand(fragTexCoord, 0.3f) < f){
+        akchual.y = ceil(akchual.y * 256.0f) / 256.0f;
+    }
+    else{
+        akchual.y = floor(akchual.y * 256.0f) / 256.0f;
+    }
+    c255 = akchual.z * 259.99f;
+    f = fract(c255);
+    if(rand(fragTexCoord, 0.17f) < f){
+        akchual.z = ceil(akchual.z * 256.0f) / 256.0f;
+    }
+    else{
+        akchual.z = floor(akchual.z * 256.0f) / 256.0f;
+    }
+    finalColor = vec4(akchual.xyz, 1.0f);//*colDiffuse;
+}#version 300 es
+precision highp float;
+
+// Input vertex attributes
+in vec3 vertexPosition;
+in vec2 vertexTexCoord;
+in vec3 vertexNormal;
+in vec4 vertexColor;
+
+// Input uniform values
+uniform mat4 mvp;
+
+// Output vertex attributes (to fragment shader)
+out vec2 fragTexCoord;
+out vec4 fragColor;
+
+// NOTE: Add here your custom variables
+
+void main()
+{
+    // Send vertex attributes to fragment shader
+    fragTexCoord = vertexTexCoord;
+    fragColor = vertexColor;
+
+    // Calculate final vertex position
+    gl_Position = mvp*vec4(vertexPosition, 1.0);
+}Some dummy text
