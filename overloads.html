@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C++ Overload Mechanisms</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- PrismJS for Syntax Highlighting (Oceanic Next Theme) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-color: #38bdf8;
+            --text-color: #e2e8f0;
+            --secondary-text: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        header {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            margin: 0;
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(90deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .slide-container {
+            width: 100%;
+            max-width: 1200px;
+            height: 80%;
+            display: flex;
+            gap: 2rem;
+            align-items: stretch;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .info-panel {
+            flex: 0 0 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .code-panel {
+            flex: 1;
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-header {
+            padding: 1rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #eab308; }
+        .dot-green { background: #22c55e; }
+
+        .filename {
+            margin-left: 1rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+
+        .code-content {
+            flex: 1;
+            overflow: auto;
+            margin: 0;
+            padding: 1.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Scrollbar styling */
+        .code-content::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        .code-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .code-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .code-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .slide-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .slide-desc {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            border-color: var(--accent-color);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0 2rem 0;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* Animation classes */
+        .fade-out {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        .fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Different Overload Slides</h1>
+        <div style="font-size: 0.9rem; color: var(--secondary-text);">Overload Examples</div>
+    </header>
+
+    <div class="main-container">
+        <div class="slide-container" id="slideContainer">
+            <div class="info-panel">
+                <div class="slide-title" id="titleDisplay">Loading...</div>
+                <div class="slide-desc" id="descDisplay"></div>
+                
+                <div class="controls">
+                    <button id="prevBtn" onclick="prevSlide()">← Previous</button>
+                    <button id="nextBtn" onclick="nextSlide()">Next →</button>
+                </div>
+            </div>
+            
+            <div class="code-panel">
+                <div class="code-header">
+                    <div class="dot dot-red"></div>
+                    <div class="dot dot-yellow"></div>
+                    <div class="dot dot-green"></div>
+                    <div class="filename" id="filenameDisplay">example.cpp</div>
+                </div>
+                <pre class="code-content line-numbers"><code id="codeDisplay" class="language-cpp"></code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="progress-dots" id="dotsContainer"></div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    
+    <script>
+        const slides = [{"title": "Overloading", "filename": "01_overloading.cpp", "code": "#include <iostream>\n#include <functional>\n\n// The user specified structs\nstruct LinearModel { \n    std::function<float(float)> H;\n};\n\nstruct NonlinearModel { \n    std::function<float(float)> H; \n    std::function<float(float)> h; // lowercase h only for nonlinear\n};\n\n// Approach 1: Hard types (Standard Function Overloading)\n// The compiler simply looks for the exact type match.\n\nvoid process(const LinearModel& m) {\n    std::cout << \"[Overload] Processing LinearModel (only H)\" << std::endl;\n}\n\nvoid process(const NonlinearModel& m) {\n    std::cout << \"[Overload] Processing NonlinearModel (H and h)\" << std::endl;\n}\n\nint main() {\n    LinearModel lin;\n    NonlinearModel nonlin;\n    \n    // Overload resolution picks the best match\n    process(lin); \n    process(nonlin);\n    \n    return 0;\n}\n", "description": "Implementation of Overloading mechanism in C++."}, {"title": "Specialization", "filename": "02_specialization.cpp", "code": "#include <iostream>\n#include <functional>\n\nstruct LinearModel { \n    std::function<float(float)> H;\n};\n\nstruct NonlinearModel { \n    std::function<float(float)> H; \n    std::function<float(float)> h; \n};\n\n// Approach 2: Template Specializations\n// We define a generic Processor that fails, then specialize for our specific model types.\n\ntemplate <typename T>\nstruct ModelProcessor {\n    // This static_assert will trigger if T is not one of the specialized types\n    static_assert(sizeof(T) > 0xffffffff, \"Unknown Model Type! Please provide a specialization.\");\n    \n    static void compute(const T& m);\n};\n\n// Specialization for LinearModel\ntemplate <>\nstruct ModelProcessor<LinearModel> {\n    static void compute(const LinearModel& m) {\n        std::cout << \"[Specialization] Computing LinearModel.\" << std::endl;\n    }\n};\n\n// Specialization for NonlinearModel\ntemplate <>\nstruct ModelProcessor<NonlinearModel> {\n    static void compute(const NonlinearModel& m) {\n        std::cout << \"[Specialization] Computing NonlinearModel.\" << std::endl;\n    }\n};\n\nint main() {\n    LinearModel lin;\n    NonlinearModel nonlin;\n\n    ModelProcessor<LinearModel>::compute(lin);\n    ModelProcessor<NonlinearModel>::compute(nonlin);\n    \n    // struct OtherModel {};\n    // ModelProcessor<OtherModel>::compute(OtherModel{}); // Compile error\n    \n    return 0;\n}\n", "description": "Implementation of Specialization mechanism in C++."}, {"title": "Concepts", "filename": "03_concepts.cpp", "code": "#include <iostream>\n#include <functional>\n#include <concepts>\n\nstruct LinearModel { \n    std::function<float(float)> H;\n};\n\nstruct NonlinearModel { \n    std::function<float(float)> H; \n    std::function<float(float)> h; \n};\n\n// Approach 3: Concepts\n// We distinguish the models by checking for the existence of the member 'h'.\n\n// Concept to detect if T has a member 'h'\ntemplate<typename T>\nconcept HasSmallH = requires(T t) {\n    t.h;\n};\n\n// Function for Nonlinear models (requires 'h' to exist)\nvoid process(const HasSmallH auto& m) {\n    std::cout << \"[Concepts] Detected NonlinearModel (has member 'h')\" << std::endl;\n}\n\n// Function for Linear models (requires 'h' NOT to exist)\n// We assume if it's not nonlinear, it's linear (in this binary world)\n// More strict: requires !HasSmallH<T>\nvoid process(const auto& m) requires (!HasSmallH<decltype(m)>) {\n    std::cout << \"[Concepts] Detected LinearModel (missing member 'h')\" << std::endl;\n}\n\nint main() {\n    LinearModel lin;\n    NonlinearModel nonlin;\n    \n    process(lin);    // Matches second overload\n    process(nonlin); // Matches first overload\n    \n    return 0;\n}\n", "description": "Implementation of Concepts mechanism in C++."}, {"title": "Sfinae", "filename": "04_sfinae.cpp", "code": "#include <iostream>\n#include <functional>\n#include <type_traits>\n\nstruct LinearModel { \n    std::function<float(float)> H;\n};\n\nstruct NonlinearModel { \n    std::function<float(float)> H; \n    std::function<float(float)> h; \n};\n\n// Approach 4: SFINAE (Substitution Failure Is Not An Error)\n// We use std::void_t to detect the presence of member 'h'.\n\n// Detection Pattern\ntemplate <typename T, typename = void>\nstruct has_member_h : std::false_type {};\n\ntemplate <typename T>\nstruct has_member_h<T, std::void_t<decltype(std::declval<T>().h)>> : std::true_type {};\n\n// Enable if 'h' is present (Nonlinear)\ntemplate <typename T>\ntypename std::enable_if<has_member_h<T>::value>::type\nprocess(const T& m) {\n    std::cout << \"[SFINAE] Processing NonlinearModel (detected 'h')\" << std::endl;\n}\n\n// Enable if 'h' is NOT present (Linear)\ntemplate <typename T>\ntypename std::enable_if<!has_member_h<T>::value>::type\nprocess(const T& m) {\n    std::cout << \"[SFINAE] Processing LinearModel (no 'h')\" << std::endl;\n}\n\nint main() {\n    LinearModel lin;\n    NonlinearModel nonlin;\n    \n    process(lin);\n    process(nonlin);\n    \n    return 0;\n}\n", "description": "Implementation of Sfinae mechanism in C++."}];
+        
+        let currentIndex = 0;
+        const container = document.getElementById('slideContainer');
+        const titleEl = document.getElementById('titleDisplay');
+        const descEl = document.getElementById('descDisplay');
+        const fileEl = document.getElementById('filenameDisplay');
+        const codeEl = document.getElementById('codeDisplay');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        function init() {
+            // Create dots
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('div');
+                dot.className = `progress-dot ${idx === 0 ? 'active' : ''}`;
+                dot.onclick = () => goToSlide(idx);
+                dotsContainer.appendChild(dot);
+            });
+
+            updateSlide(0);
+        }
+
+        function updateSlide(index) {
+            // Update Text
+            const slide = slides[index];
+            titleEl.textContent = slide.title;
+            descEl.textContent = slide.description;
+            fileEl.textContent = slide.filename;
+            
+            // Update Code
+            codeEl.textContent = slide.code;
+            
+            // Re-highlight code
+            Prism.highlightElement(codeEl);
+
+            // Update dots
+            const dots = document.querySelectorAll('.progress-dot');
+            dots.forEach((d, i) => {
+                if (i === index) d.classList.add('active');
+                else d.classList.remove('active');
+            });
+
+            currentIndex = index;
+        }
+        
+        function transition(callback) {
+            container.classList.add('fade-out');
+            setTimeout(() => {
+                callback();
+                container.classList.remove('fade-out');
+            }, 300);
+        }
+
+        function nextSlide() {
+            const newIndex = (currentIndex + 1) % slides.length;
+            transition(() => updateSlide(newIndex));
+        }
+
+        function prevSlide() {
+            const newIndex = (currentIndex - 1 + slides.length) % slides.length;
+            transition(() => updateSlide(newIndex));
+        }
+        
+        function goToSlide(index) {
+            transition(() => updateSlide(index));
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        init();
+    </script>
+</body>
+</html>

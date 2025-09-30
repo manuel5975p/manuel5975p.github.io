@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trajectory Viewer | SENF Framework</title>
+    <meta name="description" content="Interactive trajectory analysis and comparison tool for sensor fusion outputs">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js for plotting -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Chart.js Zoom Plugin for interactive pan/zoom -->
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8/hammer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@2.0.1/dist/chartjs-plugin-zoom.min.js"></script>
+    <!-- Three.js for 3D visualization (ES Module) -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="bg-orb bg-orb-1"></div>
+        <div class="bg-orb bg-orb-2"></div>
+        <div class="bg-orb bg-orb-3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5"/>
+                        <path d="M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>SENF</h1>
+                    <span>Trajectory Viewer</span>
+                </div>
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" data-tab="analysis">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M18 17V9"/>
+                        <path d="M13 17V5"/>
+                        <path d="M8 17v-3"/>
+                    </svg>
+                    Analysis
+                </button>
+                <button class="nav-tab" data-tab="plots">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 3v18h18"/>
+                        <path d="M7 16l4-4 4 4 5-6"/>
+                    </svg>
+                    Plots
+                </button>
+                <button class="nav-tab" data-tab="3d">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3l9 4.5v9L12 21l-9-4.5v-9L12 3z"/>
+                        <path d="M12 12l9-4.5"/>
+                        <path d="M12 12v9"/>
+                        <path d="M12 12L3 7.5"/>
+                    </svg>
+                    3D View
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- File Upload Section -->
+        <section class="upload-section glass-card">
+            <div class="upload-header">
+                <h2>Load Trajectory Data</h2>
+                <p>Upload reference and test trajectory files for comparison</p>
+            </div>
+            <div class="upload-grid">
+                <div class="upload-box" id="upload-reference">
+                    <input type="file" id="file-reference" accept=".txt,.csv" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon reference">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                        </div>
+                        <span class="upload-label">Reference Trajectory</span>
+                        <span class="upload-filename" id="ref-filename">No file selected</span>
+                    </div>
+                    <div class="upload-status" id="ref-status"></div>
+                </div>
+                <div class="upload-box" id="upload-test">
+                    <input type="file" id="file-test" accept=".txt,.csv" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon test">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                        </div>
+                        <span class="upload-label">SENF Output</span>
+                        <span class="upload-filename" id="test-filename">No file selected</span>
+                    </div>
+                    <div class="upload-status" id="test-status"></div>
+                </div>
+            </div>
+            <div class="upload-actions">
+                <div class="sample-data-buttons">
+                    <span class="sample-label">Load Sample Data:</span>
+                    <button class="btn btn-secondary btn-sample" id="btn-load-sample-lnld" data-variant="low_noise_low_delay" title="Delay: 0.1s, Noise: 0.5x">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                        </svg>
+                        Low Noise / Low Delay
+                    </button>
+                    <button class="btn btn-secondary btn-sample" id="btn-load-sample-hnld" data-variant="high_noise_low_delay" title="Delay: 0.1s, Noise: 5.0x">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                        </svg>
+                        High Noise / Low Delay
+                    </button>
+                    <button class="btn btn-secondary btn-sample" id="btn-load-sample-lnhd" data-variant="low_noise_high_delay" title="Delay: 2.0s, Noise: 0.5x">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                        </svg>
+                        Low Noise / High Delay
+                    </button>
+                    <button class="btn btn-secondary btn-sample" id="btn-load-sample-hnhd" data-variant="high_noise_high_delay" title="Delay: 2.0s, Noise: 5.0x">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <path d="M14 2v6h6"/>
+                        </svg>
+                        High Noise / High Delay
+                    </button>
+                </div>
+                <button class="btn btn-primary" id="btn-analyze" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v6l4 2"/>
+                    </svg>
+                    Analyze Trajectories
+                </button>
+            </div>
+        </section>
+
+        <!-- Analysis Tab -->
+        <section class="tab-content active" id="tab-analysis">
+            <div class="analysis-grid">
+                <!-- Reference Analysis Card -->
+                <div class="analysis-card glass-card" id="ref-analysis">
+                    <div class="card-header">
+                        <div class="card-badge reference">Reference</div>
+                        <h3>Reference Trajectory</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="placeholder-message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                            <span>Upload reference file to analyze</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Test Analysis Card -->
+                <div class="analysis-card glass-card" id="test-analysis">
+                    <div class="card-header">
+                        <div class="card-badge test">SENF Output</div>
+                        <h3>Test Trajectory</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="placeholder-message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <path d="M17 8l-5-5-5 5"/>
+                                <path d="M12 3v12"/>
+                            </svg>
+                            <span>Upload SENF output file to analyze</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparison Summary -->
+                <div class="comparison-card glass-card" id="comparison-summary">
+                    <div class="card-header">
+                        <h3>Comparison Summary</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="placeholder-message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <path d="M9 21V9"/>
+                            </svg>
+                            <span>Load both files to compare</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Verdict Card -->
+                <div class="verdict-card glass-card" id="verdict-card">
+                    <div class="card-header">
+                        <h3>Analysis Verdict</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="placeholder-message">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M9 12l2 2 4-4"/>
+                                <circle cx="12" cy="12" r="10"/>
+                            </svg>
+                            <span>Awaiting analysis</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plots Tab -->
+        <section class="tab-content" id="tab-plots">
+            <div class="plots-interaction-hint">
+                <span>📐 <strong>Left-drag</strong> to select time range</span>
+                <span>✋ <strong>Middle-drag</strong> to pan</span>
+                <span>🔄 <strong>Scroll</strong> to zoom</span>
+                <span>↩️ <strong>Undo</strong> to go back</span>
+            </div>
+            <div class="plots-grid">
+                <div class="plot-card glass-card" data-chart="attitude">
+                    <div class="card-header">
+                        <h3>Attitude Comparison</h3>
+                        <div class="plot-controls">
+                            <button class="btn-icon btn-undo-zoom" data-chart="attitude" title="Undo Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 14L4 9l5-5"/>
+                                    <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-reset-zoom" data-chart="attitude" title="Reset Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-fullscreen" data-chart="attitude" data-title="Attitude Comparison" title="Fullscreen">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                                    <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                                    <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="btn-export-attitude" title="Export as PNG">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <path d="M7 10l5 5 5-5"/>
+                                    <path d="M12 15V3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-attitude"></canvas>
+                    </div>
+                </div>
+
+                <div class="plot-card glass-card" data-chart="velocity">
+                    <div class="card-header">
+                        <h3>Velocity Comparison</h3>
+                        <div class="plot-controls">
+                            <button class="btn-icon btn-undo-zoom" data-chart="velocity" title="Undo Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 14L4 9l5-5"/>
+                                    <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-reset-zoom" data-chart="velocity" title="Reset Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-fullscreen" data-chart="velocity" data-title="Velocity Comparison" title="Fullscreen">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                                    <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                                    <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="btn-export-velocity" title="Export as PNG">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <path d="M7 10l5 5 5-5"/>
+                                    <path d="M12 15V3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="chart-velocity"></canvas>
+                    </div>
+                </div>
+
+                <div class="plot-card glass-card full-width" data-chart="aoa">
+                    <div class="card-header">
+                        <h3>Angle of Attack (AoA)</h3>
+                        <div class="plot-controls">
+                            <button class="btn-icon btn-undo-zoom" data-chart="aoa" title="Undo Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 14L4 9l5-5"/>
+                                    <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-reset-zoom" data-chart="aoa" title="Reset Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-fullscreen" data-chart="aoa" data-title="Angle of Attack" title="Fullscreen">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                                    <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                                    <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="btn-export-aoa" title="Export as PNG">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <path d="M7 10l5 5 5-5"/>
+                                    <path d="M12 15V3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container wide">
+                        <canvas id="chart-aoa"></canvas>
+                    </div>
+                </div>
+
+                <div class="plot-card glass-card full-width" data-chart="error">
+                    <div class="card-header">
+                        <h3>Position Error Over Time</h3>
+                        <div class="plot-controls">
+                            <button class="btn-icon btn-undo-zoom" data-chart="error" title="Undo Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M9 14L4 9l5-5"/>
+                                    <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-reset-zoom" data-chart="error" title="Reset Zoom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 4v6h6"/>
+                                    <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon btn-fullscreen" data-chart="error" data-title="Position Error Over Time" title="Fullscreen">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+                                    <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+                                    <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+                                    <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+                                </svg>
+                            </button>
+                            <button class="btn-icon" id="btn-export-error" title="Export as PNG">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <path d="M7 10l5 5 5-5"/>
+                                    <path d="M12 15V3"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="chart-container wide">
+                        <canvas id="chart-error"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3D View Tab -->
+        <section class="tab-content" id="tab-3d">
+            <div class="view-3d-container glass-card">
+                <div class="card-header">
+                    <h3>3D Trajectory Visualization</h3>
+                    <div class="view-3d-controls">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="toggle-ref" checked>
+                            <span class="toggle-track"></span>
+                            <span class="toggle-label-text reference">Reference</span>
+                        </label>
+                        <label class="toggle-label">
+                            <input type="checkbox" id="toggle-test" checked>
+                            <span class="toggle-track"></span>
+                            <span class="toggle-label-text test">SENF</span>
+                        </label>
+                        <button class="btn btn-secondary btn-sm" id="btn-reset-camera">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 4v6h6"/>
+                                <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                            </svg>
+                            Reset View
+                        </button>
+                    </div>
+                </div>
+                <div class="view-3d-split">
+                    <div id="three-container-main" class="view-3d-viewport"></div>
+                    <div id="three-container-chase" class="view-3d-viewport"></div>
+                </div>
+                <!-- <div id="three-container"></div> -->
+                <div class="view-3d-legend">
+                    <div class="legend-item">
+                        <span class="legend-color reference"></span>
+                        <span>Reference Trajectory</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-color test"></span>
+                        <span>SENF Output</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker start"></span>
+                        <span>Start Point</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker end"></span>
+                        <span>End Point</span>
+                    </div>
+                </div>
+
+                <!-- Time Controls -->
+                <div class="time-control-container">
+                    <div class="time-control-header">
+                        <span id="time-display">Time: 0.00s</span>
+                        <div class="time-control-actions">
+                            <button class="btn-icon" id="btn-play-pause" title="Play/Pause">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 3l14 9-14 9V3z" class="play-icon"/>
+                                    <path d="M6 4h4v16H6zM14 4h4v16h-4z" class="pause-icon" style="display: none;"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="range" id="time-slider" min="0" max="100" value="0" step="1" class="time-slider" disabled>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Fullscreen Plot Modal -->
+    <div class="plot-modal" id="plot-modal">
+        <div class="plot-modal-content">
+            <div class="plot-modal-header">
+                <h3 id="modal-title">Chart</h3>
+                <div class="plot-modal-controls">
+                    <button class="btn btn-secondary btn-sm" id="modal-undo-zoom" title="Undo Zoom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M9 14L4 9l5-5"/>
+                            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                        </svg>
+                        Undo
+                    </button>
+                    <button class="btn btn-secondary btn-sm" id="modal-reset-zoom" title="Reset Zoom">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/>
+                            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+                        </svg>
+                        Reset
+                    </button>
+                    <button class="btn-icon modal-close" id="modal-close" title="Close">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"/>
+                            <line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="plot-modal-body">
+                <canvas id="modal-chart"></canvas>
+            </div>
+            <div class="plot-modal-footer">
+                <div class="interaction-hint">
+                    <span>📐 <strong>Left-drag</strong> to select time range</span>
+                    <span>✋ <strong>Middle-drag</strong> to pan</span>
+                    <span>🔄 <strong>Scroll</strong> to zoom</span>
+                    <span>⎋ <strong>Escape</strong> to close</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
