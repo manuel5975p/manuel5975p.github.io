@@ -1,0 +1,21 @@
+/* Global baseline (desktop unchanged here) */
+@font-face {
+  font-family: 'Victor Mono';
+  src: url('../fonts/VictorMono-Regular.woff2') format('woff2'),
+       url('../fonts/VictorMono-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Fira Code';
+  src: url('../fonts/FiraCode-Regular.woff2') format('woff2'),
+       url('../fonts/FiraCode-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+html{
+  font-size: 24px;
+}
+code, pre { 
+  font-family: 'Fira Code', monospace;
+}

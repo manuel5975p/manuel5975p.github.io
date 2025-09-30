@@ -1,0 +1,60 @@
+site_name: RayGPU Documentation
+site_url: https://manuel5975p.github.io/rgdoc/
+repo_url: https://github.com/manuel5975p/raygpu
+repo_name: manuel5975p/raygpu
+docs_dir: docs
+site_dir: rgdoc          # emit the built site straight into /rgdoc
+copyright: ""
+
+extra:
+  generator: false
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  features:
+    - content.code.copy: true
+    - toc.integrate
+    - navigation.footer  # prev/next at the bottom
+    - navigation.header  # prev/next at the bottom
+    - navigation.instant
+  logo: assets/dawn_vulkan_small.png
+  favicon: assets/dvk.ico
+
+nav:
+  - Introduction: index.md
+  - Usage: usage.md
+  - API: api.md
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+
+  - toc:
+      permalink: true
+
+extra_css:
+  #- overrides/center-title.css
+  - overrides/extra.css
+
+#extra_javascript:
+  # - overrides/top-prev-next.js

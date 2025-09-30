@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FIR Designer</title>
+<style>
+:root{
+  --bg:#0a0d13; --panel:#111620; --panel2:#161c29; --border:#222b3b; --border2:#2d3850;
+  --text:#e7eaf0; --muted:#8e97ab; --dim:#5d6678;
+  --accent:#5ee0c2; --accent-dim:rgba(94,224,194,.18); --accent2:#f6a55c; --warn:#ff6b6b; --violet:#9b8cff;
+  --mono:"JetBrains Mono","Fira Code","SF Mono",Menlo,Consolas,monospace;
+  --sans:Inter,"Segoe UI",system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+.mono,.tile .v,.coef .name,.coef .norm,.fcrow .val,.tip,input[type=number],textarea{font-variant-numeric:tabular-nums}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.4}
+body{min-height:100vh;display:flex;flex-direction:column}
+header{display:flex;align-items:baseline;gap:14px;padding:14px 22px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,#0f141d,#0a0d13)}
+header h1{margin:0;font-size:17px;font-weight:600;letter-spacing:.3px}
+header h1 span{color:var(--accent)}
+header .sub{color:var(--muted);font-size:12.5px}
+header .spacer{flex:1}
+header a{color:var(--muted);text-decoration:none;font-size:12px}
+main{display:grid;grid-template-columns:360px 1fr;gap:0;flex:1;min-height:0}
+@media(max-width:980px){main{grid-template-columns:1fr}}
+aside{border-right:1px solid var(--border);background:var(--panel);padding:16px 18px;overflow-y:auto;scrollbar-gutter:stable;display:flex;flex-direction:column;gap:18px}
+section.content{padding:16px 22px;display:flex;flex-direction:column;gap:16px;min-width:0}
+
+.group h2{margin:0 0 8px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted)}
+.seg{display:flex;background:var(--panel2);border:1px solid var(--border);border-radius:8px;padding:3px;gap:3px}
+.seg button{flex:1;background:none;border:0;color:var(--muted);padding:7px 8px;border-radius:6px;cursor:pointer;font:inherit;font-size:13px;transition:.15s}
+.seg button:hover{color:var(--text)}
+.seg button.on{background:var(--accent-dim);color:var(--accent);font-weight:600}
+.row{display:flex;align-items:center;gap:10px;margin-top:8px}
+.row label{color:var(--muted);font-size:12.5px;min-width:88px}
+select,input[type=number],button.btn{background:var(--panel2);border:1px solid var(--border2);color:var(--text);border-radius:6px;padding:6px 8px;font:inherit;font-size:13px}
+select{flex:1;cursor:pointer}
+select:disabled{opacity:.5}
+button.btn{cursor:pointer;transition:.15s}
+button.btn:hover{border-color:var(--accent);color:var(--accent)}
+button.btn.primary{background:var(--accent);color:#06221c;border-color:var(--accent);font-weight:600}
+button.btn.primary:hover{filter:brightness(1.1);color:#06221c}
+input[type=number]{width:66px;font-family:var(--mono);font-size:12px;text-align:right;-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+
+.coefs{display:flex;flex-direction:column;gap:5px}
+.coef{display:grid;grid-template-columns:76px 108px 66px 58px;align-items:center;gap:8px}
+.coef .name{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.coef .norm{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:right;white-space:nowrap;overflow:hidden}
+.coef .name{white-space:nowrap;overflow:hidden}
+.coef.center .name{color:var(--accent2)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:22px;background:transparent;margin:0;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--border2),var(--border2))}
+input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:var(--border2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--accent);margin-top:-5px;border:2px solid var(--panel);box-shadow:0 0 0 1px var(--accent)}
+input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--panel);box-shadow:0 0 0 1px var(--accent)}
+
+.fcrow{display:grid;grid-template-columns:70px 1fr 100px;align-items:center;gap:8px;margin-top:8px}
+.fcrow label{color:var(--muted);font-size:12.5px}
+.fcrow .val{font-family:var(--mono);font-size:11.5px;color:var(--text);text-align:right;white-space:nowrap;overflow:hidden}
+
+.note{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.45}
+.note.warn{color:var(--warn)}
+.note b{color:var(--text);font-weight:600}
+
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:0;height:62px}
+.tile .k,.tile .v{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.status{height:22px;line-height:22px;font-size:12.5px;color:var(--warn);font-family:var(--mono);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px}
+.tile .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px}
+.tile .v{font-family:var(--mono);font-size:17px;margin-top:3px;color:var(--text)}
+.tile .v small{font-size:11px;color:var(--dim);margin-left:3px}
+.tile.bad .v{color:var(--warn)}
+
+.card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 14px 10px;position:relative}
+.card .head{display:flex;align-items:center;gap:12px;margin-bottom:6px;height:26px}
+.card .head .hint{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .head .seg{flex:none}
+.card .head h3{margin:0;font-size:13px;font-weight:600}
+.card .head .hint{color:var(--dim);font-size:11.5px}
+.card .head .spacer{flex:1}
+.card canvas{width:100%;display:block;border-radius:6px;touch-action:none}
+#taps{height:190px}
+#mag{height:330px}
+#phase{height:150px}
+.tip{position:absolute;pointer-events:none;background:#0c1018f2;border:1px solid var(--border2);border-radius:7px;padding:7px 9px;font-family:var(--mono);font-size:11.5px;color:var(--text);white-space:pre;display:none;z-index:5;box-shadow:0 6px 20px #0008}
+
+textarea{width:100%;height:96px;background:#0c1018;border:1px solid var(--border2);color:var(--text);border-radius:6px;font-family:var(--mono);font-size:11px;padding:8px;resize:vertical}
+.btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btns .btn{padding:5px 10px;font-size:12px}
+#copy{min-width:64px}
+.mini{font-size:11.5px}
+.kbd{font-family:var(--mono);background:var(--panel2);border:1px solid var(--border2);border-radius:4px;padding:0 5px;font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1><span>FIR</span> Designer</h1>
+  <div class="sub">symmetric real FIR · response on a 512-point r2c transform, full mirrored spectrum</div>
+  <div class="spacer"></div>
+  <a href="#" id="permalink">permalink ↗</a>
+</header>
+<main>
+<aside>
+  <div class="group">
+    <h2>Structure</h2>
+    <div class="note" id="structNote" style="margin-top:0"></div>
+    <div class="row" id="lenRow" style="display:none"><label for="len">Length</label><select id="len"></select></div>
+    <div id="modeSeg" hidden><button data-mode="sym"></button><button data-mode="s16"></button></div>
+  </div>
+
+  <div class="group">
+    <h2>Normalization</h2>
+    <div class="note" id="hwNote" style="margin-top:0"></div>
+    <div hidden><select id="norm"><option value="dc"></option></select><input type="checkbox" id="hw" checked></div>
+    <div class="row">
+      <label for="fs">Sample rate</label>
+      <select id="fs">
+        <option value="0">— (cycles/sample)</option>
+        <option value="20" selected>20 MSps</option>
+        <option value="10">10 MSps</option>
+        <option value="5">5 MSps</option>
+        <option value="2.5">2.5 MSps</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="group">
+    <h2>Design from spec</h2>
+    <div class="row">
+      <label for="dtype">Type</label>
+      <select id="dtype">
+        <option value="opt" selected>Optimize: flattest to f₁ (12-bit)</option>
+        <option value="frac">Fractional delay (sinc)</option>
+        <option value="lp">Low-pass</option>
+        <option value="hp">High-pass</option>
+        <option value="bp">Band-pass</option>
+        <option value="bs">Band-stop</option>
+        <option value="gauss">Gaussian</option>
+        <option value="box">Boxcar</option>
+        <option value="tri">Triangle</option>
+        <option value="delta">Identity (δ)</option>
+      </select>
+    </div>
+    <div class="row">
+      <label for="win">Window</label>
+      <select id="win">
+        <option value="hamming">Hamming</option>
+        <option value="hann">Hann</option>
+        <option value="blackman">Blackman</option>
+        <option value="rect">Rectangular</option>
+      </select>
+    </div>
+    <div class="fcrow" id="fc1row"><label for="fc1">Flat to f₁</label><input type="range" id="fc1" min="0.005" max="0.5" step="0.001" value="0.42"><span class="val" id="fc1v"></span></div>
+    <div class="fcrow" id="fc2row"><label for="fc2">Cutoff f₂</label><input type="range" id="fc2" min="0.005" max="0.5" step="0.001" value="0.3"><span class="val" id="fc2v"></span></div>
+    <div class="fcrow" id="sigrow"><label for="sig">σ (taps)</label><input type="range" id="sig" min="0.3" max="8" step="0.05" value="2"><span class="val" id="sigv"></span></div>
+    <div class="btns">
+      <button class="btn primary" id="apply">Apply design</button>
+      <label class="mini" style="display:flex;align-items:center;gap:5px;color:var(--muted)"><input type="checkbox" id="live" checked> live</label>
+      <label class="mini" id="overRow" style="display:flex;align-items:center;gap:5px;color:var(--muted)"><input type="checkbox" id="over"> allow overshoot</label>
+    </div>
+    <div class="note warn" id="designNote" style="display:none"></div>
+  </div>
+
+  <div class="group">
+    <h2>Coefficients <span style="color:var(--dim);font-weight:400;text-transform:none;letter-spacing:0">— raw · normalized</span></h2>
+    <div class="coefs" id="coefs"></div>
+    <div class="note">Drag stems in the tap plot too. <span class="kbd">shift</span>+wheel on a slider for fine steps.</div>
+  </div>
+
+  <div class="group">
+    <h2>Export (integer, Σ = 8192)</h2>
+    <textarea id="out" readonly spellcheck="false"></textarea>
+    <div class="btns">
+      <button class="btn" data-fmt="c">C float[]</button>
+      <button class="btn" data-fmt="json">JSON</button>
+      <button class="btn" data-fmt="py">numpy</button>
+      <button class="btn" data-fmt="hw" id="fmthw">registers</button>
+      <button class="btn" id="copy">Copy</button>
+    </div>
+  </div>
+</aside>
+
+<section class="content">
+  <div class="tiles" id="tiles"></div>
+  <div class="status" id="status"></div>
+
+  <div class="card">
+    <div class="head"><h3>Impulse response</h3><span class="hint" id="tapHint"></span><div class="spacer"></div><span class="hint">integer taps, Σ = 8192 · drag to edit</span></div>
+    <canvas id="taps"></canvas>
+    <div class="tip" id="tipT"></div>
+  </div>
+
+  <div class="card">
+    <div class="head">
+      <h3>Magnitude response</h3>
+      <span class="hint">512 bins, −256…255 · r2c half highlighted</span>
+      <div class="spacer"></div>
+      <span class="hint" id="legend" style="display:none"><span style="color:var(--accent)">━</span> quantized <span style="color:var(--accent2)">┄</span> ideal</span>
+      <div class="seg" style="padding:2px">
+        <button class="on" data-scale="db" style="padding:4px 10px;font-size:12px">dB</button>
+        <button data-scale="lin" style="padding:4px 10px;font-size:12px">linear</button>
+      </div>
+      <select id="floor" style="flex:0;font-size:12px;padding:4px 6px">
+        <option value="-40">−40 dB</option>
+        <option value="-60">−60 dB</option>
+        <option value="-80" selected>−80 dB</option>
+        <option value="-120">−120 dB</option>
+      </select>
+    </div>
+    <canvas id="mag"></canvas>
+    <div class="tip" id="tipM"></div>
+  </div>
+
+  <div class="card">
+    <div class="head"><h3>Phase</h3><span class="hint" id="phaseHint"></span><div class="spacer"></div><span class="hint">wrapped, radians</span></div>
+    <canvas id="phase"></canvas>
+  </div>
+</section>
+</main>
+
+<script>
+'use strict';
+const N = 512;
+const $ = s => document.querySelector(s);
+const clamp = (x,a,b) => Math.min(b, Math.max(a, x));
+const fmt = (x,d=4) => (Math.abs(x) < 5e-5 && d<=4 ? 0 : x).toFixed(d);
+const dB = a => 20*Math.log10(Math.max(a, 1e-12));
+
+// ---------- state ----------
+const S = {
+  mode: 's16',      // 'sym' : odd length 2k+1 centred at index 0  |  's16': 16 taps, h[i]=h[15-i]
+  half: 8,          // sym: taps at -half..half
+  norm: 'dc',
+  raw: [],          // unique coefficients (sliders)
+  scale: 'db', floor: -80,
+  fmt: 'hw',
+  hw: true,         // integer taps with Σ = HW_SUM (forces DC normalization)
+  fs: 20,           // MSps, 0 = show cycles/sample
+};
+const HW_SUM = 8192, HW_MIN = -2048, HW_MAX = 2047;   // signed 12-bit taps, Σ of all taps = 8192
+// Total tap count of the current filter (sym: 2·half+1, s16: 16).
+const tapCount = () => S.mode === 'sym' ? 2*S.half+1 : 16;
+// Weight of each unique coefficient in the tap sum (centre tap counts once, mirrored pairs twice).
+const weights = () => S.mode === 'sym' ? Array.from({length:S.half+1},(_,i)=>i===0?1:2) : Array(8).fill(2);
+// Number of free (slider) coefficients: sym: half+1 (centre + pairs), s16: 8.
+const uniqueCount = () => S.mode === 'sym' ? S.half+1 : 8;
+// Expand unique coefficients to the full symmetric tap vector. Returns {idx, h}: idx[i] is the sample index of
+// tap i (sym: −half…half with the centre at position half; s16: 0…15), h[i] = raw[|idx|] resp. raw[min(i,15−i)].
+function fullTaps(raw) {
+  if (S.mode === 'sym') {
+    const idx = Array.from({length:2*S.half+1}, (_,i) => i-S.half);
+    return {idx, h: idx.map(k => raw[Math.abs(k)] ?? 0)};
+  }
+  const idx = Array.from({length:16}, (_,i) => i);
+  return {idx, h: idx.map(i => raw[i < 8 ? i : 15-i] ?? 0)};
+}
+// N-point DFT of the taps placed at sample indices idx (negative indices wrap on the ring). Returns {re, im}.
+function response(idx, h) {
+  const re = new Float64Array(N), im = new Float64Array(N);
+  for (let k = 0; k < N; k++) {
+    let a = 0, b = 0;
+    for (let i = 0; i < h.length; i++) { const t = -2*Math.PI*k*idx[i]/N; a += h[i]*Math.cos(t); b += h[i]*Math.sin(t); }
+    re[k] = a; im[k] = b;
+  }
+  return {re, im};
+}
+// Normalization divisor g so that the DC gain is exactly 1 (S.norm is always 'dc'). Returns {g, ok, why};
+// ok=false (g=1) when the tap sum vanishes — compute() then falls back to peak normalization.
+function normFactor(h, H) {
+  const g = H.re[0];
+  if (Math.abs(g) > 1e-9) return {g, ok: true, why: ''};
+  return {g: 1, ok: false, why: h.every(x => x === 0) ? 'All taps are zero.' : 'DC gain is zero (Σh = 0); normalized to peak magnitude instead, no integer quantization.'};
+}
+// Integer-quantize unique coefficients c (Σ w·c = 1 assumed): L2-project onto {HW_MIN ≤ q ≤ HW_MAX, Σ w·q = HW_SUM}
+// (uniform offset + clamp), round, then fix the residual with cheapest in-bounds ±1 moves. Returns {q, clamped} or null.
+function quantize(c) {
+  const w = weights(), x = c.map(v => v*HW_SUM);
+  const total = t => x.reduce((a,v,i) => a + w[i]*clamp(v + t*w[i], HW_MIN, HW_MAX), 0);
+  let a = -4*HW_SUM, b = 4*HW_SUM;
+  for (let it = 0; it < 80; it++) { const m = (a+b)/2; if (total(m) < HW_SUM) a = m; else b = m; }
+  const y = x.map((v,i) => clamp(v + b*w[i], HW_MIN, HW_MAX));
+  const clamped = x.some((v,i) => v + b*w[i] > HW_MAX + 0.5 || v + b*w[i] < HW_MIN - 0.5);
+  const q = Array.from(y, v => Math.round(v));
+  let deficit = HW_SUM - q.reduce((s,v,i) => s + w[i]*v, 0);
+  while (deficit !== 0) {
+    const dir = Math.sign(deficit); let best = -1, bestCost = Infinity;
+    for (let i = 0; i < q.length; i++) {
+      if (w[i] > Math.abs(deficit)) continue;
+      if (dir > 0 ? q[i] >= HW_MAX : q[i] <= HW_MIN) continue;
+      const cost = (q[i]+dir-y[i])**2 - (q[i]-y[i])**2;
+      if (cost < bestCost) { bestCost = cost; best = i; }
+    }
+    if (best >= 0) { q[best] += dir; deficit -= dir*w[best]; continue; }
+    // Odd residual with the centre tap pinned at its bound: move centre −dir and the cheapest pair +dir (net +dir).
+    const c = w.indexOf(1);
+    if (c < 0 || (dir > 0 ? q[c] <= HW_MIN : q[c] >= HW_MAX)) return null;
+    for (let i = 0; i < q.length; i++) {
+      if (w[i] !== 2 || (dir > 0 ? q[i] >= HW_MAX : q[i] <= HW_MIN)) continue;
+      const cost = (q[i]+dir-y[i])**2 - (q[i]-y[i])**2;
+      if (cost < bestCost) { bestCost = cost; best = i; }
+    }
+    if (best < 0) return null;
+    q[c] -= dir; q[best] += dir; deficit -= dir;
+  }
+  return {q, clamped};
+}
+// Dense simplex (Bland's rule): maximize c·x s.t. A x ≤ b, x ≥ 0, with b ≥ 0. Returns x or null if unbounded.
+function simplexMax(c, A, b) {
+  const m = A.length, n = c.length, W = n+m+1, EPS = 1e-9;
+  const T = A.map((row,i) => { const r = new Float64Array(W); r.set(row); r[n+i] = 1; r[W-1] = b[i]; return r; });
+  const obj = new Float64Array(W); for (let j = 0; j < n; j++) obj[j] = -c[j];
+  const basis = Array.from({length:m}, (_,i) => n+i);
+  for (let it = 0; it < 5000; it++) {
+    let e = -1; for (let j = 0; j < W-1; j++) if (obj[j] < -EPS) { e = j; break; }
+    if (e < 0) break;
+    let l = -1, best = Infinity;
+    for (let i = 0; i < m; i++) if (T[i][e] > EPS) { const r = T[i][W-1]/T[i][e]; if (r < best - EPS || (Math.abs(r-best) <= EPS && basis[i] < basis[l])) { best = r; l = i; } }
+    if (l < 0) return null;
+    const pr = T[l], pv = pr[e]; for (let j = 0; j < W; j++) pr[j] /= pv;
+    for (let i = 0; i < m; i++) { if (i === l) continue; const f = T[i][e]; if (Math.abs(f) > EPS) { const r = T[i]; for (let j = 0; j < W; j++) r[j] -= f*pr[j]; } }
+    { const f = obj[e]; if (Math.abs(f) > EPS) for (let j = 0; j < W; j++) obj[j] -= f*pr[j]; }
+    basis[l] = e;
+  }
+  const x = new Float64Array(n); for (let i = 0; i < m; i++) if (basis[i] < n) x[basis[i]] = T[i][W-1];
+  return x;
+}
+// Zero-phase amplitude A(f) = Σ w·q·cos(2πf·m)/HW_SUM on bins 0..K; returns max |A−1| (or max (1−A) if overshoot allowed).
+function flatness(q, K, overshoot) {
+  const w = weights(), m = centers(); let worst = 0;
+  for (let k = 0; k <= K; k++) { let a = 0; for (let i = 0; i < q.length; i++) a += w[i]*q[i]*Math.cos(2*Math.PI*k*m[i]/N); a /= HW_SUM; const d = overshoot ? 1-a : Math.abs(a-1); if (d > worst) worst = d; }
+  return worst;
+}
+// Flattest feasible filter up to f1: LP (simplex) for the continuous optimum under HW_MIN..HW_MAX and Σ w·q = HW_SUM,
+// then rounding + sum fix + integer pair-move polish. Returns {q, ripple} or null.
+function optimizeFlat(f1, overshoot) {
+  const w = weights(), m = centers(), n = w.length, K = clamp(Math.round(f1*N), 2, N/2);
+  const q0 = new Float64Array(n).fill(HW_SUM/w.reduce((a,b)=>a+b,0));          // uniform, feasible
+  const cs = [], A0 = [];
+  for (let k = 0; k <= K; k += 2) { const row = m.map((mi,i) => w[i]*Math.cos(2*Math.PI*k*mi/N)/HW_SUM); cs.push(row); A0.push(row.reduce((a,v,i)=>a+v*q0[i],0)); }
+  const T0 = Math.max(...A0.map(a => overshoot ? 1-a : Math.abs(a-1)));
+  const nv = 2*n+1, rows = [], rhs = [];                                          // vars: d+, d−, s;  q = q0 + d+ − d−;  ripple = T0 − s
+  const push = (r, b) => { rows.push(r); rhs.push(b); };
+  cs.forEach((row,k) => {
+    const r1 = new Float64Array(nv), r2 = new Float64Array(nv);
+    for (let i = 0; i < n; i++) { r1[i] = row[i]; r1[n+i] = -row[i]; r2[i] = -row[i]; r2[n+i] = row[i]; }
+    r1[2*n] = 1; r2[2*n] = 1;
+    if (!overshoot) push(r1, 1 - A0[k] + T0);
+    push(r2, A0[k] - 1 + T0);
+  });
+  { const r1 = new Float64Array(nv), r2 = new Float64Array(nv); for (let i = 0; i < n; i++) { r1[i] = w[i]; r1[n+i] = -w[i]; r2[i] = -w[i]; r2[n+i] = w[i]; } push(r1, 0); push(r2, 0); }
+  for (let i = 0; i < n; i++) { const r1 = new Float64Array(nv), r2 = new Float64Array(nv); r1[i] = 1; r1[n+i] = -1; r2[i] = -1; r2[n+i] = 1; push(r1, HW_MAX - q0[i]); push(r2, q0[i] - HW_MIN); }
+  const c = new Float64Array(nv); c[2*n] = 1;
+  const x = simplexMax(c, rows, rhs); if (!x) return null;
+  const qc = q0.map((v,i) => v + x[i] - x[n+i]);
+  const qr = quantize(qc.map(v => v/HW_SUM)); if (!qr) return null;
+  const q = Array.from(qr.q); let best = flatness(q, K, overshoot);
+  const inb = v => v >= HW_MIN && v <= HW_MAX;
+  for (const d of [4, 1]) for (let improved = true, guard = 0; improved && guard < 50; guard++) {
+    improved = false;
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
+      if (i === j) continue;
+      const di = d*w[j], dj = d*w[i];
+      if (!inb(q[i]+di) || !inb(q[j]-dj)) continue;
+      q[i] += di; q[j] -= dj;
+      const v = flatness(q, K, overshoot);
+      if (v < best - 1e-12) { best = v; improved = true; } else { q[i] -= di; q[j] += dj; }
+    }
+  }
+  return {q, ripple: best};
+}
+
+let R = null; // computed result cache
+function compute() {
+  const {idx, h} = fullTaps(S.raw);
+  const H = response(idx, h);
+  let nf = normFactor(h, H);
+  let g = nf.g;
+  if (!nf.ok && !h.every(x=>x===0)) { // DC fallback → peak
+    let p = 0; for (let k=0;k<N;k++) p = Math.max(p, Math.hypot(H.re[k],H.im[k])); g = p;
+  }
+  let hn = h.map(x => x/g);
+  let re = H.re.map(x=>x/g), im = H.im.map(x=>x/g);
+  const mag = new Float64Array(N), ph = new Float64Array(N);
+  for (let k=0;k<N;k++) { mag[k] = Math.hypot(re[k],im[k]); ph[k] = Math.atan2(im[k],re[k]); }
+  R = {idx, h, hn, g, ok: nf.ok, why: nf.why, mag, ph, q: null, magIdeal: null};
+  if (S.hw && nf.ok) {
+    const qr = quantize(S.raw.map(x => x/g));
+    if (qr) {
+      const q = qr.q, hq = fullTaps(q).h, Hq = response(idx, hq);
+      R.q = q; R.hq = hq; R.clamped = qr.clamped; R.magIdeal = mag; R.phIdeal = ph;
+      R.hn = hq.map(x => x/HW_SUM);
+      R.mag = new Float64Array(N); R.ph = new Float64Array(N);
+      for (let k=0;k<N;k++) { R.mag[k] = Math.hypot(Hq.re[k],Hq.im[k])/HW_SUM; R.ph[k] = Math.atan2(Hq.im[k],Hq.re[k]); }
+    }
+  }
+  return R;
+}
+const shifted = k => (k + N/2) % N; // display bin b∈[-256,255] → dft index
+
+// ---------- design presets ----------
+function centers() { // tap positions relative to filter centre
+  return S.mode === 'sym' ? Array.from({length:S.half+1},(_,i)=>i) : Array.from({length:8},(_,i)=>i-7.5);
+}
+const sinc = x => x === 0 ? 1 : Math.sin(Math.PI*x)/(Math.PI*x);
+function windowFn(name, L) {
+  const M = L+1;
+  return m => {
+    const c = Math.cos(2*Math.PI*m/M), c2 = Math.cos(4*Math.PI*m/M);
+    switch (name) {
+      case 'hann': return 0.5+0.5*c;
+      case 'hamming': return 0.54+0.46*c;
+      case 'blackman': return 0.42+0.5*c+0.08*c2;
+      default: return 1;
+    }
+  };
+}
+function design() {
+  const type = $('#dtype').value, w = windowFn($('#win').value, tapCount());
+  const f1 = +$('#fc1').value, f2 = +$('#fc2').value, sg = +$('#sig').value;
+  const lp = (fc, m) => 2*fc*sinc(2*fc*m);
+  const delta = m => m === 0 ? 1 : 0;
+  const even = S.mode === 's16';
+  let ideal;
+  switch (type) {
+    case 'lp': ideal = m => lp(f1,m); break;
+    case 'hp': ideal = m => delta(m) - lp(f1,m); break;
+    case 'bp': ideal = m => lp(Math.max(f1,f2),m) - lp(Math.min(f1,f2),m); break;
+    case 'bs': ideal = m => delta(m) - lp(Math.max(f1,f2),m) + lp(Math.min(f1,f2),m); break;
+    case 'gauss': ideal = m => Math.exp(-0.5*(m/sg)*(m/sg)); break;
+    case 'box': ideal = m => 1; break;
+    case 'tri': ideal = m => 1 - Math.abs(m)/(tapCount()/2+0.5); break;
+    case 'delta': ideal = m => even ? (Math.abs(m) < 1 ? 0.5 : 0) : delta(m); break;
+    case 'frac': ideal = m => sinc(m); break;
+    case 'opt': {
+      const o = optimizeFlat(f1, $('#over').checked);
+      $('#designNote').style.display = 'none';
+      if (!o) return;
+      S.raw = Array.from(o.q, x => x/HW_MAX);
+      rebuildSliders(); update(); return;
+    }
+  }
+  const useWin = ['lp','hp','bp','bs','frac'].includes(type);
+  let v = centers().map(m => ideal(m) * (useWin ? w(m) : 1));
+  const mx = Math.max(...v.map(Math.abs));
+  if (mx > 0) v = v.map(x => x/mx);
+  S.raw = v.map(x => +x.toFixed(4));
+  const dn = $('#designNote');
+  if (even && (type==='hp' || type==='bs')) {
+    dn.style.display = ''; dn.textContent = 'Even-length symmetric FIR (type II) has a forced zero at Nyquist — a true high-pass / band-stop is not realizable in 8-8 mode. Shown is the best windowed attempt.';
+  } else dn.style.display = 'none';
+  rebuildSliders(); update();
+}
+function updateDesignRows() {
+  const t = $('#dtype').value;
+  $('#fc1row').style.display = ['lp','hp','bp','bs','opt'].includes(t) ? '' : 'none';
+  $('#fc2row').style.display = ['bp','bs'].includes(t) ? '' : 'none';
+  $('#sigrow').style.display = t==='gauss' ? '' : 'none';
+  $('#win').disabled = !['lp','hp','bp','bs','frac'].includes(t);
+  $('#fc1row label').textContent = t==='opt' ? 'Flat to f₁' : 'Cutoff f₁';
+  $('#overRow').style.visibility = t==='opt' ? '' : 'hidden';
+  const fl = v => (S.fs ? (v*S.fs).toFixed(3)+'M' : v.toFixed(3)) + ' (' + Math.round(v*N) + ')';
+  $('#fc1v').textContent = fl(+$('#fc1').value);
+  $('#fc2v').textContent = fl(+$('#fc2').value);
+  $('#sigv').textContent = (+$('#sig').value).toFixed(2);
+}
+
+// ---------- sliders ----------
+function coefName(i) {
+  if (S.mode === 'sym') return i === 0 ? 'h[0]' : `h[±${i}]`;
+  return `h[${i}]=h[${15-i}]`;
+}
+function rebuildSliders() {
+  const box = $('#coefs'); box.innerHTML = '';
+  const n = uniqueCount();
+  while (S.raw.length < n) S.raw.push(0);
+  S.raw.length = n;
+  S.raw.forEach((v, i) => {
+    const row = document.createElement('div');
+    row.className = 'coef' + (S.mode==='sym' && i===0 ? ' center' : '');
+    row.innerHTML = `<span class="name">${coefName(i)}</span>
+      <input type="range" min="-1" max="1" step="0.001" value="${v}" data-i="${i}">
+      <input type="number" step="0.001" value="${v}" data-i="${i}">
+      <span class="norm" data-n="${i}"></span>`;
+    box.appendChild(row);
+  });
+  box.querySelectorAll('input[type=range]').forEach(el => {
+    el.addEventListener('input', e => { setRaw(+el.dataset.i, +el.value, 'num'); });
+    el.addEventListener('wheel', e => {
+      if (!e.shiftKey) return; e.preventDefault();
+      setRaw(+el.dataset.i, clamp(+el.value - Math.sign(e.deltaY)*0.001, -1, 1), 'all');
+    }, {passive:false});
+  });
+  box.querySelectorAll('input[type=number]').forEach(el => {
+    el.addEventListener('change', e => setRaw(+el.dataset.i, +el.value || 0, 'range'));
+  });
+}
+// which: which sibling control(s) to sync ('num'|'range'|'all')
+function setRaw(i, v, which) {
+  S.raw[i] = v;
+  const box = $('#coefs');
+  if (which !== 'num') { const r = box.querySelector(`input[type=range][data-i="${i}"]`); if (r) r.value = clamp(v,-1,1); }
+  if (which !== 'range') { const nmb = box.querySelector(`input[type=number][data-i="${i}"]`); if (nmb) nmb.value = fmt(v,3); }
+  update();
+}
+
+// ---------- canvas helpers ----------
+function setup(canvas) {
+  const dpr = window.devicePixelRatio || 1;
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (canvas.width !== Math.round(w*dpr) || canvas.height !== Math.round(h*dpr)) { canvas.width = Math.round(w*dpr); canvas.height = Math.round(h*dpr); }
+  const ctx = canvas.getContext('2d'); ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  return {ctx, w, h};
+}
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+function frame(ctx, P, w, h) {
+  ctx.fillStyle = '#0c1018'; ctx.fillRect(P.l, P.t, w-P.l-P.r, h-P.t-P.b);
+}
+function textStyle(ctx, color, size=10.5, align='center') { ctx.fillStyle = color; ctx.font = `${size}px ${css('--mono')}`; ctx.textAlign = align; ctx.textBaseline = 'middle'; }
+
+// ---------- taps plot ----------
+const tapGeom = {};
+function drawTaps() {
+  const cv = $('#taps'); const {ctx, w, h} = setup(cv);
+  const P = {l:50, r:14, t:14, b:26}; frame(ctx,P,w,h);
+  const n = R.hn.length;
+  const tv = R.q ? R.hq : R.hn;                     // plot integer taps when quantized
+  const amax = Math.max(R.q ? 64 : 0.05, ...tv.map(Math.abs));
+  const ymax = amax*1.15;
+  const x = i => P.l + (i+0.5)/n*(w-P.l-P.r);
+  const y = v => P.t + (1 - (v+ymax)/(2*ymax))*(h-P.t-P.b);
+  Object.assign(tapGeom, {x, y, ymax, n, P, w, h});
+  // grid
+  ctx.strokeStyle = '#1c2434'; ctx.lineWidth = 1;
+  const ticks = niceTicks(-ymax, ymax, 5);
+  textStyle(ctx, css('--dim'), 10, 'right');
+  for (const t of ticks) { const yy = y(t); ctx.beginPath(); ctx.moveTo(P.l,yy); ctx.lineTo(w-P.r,yy); ctx.stroke(); ctx.fillText(R.q ? String(Math.round(t)) : fmt(t,2), P.l-6, yy); }
+  ctx.strokeStyle = '#3a4762'; ctx.beginPath(); ctx.moveTo(P.l,y(0)); ctx.lineTo(w-P.r,y(0)); ctx.stroke();
+  // centre marker
+  const cx = S.mode==='sym' ? x(S.half) : (x(7)+x(8))/2;
+  ctx.setLineDash([3,4]); ctx.strokeStyle = '#f6a55c55'; ctx.beginPath(); ctx.moveTo(cx,P.t); ctx.lineTo(cx,h-P.b); ctx.stroke(); ctx.setLineDash([]);
+  // stems
+  const acc = css('--accent');
+  for (let i = 0; i < n; i++) {
+    const xx = x(i), yy = y(tv[i]);
+    const isDrag = drag.tap && drag.i === i;
+    ctx.strokeStyle = isDrag ? '#fff' : acc; ctx.lineWidth = 2;
+    ctx.beginPath(); ctx.moveTo(xx, y(0)); ctx.lineTo(xx, yy); ctx.stroke();
+    ctx.fillStyle = isDrag ? '#fff' : acc; ctx.beginPath(); ctx.arc(xx, yy, 4, 0, 7); ctx.fill();
+  }
+  // x labels
+  textStyle(ctx, css('--dim'), 10);
+  const step = n > 24 ? 4 : n > 12 ? 2 : 1;
+  for (let i = 0; i < n; i++) if ((S.mode==='sym' ? R.idx[i] : i) % step === 0) ctx.fillText(R.idx[i], x(i), h-P.b+11);
+}
+function niceTicks(a, b, want) {
+  const span = b-a, raw = span/want, p = Math.pow(10, Math.floor(Math.log10(raw)));
+  const m = raw/p, s = m<1.5?1:m<3.5?2:m<7.5?5:10, st = s*p, out = [];
+  for (let v = Math.ceil(a/st)*st; v <= b+1e-9; v += st) out.push(+v.toFixed(10));
+  return out;
+}
+
+// stem dragging: set the raw coefficient such that the tap reaches the pointer (given the current scale factor)
+const drag = {tap:false, i:-1};
+(() => {
+  const cv = $('#taps'), tip = $('#tipT');
+  const nearest = e => { const r = cv.getBoundingClientRect(); const px = e.clientX-r.left; let bi=0,bd=1e9; for (let i=0;i<tapGeom.n;i++){const d=Math.abs(tapGeom.x(i)-px); if(d<bd){bd=d;bi=i;}} return bd<14?bi:-1; };
+  const uniqueIndex = i => S.mode==='sym' ? Math.abs(R.idx[i]) : (i<8?i:15-i);
+  const valAt = e => { const r = cv.getBoundingClientRect(); const py = e.clientY-r.top; const G=tapGeom; return (1-(py-G.P.t)/(G.h-G.P.t-G.P.b))*2*G.ymax - G.ymax; };
+  cv.addEventListener('pointerdown', e => { const i = nearest(e); if (i<0) return; drag.tap = true; drag.i = i; cv.setPointerCapture(e.pointerId); move(e); });
+  const move = e => {
+    if (!drag.tap) return;
+    const target = valAt(e);
+    const ui = uniqueIndex(drag.i);
+    let raw = (R.q ? target / HW_SUM : target) * R.g;
+    const mx = Math.max(...S.raw.map(Math.abs), Math.abs(raw)) || 1;
+    if (mx > 1) { // keep sliders in range by rescaling everything (shape preserved; normalization is scale invariant)
+      for (let j=0;j<S.raw.length;j++) S.raw[j] /= mx; raw /= mx;
+      S.raw[ui] = raw; syncAll();
+    } else setRaw(ui, raw, 'all');
+  };
+  cv.addEventListener('pointermove', e => {
+    if (drag.tap) { move(e); return; }
+    const i = nearest(e);
+    if (i < 0) { tip.style.display='none'; cv.style.cursor='default'; return; }
+    cv.style.cursor = 'ns-resize';
+    tip.style.display = 'block'; tip.textContent = R.q ? `idx ${R.idx[i]}\nh = ${R.hq[i]}  (${fmt(R.hn[i],5)})` : `idx ${R.idx[i]}\nh = ${fmt(R.hn[i],5)}`;
+    const r = cv.getBoundingClientRect(); tip.style.left = (e.clientX-r.left+14)+'px'; tip.style.top = (e.clientY-r.top-10)+'px';
+  });
+  const end = () => { if (drag.tap) { drag.tap=false; drag.i=-1; update(); } };
+  cv.addEventListener('pointerup', end); cv.addEventListener('pointercancel', end);
+  cv.addEventListener('pointerleave', () => { tip.style.display='none'; });
+})();
+function syncAll() { S.raw.forEach((v,i) => { const b=$('#coefs'); const r=b.querySelector(`input[type=range][data-i="${i}"]`), nmb=b.querySelector(`input[type=number][data-i="${i}"]`); if(r) r.value=clamp(v,-1,1); if(nmb) nmb.value=fmt(v,3); }); update(); }
+
+// ---------- magnitude plot ----------
+const magGeom = {};
+function drawMag() {
+  const cv = $('#mag'); const {ctx, w, h} = setup(cv);
+  const P = {l:50, r:16, t:14, b:40}; frame(ctx,P,w,h);
+  const db = S.scale === 'db';
+  const ylo = db ? S.floor : 0, yhi = db ? 6 : 1.1;
+  const xb = b => P.l + (b + N/2)/N*(w-P.l-P.r);          // display bin b ∈ [-256, 255]
+  const yv = v => P.t + (1 - (v-ylo)/(yhi-ylo))*(h-P.t-P.b);
+  Object.assign(magGeom, {xb, yv, P, w, h});
+  // r2c region
+  ctx.fillStyle = '#5ee0c20a'; ctx.fillRect(xb(0), P.t, xb(N/2)-xb(0), h-P.t-P.b);
+  // grid y
+  ctx.strokeStyle = '#1c2434'; ctx.lineWidth = 1; textStyle(ctx, css('--dim'), 10, 'right');
+  for (const tv of niceTicks(ylo, yhi, 6)) { const yy = yv(tv); ctx.beginPath(); ctx.moveTo(P.l,yy); ctx.lineTo(w-P.r,yy); ctx.stroke(); ctx.fillText(db ? tv : tv.toFixed(1), P.l-6, yy); }
+  // grid x: normalized frequency
+  textStyle(ctx, css('--dim'), 10);
+  for (let f = -0.5; f <= 0.5001; f += 0.125) {
+    const xx = xb(f*N); ctx.strokeStyle = Math.abs(f)<1e-9 ? '#3a4762' : '#1c2434';
+    ctx.beginPath(); ctx.moveTo(xx,P.t); ctx.lineTo(xx,h-P.b); ctx.stroke();
+    ctx.fillText(S.fs ? (f*S.fs).toFixed(3) : f.toFixed(3), xx, h-P.b+11);
+    ctx.fillStyle = '#404a5e'; ctx.fillText(Math.round(f*N), xx, h-P.b+24); ctx.fillStyle = css('--dim');
+  }
+  ctx.fillStyle = css('--accent') + '77'; textStyle(ctx, '#5ee0c277', 10, 'left'); ctx.fillText('r2c bins 0…256', xb(2), P.t+9);
+  textStyle(ctx, css('--dim'), 10, 'left'); ctx.fillText(S.fs ? `MHz @ ${S.fs} MSps` : 'cycles/sample', P.l+2, h-6);
+  textStyle(ctx, '#404a5e', 10, 'right'); ctx.fillText('bin', w-P.r, h-6);
+  // 0 dB / unity line
+  ctx.strokeStyle = '#f6a55c66'; ctx.setLineDash([4,4]); ctx.beginPath(); ctx.moveTo(P.l, yv(db?0:1)); ctx.lineTo(w-P.r, yv(db?0:1)); ctx.stroke(); ctx.setLineDash([]);
+  // curve
+  ctx.save(); ctx.beginPath(); ctx.rect(P.l,P.t,w-P.l-P.r,h-P.t-P.b); ctx.clip();
+  const path = new Path2D();
+  for (let b = -N/2; b < N/2; b++) {
+    const m = R.mag[shifted(b)], v = db ? Math.max(dB(m), ylo-10) : m;
+    const xx = xb(b), yy = yv(v);
+    if (b === -N/2) path.moveTo(xx,yy); else path.lineTo(xx,yy);
+  }
+  const fill = new Path2D(path); fill.lineTo(xb(N/2-1), yv(ylo)); fill.lineTo(xb(-N/2), yv(ylo)); fill.closePath();
+  const gr = ctx.createLinearGradient(0,P.t,0,h-P.b); gr.addColorStop(0,'#5ee0c245'); gr.addColorStop(1,'#5ee0c203');
+  ctx.fillStyle = gr; ctx.fill(fill);
+  ctx.strokeStyle = css('--accent'); ctx.lineWidth = 1.8; ctx.lineJoin='round'; ctx.stroke(path);
+  if (R.magIdeal) {
+    ctx.beginPath();
+    for (let b = -N/2; b < N/2; b++) { const m = R.magIdeal[shifted(b)], v = db ? Math.max(dB(m), ylo-10) : m; b===-N/2 ? ctx.moveTo(xb(b),yv(v)) : ctx.lineTo(xb(b),yv(v)); }
+    ctx.setLineDash([3,4]); ctx.strokeStyle = css('--accent2'); ctx.lineWidth = 1.2; ctx.stroke(); ctx.setLineDash([]);
+  }
+  ctx.restore();
+  if (hoverBin !== null) drawMagCursor(ctx, hoverBin);
+}
+let hoverBin = null;
+function drawMagCursor(ctx, b) {
+  const G = magGeom, m = R.mag[shifted(b)];
+  const xx = G.xb(b), yy = G.yv(S.scale==='db' ? Math.max(dB(m), S.floor-10) : m);
+  ctx.strokeStyle = '#ffffff44'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(xx,G.P.t); ctx.lineTo(xx,G.h-G.P.b); ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(xx,clamp(yy,G.P.t,G.h-G.P.b),3.5,0,7); ctx.fill();
+}
+(() => {
+  const cv = $('#mag'), tip = $('#tipM');
+  cv.addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect(); const px = e.clientX-r.left;
+    const b = clamp(Math.round((px-magGeom.P.l)/(magGeom.w-magGeom.P.l-magGeom.P.r)*N - N/2), -N/2, N/2-1);
+    hoverBin = b; drawMag();
+    const k = shifted(b), m = R.mag[k];
+    tip.style.display = 'block';
+    const fl = S.fs ? `f   ${(b/N*S.fs).toFixed(4)} MHz` : `f   ${(b/N).toFixed(4)} cyc/sample`;
+    const ideal = R.magIdeal ? `\nideal ${dB(R.magIdeal[k]).toFixed(2)} dB  Δ ${(dB(m)-dB(R.magIdeal[k])).toFixed(2)}` : '';
+    tip.textContent = `bin ${b}${b<0?`  (= ${b+N})`:''}\n${fl}\n|H| ${fmt(m,5)}   ${dB(m).toFixed(2)} dB${ideal}\n∠H  ${R.ph[k].toFixed(3)} rad`;
+    tip.style.left = clamp(px+16, 0, r.width-150)+'px'; tip.style.top = (e.clientY-r.top-14)+'px';
+  });
+  cv.addEventListener('pointerleave', () => { hoverBin=null; tip.style.display='none'; drawMag(); });
+})();
+
+// ---------- phase plot ----------
+function drawPhase() {
+  const cv = $('#phase'); const {ctx, w, h} = setup(cv);
+  const P = {l:50, r:16, t:10, b:22}; frame(ctx,P,w,h);
+  const xb = b => P.l + (b + N/2)/N*(w-P.l-P.r);
+  const yv = v => P.t + (1 - (v+Math.PI)/(2*Math.PI))*(h-P.t-P.b);
+  ctx.fillStyle = '#5ee0c20a'; ctx.fillRect(xb(0), P.t, xb(N/2)-xb(0), h-P.t-P.b);
+  ctx.strokeStyle = '#1c2434'; textStyle(ctx, css('--dim'), 10, 'right');
+  for (const [v,l] of [[Math.PI,'π'],[Math.PI/2,'π/2'],[0,'0'],[-Math.PI/2,'−π/2'],[-Math.PI,'−π']]) { const yy=yv(v); ctx.beginPath(); ctx.moveTo(P.l,yy); ctx.lineTo(w-P.r,yy); ctx.stroke(); ctx.fillText(l, P.l-6, yy); }
+  textStyle(ctx, css('--dim'), 10);
+  for (let f = -0.5; f <= 0.5001; f += 0.125) { const xx = xb(f*N); ctx.beginPath(); ctx.moveTo(xx,P.t); ctx.lineTo(xx,h-P.b); ctx.stroke(); ctx.fillText(S.fs ? (f*S.fs).toFixed(3) : f.toFixed(3), xx, h-P.b+10); }
+  ctx.strokeStyle = css('--violet'); ctx.lineWidth = 1.5;
+  ctx.save(); ctx.beginPath(); ctx.rect(P.l,P.t,w-P.l-P.r,h-P.t-P.b); ctx.clip();
+  ctx.beginPath(); let prev = null;
+  for (let b = -N/2; b < N/2; b++) {
+    const k = shifted(b), p = R.ph[k], m = R.mag[k];
+    if (m < 1e-9) { prev = null; continue; }
+    const xx = xb(b), yy = yv(p);
+    if (prev === null || Math.abs(p-prev) > Math.PI*0.9) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);
+    prev = p;
+  }
+  ctx.stroke(); ctx.restore();
+}
+
+// ---------- tiles / export ----------
+function tiles() {
+  const m = R.mag, mDC = m[0], mNy = m[N/2];
+  let pk = 0, pkb = 0; for (let k=0;k<=N/2;k++) if (m[k] > pk) { pk = m[k]; pkb = k; }
+  // −3 dB edges: first crossings below pk/√2 on either side of the peak (within r2c half)
+  const thr = pk/Math.SQRT2;
+  let hi = null; for (let k=pkb;k<=N/2;k++) if (m[k] < thr) { hi = k; break; }
+  let lo = null; for (let k=pkb;k>=0;k--) if (m[k] < thr) { lo = k; break; }
+  const sum = R.hn.reduce((a,b)=>a+b,0), e = R.hn.reduce((a,b)=>a+b*b,0);
+  const gd = S.mode === 'sym' ? '0' : '7.5';
+  const bw = hi !== null && lo !== null ? `${lo}…${hi}` : hi !== null ? `≤ ${hi}` : lo !== null ? `≥ ${lo}` : '—';
+  const T = [
+    ['DC gain', dB(mDC).toFixed(2), 'dB'],
+    ['Nyquist gain', dB(mNy).toFixed(2), 'dB'],
+    ['Peak', dB(pk).toFixed(2)+' <small>dB</small> @ bin '+pkb, ''],
+    ['−3 dB edge(s)', bw, 'bin'],
+    ['Σh', fmt(sum,4), ''],
+    ['Σh²', fmt(e,4), ''],
+    ['Group delay', gd, 'samples'],
+    ['Scale 1/g', fmt(HW_SUM/R.g,2), ''],
+  ];
+  if (R.q) {
+    let dmax = 0, dmaxb = 0, ideal = R.magIdeal;
+    for (let k=0;k<=N/2;k++) if (ideal[k] > 1e-3) { const d = Math.abs(dB(m[k])-dB(ideal[k])); if (d > dmax) { dmax = d; dmaxb = k; } }
+    const sumq = R.hq.reduce((a,b)=>a+b,0);
+    const K = clamp(Math.round(+$('#fc1').value*N), 0, N/2); let rip = 0, ripb = 0;
+    for (let k=0;k<=K;k++) { const d = Math.abs(dB(m[k])); if (d > rip) { rip = d; ripb = k; } }
+    T.push(['Σ int taps', sumq, ''], ['int range', `${Math.min(...R.q)} … ${Math.max(...R.q)}`, ''], ['max |dev| ≤ f₁', rip.toFixed(3)+' <small>dB</small> @ bin '+ripb, ''], ['max quant. Δ', dmax.toFixed(3)+' <small>dB</small> @ bin '+dmaxb, '']);
+  } else T.push(['Σ int taps', '—', ''], ['int range', '—', ''], ['max |dev| ≤ f₁', '—', ''], ['max quant. Δ', '—', '']);
+  $('#tiles').innerHTML = T.map(([k,v,u]) => `<div class="tile"><div class="k">${k}</div><div class="v">${v}${u?`<small>${u}</small>`:''}</div></div>`).join('');
+  const msgs = [];
+  if (!R.ok) msgs.push(R.why);
+  if (S.hw && !R.q) msgs.push(`Cannot quantize to Σ = ${HW_SUM}${R.ok ? ' (odd parity with no centre tap)' : ''}.`);
+  if (R.clamped) msgs.push(`Taps clamped to ${HW_MIN}…${HW_MAX}; remainder redistributed (L2 projection).`);
+  $('#status').textContent = msgs.join('   ·   ');
+}
+function exportText() {
+  const v = R.hn.map(x => x.toFixed(8));
+  const name = S.mode === 'sym' ? `fir_sym${tapCount()}` : 'fir_16';
+  const comment = S.mode === 'sym' ? `taps for indices ${-S.half}..${S.half} (index 0 at position ${S.half}); zero-phase, apply circularly` : 'taps h[0..15], h[i]=h[15-i]; linear phase, delay 7.5 samples';
+  if (S.hw && R.q) {
+    const uq = R.q, full = R.hq;
+    const cm = S.mode === 'sym' ? `${uq.length} programmable coefficients (centre + ${uq.length-1} mirrored pairs)` : `8 programmable coefficients, mirrored to 16 taps`;
+    switch (S.fmt) {
+      case 'hw':   return `// ${cm}; signed 12-bit, Σ of all ${full.length} taps = ${full.reduce((a,b)=>a+b,0)}\n` + uq.map((v,i)=>`FIR_COEF_${i} = ${v}`).join('\n');
+      case 'json': return JSON.stringify({mode:S.mode, length:tapCount(), sum:HW_SUM, unique:uq, taps:full}, null, 1);
+      case 'py':   return `import numpy as np\n# ${cm}, integer Q13, sum ${HW_SUM}\n${name}_int = np.array([${full.join(', ')}])\n${name} = ${name}_int / ${HW_SUM}`;
+      default:     return `// ${cm}, signed 12-bit, Σ = ${HW_SUM}\nstatic const int16_t ${name}_coef[${uq.length}] = { ${uq.join(', ')} };\nstatic const int16_t ${name}[${full.length}] = {\n  ${full.join(', ')}\n};`;
+    }
+  }
+  switch (S.fmt) {
+    case 'json': return JSON.stringify({mode:S.mode, length:tapCount(), norm:S.norm, taps:R.hn.map(x=>+x.toFixed(8))}, null, 1);
+    case 'py': return `import numpy as np\n# ${comment}\n${name} = np.array([\n  ${v.join(', ')}\n])`;
+    default: return `// ${comment}\n// normalization: ${S.norm}\nstatic const float ${name}[${tapCount()}] = {\n  ${v.map(x=>x+'f').join(', ')}\n};`;
+  }
+}
+
+// ---------- update ----------
+function update() {
+  compute();
+  document.querySelectorAll('#coefs .norm').forEach(el => { const i=+el.dataset.n; el.textContent = R.q ? String(R.q[i]) : fmt(S.raw[i]/R.g, 4); el.style.color = R.q ? 'var(--accent2)' : ''; });
+  $('#legend').style.display = R.q ? '' : 'none';
+  $('#fmthw').style.display = '';
+  $('#hwNote').innerHTML = `Taps are signed 12-bit integers (<b>${HW_MIN}…${HW_MAX}</b>) with Σ of all 16 taps = <b>${HW_SUM}</b> → DC gain exactly 1 = 0 dB. Out-of-range designs are L2-projected onto the feasible set. Coefficient column shows the integer value; ideal (unconstrained) response dashed.`;
+  drawTaps(); drawMag(); drawPhase(); tiles();
+  $('#out').value = exportText();
+  $('#tapHint').textContent = S.mode === 'sym' ? `${tapCount()} taps, indices −${S.half}…${S.half}, h[n] = h[−n]` : '16 taps, h[i] = h[15−i]';
+  $('#phaseHint').textContent = S.mode === 'sym' ? 'zero-phase: H is real, phase ∈ {0, π}' : 'linear phase −7.5·ω (mod 2π)';
+  $('#structNote').innerHTML = S.mode === 'sym'
+    ? `<b>${S.half+1}</b> free coefficients, <b>${tapCount()}</b> taps centred on index 0 (negative indices wrap on the 512 ring). Response is purely real.`
+    : `<b>8</b> free coefficients, <b>16</b> taps (type II linear phase). Forced zero at Nyquist.`;
+  writeHash();
+}
+function writeHash() {
+  const h = `#m=${S.mode}&n=${tapCount()}&norm=${S.norm}&hw=${S.hw?1:0}&fs=${S.fs}&c=${S.raw.map(x=>+x.toFixed(4)).join(',')}`;
+  history.replaceState(null, '', h); $('#permalink').href = h;
+}
+function readHash() {
+  const q = new URLSearchParams(location.hash.slice(1)); if (!q.has('c')) return false;
+  const m = q.get('m'); if (m==='sym'||m==='s16') S.mode = m;
+  const n = +q.get('n'); if (S.mode==='sym' && n>=3 && n%2===1 && n<=65) S.half = (n-1)/2;
+  S.norm = 'dc'; S.hw = true;
+  const fs = +q.get('fs'); if (q.has('fs') && [0,20,10,5,2.5].includes(fs)) S.fs = fs;
+  const c = q.get('c').split(',').map(Number); if (c.some(isNaN)) return false;
+  S.raw = c; return true;
+}
+
+// ---------- wiring ----------
+function setMode(m) {
+  S.mode = m;
+  $('#modeSeg').querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.mode===m));
+  $('#lenRow').style.display = m==='sym' ? '' : 'none';
+  ['hp','bs'].forEach(t => $(`#dtype option[value=${t}]`).disabled = false);
+}
+$('#modeSeg').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; setMode(b.dataset.mode); design(); });
+(() => { const sel = $('#len'); for (let L=3; L<=65; L+=2) sel.insertAdjacentHTML('beforeend', `<option value="${L}">${L}  (${(L-1)/2}-1-${(L-1)/2})</option>`); sel.value = 17; })();
+$('#len').addEventListener('change', e => { S.half = (+e.target.value-1)/2; design(); });
+$('#fs').addEventListener('change', e => { S.fs = +e.target.value; updateDesignRows(); update(); });
+['#dtype','#win','#over'].forEach(s => $(s).addEventListener('change', () => { updateDesignRows(); if ($('#live').checked) design(); }));
+['#fc1','#fc2','#sig'].forEach(s => $(s).addEventListener('input', () => { updateDesignRows(); if ($('#live').checked) design(); else tiles(); }));
+$('#apply').addEventListener('click', design);
+document.querySelectorAll('[data-scale]').forEach(b => b.addEventListener('click', () => { S.scale = b.dataset.scale; document.querySelectorAll('[data-scale]').forEach(x=>x.classList.toggle('on',x===b)); $('#floor').disabled = S.scale!=='db'; drawMag(); }));
+$('#floor').addEventListener('change', e => { S.floor = +e.target.value; drawMag(); });
+document.querySelectorAll('[data-fmt]').forEach(b => b.addEventListener('click', () => { S.fmt = b.dataset.fmt; $('#out').value = exportText(); }));
+$('#copy').addEventListener('click', async () => { await navigator.clipboard.writeText($('#out').value); $('#copy').textContent='Copied'; setTimeout(()=>$('#copy').textContent='Copy', 900); });
+window.addEventListener('resize', () => { drawTaps(); drawMag(); drawPhase(); });
+
+// ---------- init ----------
+updateDesignRows();
+if (readHash()) { setMode(S.mode); $('#len').value = tapCount(); $('#norm').value = S.norm; $('#fs').value = S.fs; updateDesignRows(); rebuildSliders(); update(); }
+else { setMode('s16'); design(); }
+</script>
+</body>
+</html>

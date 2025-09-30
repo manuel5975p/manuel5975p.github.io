@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINSModel Comparison</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="slideshow">
+        
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="card" style="text-align: center; border: 2px solid var(--accent-cyan);">
+                <h1>SINSModel Aman<br>Comparison Summary</h1>
+                <p style="margin-top: 2rem; font-size: 1.3rem; color: var(--accent-purple);">Analysis of Improvements & Modernization</p>
+                <div style="margin-top: 3rem; display: flex; justify-content: center; gap: 2rem;">
+                    <span style="padding: 0.5rem 1rem; background: rgba(34, 211, 238, 0.1); border-radius: 8px;">Deprecated vs Updated</span>
+                    <span style="padding: 0.5rem 1rem; background: rgba(167, 139, 250, 0.1); border-radius: 8px;">Performance Check</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Overview -->
+        <div class="slide">
+            <div class="card">
+                <h2>Overview</h2>
+                <p>This document summarizes the updates made from <code>SINSModel_Aman_original.hpp</code> (deprecated) to the current <code>SINSModel_Aman.hpp</code>.</p>
+                <div class="highlight-box">
+                    <h3 style="margin-top: 0; color: var(--accent-red);">Implementation Limitation</h3>
+                    <p>The deprecated version assumed previous measurements always existed. This caused <strong>undefined behavior</strong> during the initialization phase (t=0) when no history was available.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Iterator Access Update -->
+        <div class="slide">
+            <div class="card" style="max-width: 1400px;">
+                <h2>Safety Update: Iterator Access</h2>
+                <div class="comparison-container">
+                    <div class="comparison-col bad">
+                        <span class="code-title">Original (Deprecated)</span>
+                        <pre><code class="cpp">
+// Assumes iterator is valid
+acc_prev_raw = *iterator_before_acc->second.value;
+gyro_prev_raw = *iterator_before_gyro->second.value;
+                        </code></pre>
+                        <p>Direct dereference. Undefined behavior at t=0.</p>
+                    </div>
+                    <div class="comparison-col good">
+                        <span class="code-title">Fixed (Safe)</span>
+                        <pre><code class="cpp">
+// Check if exists first
+if (iterator_before_acc.has_value()) {
+    acc_prev_raw = *iterator_before_acc.value()->second.value;
+} else {
+    acc_prev_raw = acc_raw; // Fallback
+}
+                        </code></pre>
+                        <p>Safe access with graceful fallback to first-order integration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Why the Update Matters -->
+        <div class="slide">
+            <div class="card">
+                <h2>Why the Update Matters</h2>
+                <ul>
+                    <li style="margin-bottom: 1.5rem; list-style: none;">
+                        <h3>1. Safe Result Handling</h3>
+                        <p>The updated code interacts with an API returning <code>std::expected</code>. This explicitly models the possibility of success or failure (e.g., missing data).</p>
+                        <div style="background: rgba(255,255,255,0.05); padding: 1rem; margin-top: 0.5rem; border-radius: 8px; font-size: 0.9rem;">
+                            <strong>API Insight:</strong> <code>std::expected&lt;T, E&gt;</code> (introduced in C++23) holds either a value of type <code>T</code> or an error of type <code>E</code>.
+                            <ul style="margin-top: 0.5rem; margin-left: 1rem;">
+                                <li><code>.has_value()</code>: Returns true if the operation succeeded (value exists).</li>
+                                <li><code>.value()</code>: Returns the contained value (throws or terminates if holding an error).</li>
+                            </ul>
+                            This pattern prohibits ignoring the "no data" case, forcing the fallback path at initialization (t=0).
+                        </div>
+                    </li>
+                    <li style="margin-bottom: 1.5rem; list-style: none;">
+                        <h3>2. Graceful Fallback</h3>
+                        <p>At initialization (t=0), there is nothing "previous". The logic falls back to using the current measurement, effectively performing Euler integration for the first step.</p>
+                    </li>
+                    <li style="margin-bottom: 1.5rem; list-style: none;">
+                        <h3>3. System Stability</h3>
+                        <p>Eliminates undefined behavior, ensuring the navigation stack initializes reliably every time.</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: API & Integration Changes -->
+        <div class="slide">
+            <div class="card">
+                <h2>Integration Changes</h2>
+                <p>Changes required for SENF Framework compatibility.</p>
+                
+                <h3 style="margin-top: 2rem;">1. Added Required Type Aliases</h3>
+                <pre><code class="cpp">
+public:
+    using ScalarType = Scalar;     // Required by FusionRunner
+    using Validator = ValidatorT;  // Required for validation
+                </code></pre>
+
+                <h3>2. Fixed Validation Return Type</h3>
+                <pre><code class="cpp">
+// Properly qualified enum access
+return validator.validateState(...) == Validator::ValidationResult::OK;
+                </code></pre>
+                <div style="background: rgba(255,255,255,0.05); padding: 1rem; margin-top: 0.5rem; border-radius: 8px; font-size: 0.9rem;">
+                    <strong>API Insight:</strong> <code>ValidationResult</code> is a scoped enum (class enum). Unlike regular enums, it does not implicitly convert to integers, preventing accidental comparison with generic error codes.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Concept Compliance (New) -->
+        <div class="slide">
+            <div class="card">
+                <h2>Concept Compliance</h2>
+                <p>The updates ensure the model satisfies the <code>SensorFusionModel</code> concept required by the core framework.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div>
+                        <h3 style="color: var(--accent-cyan);">FusionRunner Requirement</h3>
+                        <p>The <code>FusionRunner</code> class (see <code>api.md</code>) uses C++ concepts to verify models at compile time. It specifically looks for:</p>
+                        <ul style="margin-top: 1rem;">
+                            <li><code>Model::ScalarType</code></li>
+                            <li><code>Model::Validator</code></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: var(--accent-purple);">Why it was needed</h3>
+                        <p>The deprecated version lacked these aliases, preventing the generic <code>FusionRunner</code> from introspecting the model's internal types, leading to compilation failures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Results -->
+        <div class="slide">
+            <div class="card">
+                <h2>Output Analysis</h2>
+                <p>Comparison between SENF Output and Reference Data (ins_data.txt)</p>
+                
+                <table>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Reference</th>
+                        <th>SENF Output</th>
+                        <th>Diff</th>
+                    </tr>
+                    <tr>
+                        <td>Position (lat)</td>
+                        <td>0.8290675708</td>
+                        <td>0.8290675787</td>
+                        <td>~0.05m</td>
+                    </tr>
+                    <tr>
+                        <td>Altitude</td>
+                        <td>526.6582 m</td>
+                        <td>526.6255 m</td>
+                        <td>~3cm</td>
+                    </tr>
+                    <tr>
+                        <td>Velocity N</td>
+                        <td>-4.8807 m/s</td>
+                        <td>-4.8237 m/s</td>
+                        <td>~0.06 m/s</td>
+                    </tr>
+                </table>
+                <div style="font-size: 0.9rem; margin-top: 1rem; padding: 1rem; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                    <strong>Observation:</strong> Horizontal position agreement is excellent. Small drift in altitude/velocity is expected and acceptable for strapdown INS. Backwards divergence in z-velocity is likely due to bias instability.
+                </div>
+            </div>
+        </div>
+
+         <!-- Slide 8: API Context -->
+         <div class="slide">
+            <div class="card">
+                <h2>API Context</h2>
+                <p>The model interacts with several core components defined in the API.</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                    <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--accent-purple);">
+                        <h3 style="margin-top:0; border:none; color: var(--accent-purple);">SINSModel_Aman.hpp</h3>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">Implements the state propagation <code>f()</code> and measurement <code>h()</code> functions. It is the "Subject" that the EKF operates on.</p>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--accent-cyan);">
+                        <h3 style="margin-top:0; border:none; color: var(--accent-cyan);">FusionRunner.hpp</h3>
+                        <p style="font-size: 0.9rem; margin-top: 1rem;">The orchestrator that holds the <code>SINSModel</code>. It relies on the model exposing the correct <code>ScalarType</code> to manage time updates and measurement processing.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Conclusion -->
+        <div class="slide">
+            <div class="card" style="text-align: center;">
+                <h2>Conclusion & Recommendation</h2>
+                <div style="font-size: 4rem; margin: 2rem 0;">🚀</div>
+                <p style="font-size: 1.4rem; color: var(--text-primary);">The updated model is stable, safe, and API-compliant.</p>
+                <p style="margin: 2rem 0;">It is recommended to use <strong>SINSModel_Aman.hpp</strong> for all production and testing.</p>
+                <p style="color: var(--text-secondary); font-size: 0.9rem;">(Original deprecated version should be kept for reference only)</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <button id="prev">← Prev</button>
+        <button id="next">Next →</button>
+    </div>
+    <div class="progress-bar"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
