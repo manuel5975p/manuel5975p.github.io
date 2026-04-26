@@ -1,0 +1,12 @@
+{
+  "edibility": "Huitlacoche is a choice edible fungus, prized in Mexican cuisine and considered a gourmet delicacy. The immature galls are harvested 2-3 weeks after corn infection while still moist and tender, typically prepared in quesadillas, soups, and tortilla-based dishes. It is high in lysine (essential amino acid), beta-glucans, protein, and minerals, making it nutritionally superior to many cultivated mushrooms.",
+  "taste": "Huitlacoche has a distinctive umami-rich flavor profile described as smoky, earthy, savory, and slightly sweet with a mushroom-like character. The texture is tender and creamy when properly cooked, with a pleasant woody undertone that develops when prepared fresh.",
+  "search": "Found on maize (corn) ears during warm, moderately dry weather (26-34°C) typically in mid-to-late summer during the growing season. Harvest immature galls before they turn completely dry and black; look for dark grey, fleshy galls 20-60mm wide on corn cobs. Fully mature galls are dry and spore-filled, lacking the desirable texture; avoid look-alikes by confirming the characteristic tumor-like galls on corn plants rather than other hosts.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Mycelium itself isn't typically eaten; the fruiting bodies (Honey Mushrooms) are edible only after thorough cooking. Raw fruiting bodies contain a thermolabile toxin that causes gastrointestinal distress.",
+  "taste": "Mycelium tastes like raw mushroom skin with earthy notes. When cooked, the fruiting body has a mild, earthy flavor with a slightly chewy texture.",
+  "search": "The mycelium is found by digging in the soil and wood of infected trees — bioluminescent rhizomorphs ('foxfire') are occasionally visible in dark forests at night. Fruiting bodies appear in autumn at the base of dying conifers and hardwoods, growing in dense clusters.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Raw fruit body causes gastrointestinal distress including nausea, vomiting, and diarrhea; mycelium not normally eaten",
+    "onset": "Hours after eating raw",
+    "treatmentWindow": "Self-resolving within 24 hours",
+    "antidote": "Supportive care, hydration"
+  }
+}

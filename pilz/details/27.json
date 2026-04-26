@@ -1,0 +1,12 @@
+{
+  "edibility": "Edible and prized in Asian cuisine, particularly in China, where it is a delicacy harvested in the egg stage before fruiting body expansion. The stem and developing fruiting body are tender, crispy, and mild with a subtle earthy-sweet flavor. Preparation involves stir-frying or adding to soups; must be harvested before full maturation to avoid the repulsive odor produced at that stage.",
+  "taste": "Delicate, mild, and earthy flavor with a tender, crispy texture and a subtle sweetness reminiscent of mild truffles or enoki mushrooms. Mature specimens produce a sickly-sweet odor but offer no distinctive taste.",
+  "search": "Found year-round in tropical and subtropical regions, particularly in Southeast Asia, Africa, the Americas, and Australia. Grows in woodlands and gardens on rich soil and well-rotted woody material. Harvesting requires timing—the exquisite net-like veil emerges for only a few hours in early morning before wilting. Key identification features include the distinctive lacy indusium (veil) and the emergent fruiting body.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

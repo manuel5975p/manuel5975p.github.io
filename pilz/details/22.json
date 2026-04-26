@@ -1,0 +1,12 @@
+{
+  "edibility": "Galerina marginata is deadly poisonous and must never be consumed. It contains amatoxins (α-amanitin and γ-amanitin), the same lethal toxins found in death cap mushrooms. Even small quantities can be fatal; as few as 10 fruiting bodies can poison a 20 kg child.",
+  "taste": "No taste data available as consumption is lethal. These mushrooms should never be tasted or ingested under any circumstances.",
+  "search": "Grows year-round but most common in spring and fall on rotting wood (especially conifers) or wood chips, sometimes appearing from mossy ground. Key identification: small brown caps with ring zone, rusty-brown spore print, clustered growth on wood. Dangerous look-alikes include honey mushroom, wood tuft, and velvet foot—spore color testing is critical for safe identification.",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "6-24 hours latency; initial vomiting, severe abdominal pain, diarrhea lasting 6-9 hours, then apparent remission. After 36 hours: liver enzymes spike on bloodwork. After 72 hours: progressive liver and kidney failure, eventual death without transplant.",
+    "onset": "6-24 hours",
+    "treatmentWindow": "Must begin treatment within 24-36 hours; liver damage becomes irreversible after 72 hours without aggressive intervention",
+    "antidote": "Silibinin (milk thistle derivative) if given early; supportive care including activated charcoal, IV fluids, hemodiafiltration, plasma exchange. Liver transplant is often required for survival. Without aggressive treatment, death occurs within days."
+  }
+}

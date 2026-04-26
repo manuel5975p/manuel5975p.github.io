@@ -1,0 +1,12 @@
+{
+  "edibility": "The world's most expensive culinary fungus; eaten raw, shaved over warm dishes; never cooked (heat destroys aroma).",
+  "taste": "Pungent garlicky-cheesy aroma; intense umami; almost overwhelming when fresh.",
+  "search": "Where/when to find — Oct-Dec in Piedmont (Italy) and parts of Croatia/Slovenia, calcareous soil with oak/hazel/poplar; only trained dogs locate; cannot be cultivated.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

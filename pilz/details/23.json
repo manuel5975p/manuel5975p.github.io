@@ -1,0 +1,12 @@
+{
+  "edibility": "Psilocybe cubensis contains psilocybin and is consumed for its psychoactive properties rather than nutritional value. It has no culinary use and is illegal in most jurisdictions. In certain regions with decriminalization efforts (some US cities, Netherlands), it is used in therapeutic or recreational contexts under legal gray areas or emerging regulatory frameworks.",
+  "taste": "Psilocybe cubensis has an earthy, slightly bitter taste with a tough, rubbery texture. The mushroom is typically consumed dried and ground, sometimes brewed as tea to improve palatability.",
+  "search": "Psilocybe cubensis prefers tropical and subtropical climates, growing on dung in pastures and grasslands, particularly in warm regions. It fruits year-round in tropical areas but primarily from May to November in temperate regions. Key ID features include a golden-brown cap, bluish bruising when handled, and a ring on the stem. Deadly look-alike Galerina marginata has a rusty-brown spore print (vs. blackish-brown for Psilocybe), lacks blue bruising, and grows on rotting wood rather than dung.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Psychoactive effects include altered perception, visual/auditory hallucinations, euphoria, introspection, and mood changes. Physical effects may include increased heart rate, elevated blood pressure, nausea, vomiting, muscle weakness, dilated pupils, and loss of coordination. Psychological effects include potential anxiety, panic, and disturbing hallucinations.",
+    "onset": "30 minutes to 2 hours after ingestion",
+    "treatmentWindow": "6 hours (effects typically last 4-6 hours); medical intervention required if severe psychological distress occurs",
+    "antidote": "Supportive care; benzodiazepines for severe anxiety or panic. Critical risk: accidental consumption of deadly Galerina marginata can cause fatal liver/kidney damage—spore print testing is essential for safe identification."
+  }
+}

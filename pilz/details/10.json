@@ -1,0 +1,12 @@
+{
+  "edibility": "Generally edible and highly prized for its meaty, chicken-like texture and flavor. Collect only young, brightly colored brackets with soft texture; mature specimens become tough and acidic. Requires thorough cooking. About 10% of people may experience allergic reactions ranging from mild (swollen lips) to severe (nausea, vomiting, dizziness). Never harvest from conifers or yew trees, as absorption of host toxins can be lethal.",
+  "taste": "Tender young specimens have a savory, chicken-like flavor with a meaty texture. Mature specimens become increasingly tough, fibrous, and develop acidic notes. The palatability depends heavily on age and thorough preparation.",
+  "search": "Found on dead or dying hardwoods (oak, maple, beech) in deciduous woodlands, urban parks, and forest edges across North America, Europe, and UK. Season: late summer through fall (August-November), occasionally as early as June. Look-alikes include jack-o'-lantern mushroom (which has gills and vase shape) and Dyer's polypore (brown bruising, velvety texture, found on conifers). True chicken of the woods has pores, fan/bracket shape, bright yellow-orange color.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Allergic reactions in ~10% of consumers: swollen lips, nausea, vomiting, dizziness, disorientation",
+    "onset": "Variable; typically hours after consumption",
+    "treatmentWindow": "Monitor for symptoms; most reactions subside with supportive care",
+    "antidote": "Supportive care only. Ensure thorough cooking and proper identification. Those with mushroom allergies or sensitive digestive systems should avoid."
+  }
+}

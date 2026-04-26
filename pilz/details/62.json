@@ -1,0 +1,12 @@
+{
+  "edibility": "Technically edible but generally regarded inedible due to its gelatinous, rubbery texture and complete lack of flavor. Contains no poisonous compounds but offers no culinary value.",
+  "taste": "Bland and jelly-like with no distinctive flavor. Takes on the taste of any broth or liquid it is cooked in, but remains texturally unpleasant.",
+  "search": "Found in autumn and winter on dead or dying oak branches, particularly after rain when the gelatinous fruiting bodies swell and become visible. Identified by its black, translucent, brain-like or ear-like gelatinous appearance. Look-alikes include Exidia nigricans (similar black jelly fungus) and Auricularia species (wood ear), though careful examination of branching pattern and texture helps distinguish them.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

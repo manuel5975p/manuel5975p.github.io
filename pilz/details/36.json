@@ -1,0 +1,12 @@
+{
+  "edibility": "Horn of Plenty is a choice edible mushroom, highly esteemed in European cuisine despite its unpalatable appearance. The thin flesh develops a rich, deep aroma when dried and is sometimes called the poor man's truffle. It is prepared by gentle cleaning and rinsing, and dries exceptionally well for storage and use as a seasoning in soups and sauces.",
+  "taste": "The flavor is rich and distinctive with a deep, complex aroma that becomes particularly pronounced when dried. The texture is thin but flavorful, tasting considerably better than its dark appearance suggests.",
+  "search": "Found in deciduous forests, particularly under beech and oak trees on moist, shaded, calcareous soils. Fruiting season runs from late summer through autumn (June-November, sometimes into December in mild climates). Has no true poisonous lookalikes; some confusion possible with bright yellow Cantharellus cibarius or Cantharellus tubaeformis (yellowish stem), but these are easily distinguished.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "White truffles are prized edible fungi highly valued in fine cuisine. They are eaten raw, shaved thinly over hot dishes and light sauces to preserve their intense aromatic profile. The fragile fruiting bodies do not tolerate cooking and are typically served fresh, making them accessible only to the wealthy due to their rarity and cost.",
+  "taste": "White truffles have a pungent, complex aroma and flavor profile reminiscent of fresh garlic, cheese, and shallot with an elegant undertone. The intense fragrance and delicate taste are best experienced raw, where thin shavings release their full aromatic complexity over warm food.",
+  "search": "White truffles fruit in autumn (September-December) exclusively in mycorrhizal association with broad-leaved trees, especially oak, willow, poplar, and occasionally linden and hazel. They require loose, well-aerated, calcareous soils with stable moisture and are found primarily in the Langhe and Montferrat regions of Piedmont, Italy, particularly around Alba and Asti. Beyond Italy, they occur in parts of Croatia, Slovenia, and border regions of France with similar geological conditions.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Golden Oyster mushrooms are edible and commonly cultivated and foraged. They are best enjoyed cooked, with a mild nutty and slightly sweet flavor that develops with sautéing. Raw specimens are bitter and unpalatable. They are widely eaten in Asian cuisines and are prized by foragers for their vibrant yellow color, tender texture, and mild flavor profile.",
+  "taste": "When cooked, Golden Oysters offer a mild, nutty, and sweet taste with cashew-like or citrus undertones, developing a velvety texture and tender consistency. Raw mushrooms have a bitter, unpalatable taste and spongy texture, so cooking is essential for palatability.",
+  "search": "Found on decaying hardwoods (elm, oak, beech, maple) in dense clusters from late spring through fall, peaking in late summer and fall. Identify by bright yellow to golden caps (3/4-2.5 inches diameter) with dry, velvety surface, white to cream gills, and off-center stout stem. Native to eastern Russia, northern China, and Japan but now naturalized across eastern North America.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

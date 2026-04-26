@@ -1,0 +1,12 @@
+{
+  "edibility": "Fistulina hepatica is edible and non-toxic, safe even when eaten raw when young and tender, though cooking enhances flavor. Best consumed when young, as older specimens are more sour and may cause mild gastric upset if not soaked overnight to remove juice. Popular with foragers who slice it thin for raw preparations (carpaccio style), pan-frying, or dehydrating into jerky.",
+  "taste": "Distinctly sour and acidic with earthy-lemon notes from high malic and ascorbic acid content, often compared to slightly vinegared or underripe citrus. The texture resembles raw meat or tuna when fresh and crisp, becoming less appealing when cooked, but the sourness can be reduced through soaking in milk or lemon juice marinade.",
+  "search": "Found late summer to autumn (July-November) on living oaks and sweet chestnuts in deciduous forests, typically at the base of trees or on stumps. Identification is distinctive: hoof-shaped fruiting body with reddish-brown to dark glossy exterior and white-to-cream pores underneath that yellow with age. Confusion with toxic lookalike Hapalopilus nidulans has occurred, so careful identification is essential.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic"
+  }
+}

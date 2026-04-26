@@ -1,0 +1,12 @@
+{
+  "edibility": "Not foraged for human consumption; only infects ants (insect-pathogenic). Some related Ophiocordyceps species are used as traditional Chinese medicine tonics for energy and vitality.",
+  "taste": "Not eaten by humans; faintly mushroomy if tasted in TCM preparation.",
+  "search": "Found in tropical rainforests on the underside of leaves at the precise leaf-vein height where infected ants died. A long club-like fruiting body sprouts from the ant's head after death. Not a foraging target for humans.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "Lethal to ants; harmless to humans (host specificity)",
+    "onset": "N/A for humans",
+    "treatmentWindow": "N/A for humans",
+    "antidote": "N/A — does not infect humans"
+  }
+}

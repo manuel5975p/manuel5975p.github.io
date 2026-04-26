@@ -1,0 +1,12 @@
+{
+  "edibility": "Entoloma hochstetteri is inedible. While its exact toxicity profile remains scientifically undetermined due to limited study, many members of the genus Entoloma are known to be poisonous with muscarine-like toxins. This species should be strictly avoided for consumption.",
+  "taste": "No documented taste reports exist from confirmed human consumption. Related toxic Entoloma species cause gastrointestinal distress, excessive salivation, and other cholinergic effects when ingested.",
+  "search": "Entoloma hochstetteri (also called werewere-kokako) is endemic to New Zealand and fruits from January to July, with peak occurrence April to June. Found in broadleaf and podocarp forests among leaf litter and moss. Distinctive identification features include conical caps up to 4 cm with vibrant indigo-blue color with green tint, thin gills, and a reddish-pink spore print.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Unknown for this specific species; related Entoloma species cause gastrointestinal distress, excessive salivation, perspiration, and bradycardia due to muscarine-like toxins",
+    "onset": "Unknown — not documented",
+    "treatmentWindow": "Unknown — not documented",
+    "antidote": "Supportive care only"
+  }
+}

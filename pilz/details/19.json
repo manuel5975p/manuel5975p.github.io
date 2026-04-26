@@ -1,0 +1,12 @@
+{
+  "edibility": "Armillaria mellea is conditionally edible but must be thoroughly cooked to be safe. Raw or inadequately cooked specimens cause mild gastrointestinal upset. In Eastern Europe, well-prepared honey fungus is highly prized and considered one of the finest wild edible mushrooms. Young caps are preferred, and the tough stems are typically discarded.",
+  "taste": "When properly cooked, honey fungus has a pleasant flavor with a tender, slightly firm texture in young specimens. Those who have experienced poisoning from undercooked material report nausea, vomiting, and stomach cramps.",
+  "search": "Honey fungus appears July to November in Britain and Ireland, parasitizing both coniferous and hardwood trees, stumps, and dead roots. Look for clusters of 5-15 cm honey-yellow to red-brown caps with darker centers and distinctive pale yellowish stem rings. Key lookalikes include the deadly Galerina species, making expert identification essential before collection.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Nausea, vomiting, stomach cramps, severe gastrointestinal distress",
+    "onset": "Shortly after eating (typically within hours)",
+    "treatmentWindow": "Self-resolving within 24-48 hours; no specific treatment needed",
+    "antidote": "Supportive care only — thorough cooking (parboil 10-15 minutes minimum with water disposal) destroys the thermolabile toxins and prevents poisoning entirely"
+  }
+}

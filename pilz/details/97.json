@@ -1,0 +1,12 @@
+{
+  "edibility": "Choice edible — caps only (stems too tough); reviving with water after drying intensifies flavor; favored for soups and sauces.",
+  "taste": "Sweet, almost almond-like; chewy texture.",
+  "search": "Where/when to find — late spring–autumn after rain, in literal rings on lawns/meadows/golf courses; ID clues (buff cap with central bump, distant gills, tough flexible stem); DEADLY look-alikes include Clitocybe rivulosa (toxic, white) and Inocybe spp. (muscarinic poisoning).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic if correctly identified; warning: lookalikes cause muscarinic syndrome (sweating, salivation, lacrimation).",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic if correctly identified; for muscarinic look-alike: atropine."
+  }
+}

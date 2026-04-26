@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible. While not known to be toxic, Rhodotus palmatus should not be consumed. The mushroom is bitter and unpalatable with a rubbery, gelatinous texture that makes it unsuitable for eating. Its rarity and ecological importance as a wood-decomposer mean it should be left undisturbed in its natural habitat.",
+  "taste": "Bitter and unpleasant with a rubbery, gelatinous texture. Those who have encountered it report an unappealing flavor profile that discourages any consideration for consumption.",
+  "search": "Found on decaying hardwood (especially elm) in damp, shaded areas from late summer through autumn, though sightings are rare. Distinguished by its 3-8 cm peachy-pink cap with a distinctive wrinkled, net-like reticulate pattern of whitish ridges. Look for closely spaced pale pink gills and a slender off-white stem. Avoid confusion with Pink Oyster Mushroom (clustered growth, no wrinkled texture) and Rosy Bonnet (smaller, smooth cap).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

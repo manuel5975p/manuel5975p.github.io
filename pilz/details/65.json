@@ -1,0 +1,12 @@
+{
+  "edibility": "The most cultivated mushroom worldwide; eaten raw or cooked; some sources caution about raw agaritine but cooked is universally accepted.",
+  "taste": "Mild, slightly earthy when raw; deeper umami when cooked; cremini and portobello varieties offer more intense flavors.",
+  "search": "Wild form A. campestris exists in pastures; cultivated form mostly purchased from grocery stores. ID clues include white cap, white gills that later darken, and bulbous base. Dangerous look-alikes include Amanita bisporigera and Agaricus xanthodermus (yellow stainer).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

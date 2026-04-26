@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — toxicity unverified; many Entoloma species are toxic, so it is never eaten. The Midnight Blue Entoloma should be treated as potentially toxic given the genus's track record.",
+  "taste": "Not consumed due to inedible status.",
+  "search": "Found in autumn–winter in damp New Zealand native forests on mossy ground. Identification clues: deep blue coloration throughout, conical cap shape. Look-alikes include other blue Entoloma species, though the distinctive coloration and cap shape help narrow identification.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Toxicity unverified — best treated as potentially toxic given Entoloma genus; many species cause gastrointestinal distress",
+    "onset": "Unknown; many Entoloma species cause gastrointestinal symptoms within hours of ingestion",
+    "treatmentWindow": "Early medical intervention within 2–4 hours of ingestion is recommended if toxin exposure is suspected",
+    "antidote": "Supportive care and activated charcoal if eaten; medical attention should be sought immediately"
+  }
+}

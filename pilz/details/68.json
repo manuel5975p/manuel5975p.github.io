@@ -1,0 +1,12 @@
+{
+  "edibility": "Edible; remove sticky cap cuticle and pore layer to avoid laxative effect; popular in Eastern Europe (maślaki)",
+  "taste": "Mild, slightly slippery flesh; absorbs sauces well",
+  "search": "Where/when to find — late summer/fall under pines, sticky brown cap, distinctive ring on stem, key look-alikes (other Suillus, all edible)",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Mild GI upset if cap cuticle/pores eaten in quantity",
+    "onset": "Hours after eating",
+    "treatmentWindow": "Self-resolving",
+    "antidote": "Hydration; not medically toxic"
+  }
+}

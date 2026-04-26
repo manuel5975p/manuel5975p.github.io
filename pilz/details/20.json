@@ -1,0 +1,12 @@
+{
+  "edibility": "The immature 'egg' stage is technically edible and has been consumed in Eastern European folk traditions (Czech Republic, Slovakia), with a crisp, radish-like flavor. However, the mature fruiting body is inedible due to its repulsive odor and slimy texture. Risk of confusion with deadly Amanita phalloides at immature stage makes consumption inadvisable for most foragers.",
+  "taste": "The immature egg stage is reported to be crisp and crunchy with a radish-like taste and umami notes when cooked. The mature fruiting body produces an overwhelming stench reminiscent of rotting flesh or dung, making it completely unpalatable.",
+  "search": "Appears summer through late autumn in woodlands, gardens, and areas rich in wood debris, especially near rotting stumps and mulched areas. Often introduced via contaminated soil or mulch. Grows rapidly (4-6 inches per hour) from whitish/pinkish egg-shaped forms into tall white stalks with dark olive conical heads. The pungent odor is an immediate identification aid once mature.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

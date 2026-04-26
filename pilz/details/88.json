@@ -1,0 +1,12 @@
+{
+  "edibility": "Premier edible — must be cooked thoroughly (raw morels contain hydrazine toxins); often combined with cream sauces; never eaten raw",
+  "taste": "Earthy, nutty, smoky umami; honeycomb cap holds sauce; firm bite",
+  "search": "Where/when to find — early/mid-spring, floodplains, orchards, burn scars, old elm trees; pitted (true) cap fully attached to stem; DEADLY look-alikes (Gyromitra false morels) — false morels are lobed/wavy not pitted, and stem is cottony-filled rather than hollow",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Raw morels: GI symptoms (hydrazine); also alcohol intolerance reported",
+    "onset": "Within hours of raw consumption",
+    "treatmentWindow": "Seek medical attention if symptoms persist beyond 24 hours",
+    "antidote": "Supportive care; avoid alcohol when eating morels"
+  }
+}

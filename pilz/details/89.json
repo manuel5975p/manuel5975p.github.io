@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxic — frequently mistaken for chanterelles by novice foragers; never eaten. The Jack-O'-Lantern contains illudin S and related compounds that cause severe gastrointestinal poisoning.",
+  "taste": "Bitter, unpleasant if ingested (not recommended to taste test). The toxins are present regardless of cooking method.",
+  "search": "Found late summer through fall on hardwood roots, stumps, and buried wood. CRITICAL DISTINCTION: chanterelles have false gills (forked ridges running down the stem), while Jack-O'-Lanterns have true sharp gills (do not fork down the stem) and grow in dense clusters. A unique identifying feature: Jack-O'-Lantern gills bioluminesce with a faint green glow in complete darkness, visible in the field at night.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Severe gastrointestinal distress including persistent vomiting, diarrhea, abdominal cramping, and nausea. Symptoms are caused by illudin S and related illudane compounds.",
+    "onset": "30 minutes to 4 hours post-ingestion",
+    "treatmentWindow": "Immediate medical attention recommended; treatment is primarily supportive as there is no specific antidote",
+    "antidote": "Supportive care including hydration (oral or IV fluids for severe cases), anti-emetics for vomiting, and electrolyte replacement. Most cases resolve within 24 hours with conservative management."
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — the hard, woody, charcoal-like fruiting body cannot be consumed. Historically used as tinder for fire-starting with flint and steel. Folklore suggests a use for alleviating cramps, though no medicinal efficacy is established.",
+  "taste": "Not consumed; the extremely hard fruiting body would be impossible to chew or digest.",
+  "search": "Found on dead hardwoods, particularly ash and beech trees. Forms distinctive black, hemispherical balls 2-7 cm wide that resemble charcoal briquettes. Identification is confirmed by the distinctive concentric rings visible when the fruiting body is cut in half. Similar-looking fungi are rare, but any hard black fruiting body on wood should be examined for the interior structure.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic if accidentally ingested"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxicity disputed among sources; many classify as inedible or poisonous; never recommended for consumption due to potential gastrointestinal effects and inconsistent toxicity reports.",
+  "taste": "Mild flavor, though consumed rarely. Notable characteristic: flesh easily blackens with bruising or handling, darkening to jet-black over time.",
+  "search": "Found in old grasslands and meadows worldwide, particularly in Europe and North America. Key identification clue: bruises and aged caps turn distinctly jet-black. Main look-alikes include other Hygrocybe species (scarlet waxcap, parrot waxcap) which differ in color and habitat preference.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Reports of gastrointestinal distress in some individuals; toxicity is not consistently reported across all cases",
+    "onset": "Hours after ingestion",
+    "treatmentWindow": "Early intervention with supportive care recommended",
+    "antidote": "Supportive care, hydration, and symptomatic treatment of gastrointestinal symptoms"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxic. Rosy Veined Entoloma is poisonous and causes severe gastroenteritis. It is sometimes mistaken for edible Lyophyllum or Tricholoma species, particularly in Japan, where confusion with edible mushrooms has led to poisonings.",
+  "taste": "The mushroom has a mealy or farinaceous taste that appears innocuous before poisoning symptoms develop. This deceptive palatability makes it particularly dangerous as it may encourage consumption before recognition of toxicity.",
+  "search": "Found in autumn under beech and oak trees in temperate forests. Identification features include a pinkish-grey to rose-tinged cap, pink gills that mature to salmon-colored spores, and a whitish stem. Key look-alikes include edible Lyophyllum and Tricholoma species, distinguished by spore color and gill attachment.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Severe gastroenteritis including violent vomiting, profuse diarrhea, and abdominal cramping. Hepatic involvement (liver damage) has been documented in some cases.",
+    "onset": "30 minutes to 3 hours after ingestion",
+    "treatmentWindow": "Immediate medical attention required; decontamination most effective within first 1-2 hours",
+    "antidote": "Supportive care including aggressive hydration, electrolyte replacement, and antiemetic medications. Activated charcoal if within appropriate timeframe. Hospital monitoring for hepatic and renal function; dialysis may be necessary in severe cases."
+  }
+}

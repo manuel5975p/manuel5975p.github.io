@@ -1,0 +1,12 @@
+{
+  "edibility": "The Texas Star is inedible and should never be harvested due to its rarity and conservation status. Its flesh is tough, leathery, and completely unpalatable, making it unsuitable for any culinary preparation. This species exists to be photographed and admired, not eaten, as it is found in only a few locations worldwide and faces habitat loss.",
+  "taste": "The mushroom possesses a thick, tough, leathery texture similar to the material of an old shoe sole. No distinctive flavor profile has been documented, and the inedible texture would make it impossible to consume in any form.",
+  "search": "Found exclusively in cooler months from October to April in Central and North Texas, as well as small areas in Japan and Taiwan. Look for dark brown or black cigar-shaped capsules (3-4 inches long) growing from cedar elm tree stumps or dead roots in damp soil. The key identifying feature is the dramatic transformation as it splits open into a star shape with 4-7 leathery rays and releases spores with an audible hissing sound. Look-alikes are extremely rare due to the unique habitat preference and distinctive morphology.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

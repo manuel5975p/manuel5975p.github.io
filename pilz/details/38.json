@@ -1,0 +1,12 @@
+{
+  "edibility": "Black trumpets are an excellent edible choice, prized for their delicate flavor and firm texture. They require gentle cleaning due to their funnel shape, which traps debris, but are well-suited to sautéing, soups, and cream sauces. Highly sought after by foragers and chefs, they are non-toxic and enhance both traditional European and modern fusion cuisines.",
+  "taste": "Delicate, slightly peppery, and earthy with a subtle fruity undertone. The flesh is firm and meaty, making them excellent for sautéing or adding to composed dishes.",
+  "search": "Black trumpets are masters of camouflage, blending seamlessly with leaf litter and dark forest floors—search by eye-level scanning rather than looking down, as their dark, funnel-like shape mirrors shadows. Hunt in mossy, humus-rich areas beneath hardwoods and conifers from summer into fall, preferably after rain when the soil is damp; use side-lit or backlighting to spot the subtle ridges on their caps. Key look-alikes include the poisonous false trumpet (Gomphus clavatus), which has thicker flesh and orange coloring, and the similar but edible horn of plenty.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

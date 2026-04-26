@@ -1,0 +1,12 @@
+{
+  "edibility": "Psychoactive; consumed for psilocybin content producing hallucinogenic effects. Legal status varies significantly—illegal in most countries, though decriminalized in some US cities; clinical trials for therapeutic use are underway in research settings.",
+  "taste": "Earthy and slightly bitter with a chewy, fibrous texture. Often consumed in tea or mixed with chocolate to mask the unpleasant flavor.",
+  "search": "Found in tropical and subtropical pastures, particularly on cattle dung, during spring through fall months. Identification features include golden-yellow caps, blue bruising when handled, and dark purple-brown spore prints. Deadly look-alikes include Galerina marginata, which contains amatoxins.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Hallucinations, visual and perceptual alterations, euphoria, anxiety, or panic possible; physiologically very low toxicity in healthy adults with no organ damage reported",
+    "onset": "20-60 minutes",
+    "treatmentWindow": "Effects last 4-6 hours; benzodiazepines used for severe anxiety or panic episodes",
+    "antidote": "No specific antidote—management consists of supportive care, reassurance, calming environment, and benzodiazepines (e.g., diazepam) if severe anxiety occurs"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Rose comb mushrooms are technically edible since the mutation itself is not inherently toxic, being a deformity of normal button mushrooms (Agaricus bisporus). However, they are rarely consumed because the mutation typically indicates environmental contamination—particularly hydrocarbon exposure, pesticide residue, or other pollutants—which the mushroom may have absorbed. Commercial growers routinely discard these specimens to maintain quality standards, and consumers are advised to avoid them unless the specific cause of the mutation is known to be harmless.",
+  "taste": "When mutation occurs, the abnormal cap structure and flesh development would likely affect texture and potentially flavor, though specific taste characteristics of rose comb specimens are not well-documented since they are typically discarded rather than consumed.",
+  "search": "Rose comb mutations appear exclusively in cultivated Agaricus species on commercial mushroom farms and hobbyist grows, not in wild populations. They were historically noted in Pennsylvania during the 1950s and across North American farms. Modern occurrences concentrate near urban areas, factories, and auto repair shops where hydrocarbon contamination is present. The mutation is triggered by environmental stressors including petroleum-based compounds, excessive CO2 levels, poor airflow, or temperature imbalances disrupting normal cap development.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Species are technically edible but accumulate significant cadmium, lead, and cesium-137 from soil and substrates due to their metallothionein-binding capacity. Caution is essential near roads, smelters, industrial zones, and areas affected by nuclear fallout. Regulatory limits exist: 0.050 mg/kg cadmium for cultivated mushrooms, up to 0.50 mg/kg in wild mushrooms.",
+  "taste": "Suillus and Agaricus species have mild, typical mushroom flavor profiles. Both are valued culinary species when sourced from uncontaminated areas.",
+  "search": "Find Suillus in pine plantations, coniferous forests, and roadsides; Agaricus in meadows and grasslands. Before harvest, assess soil quality and proximity to pollution sources, heavy traffic, or historical industrial sites. Test soil cadmium/lead levels if harvesting from uncertain areas; mushrooms growing on contaminated substrates will concentrate metals significantly above safe thresholds.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Cumulative heavy metal toxicity manifests as kidney damage (reduced function, proteinuria), neurological effects (tremors, cognitive decline, peripheral neuropathy), and potential carcinogenic effects over time",
+    "onset": "Chronic onset over months to years of repeated consumption; symptoms appear insidiously as metals accumulate in organs",
+    "treatmentWindow": "Heavy metal poisoning is best treated early in exposure accumulation. Chelation therapy initiated within days to weeks of acute high-dose exposure is most effective; chronic low-level exposure can be treated at any point but removal of contaminated foods is the primary intervention",
+    "antidote": "DMSA (oral, first-line, FDA-approved for lead/mercury/arsenic) or EDTA (IV, FDA-approved for lead/cadmium) chelation therapy. DMSA achieves peak urinary metal excretion at 2 hours; EDTA at 4 hours. Treatment typically involves multiple cycles with breaks. Supportive care: maintain hydration, monitor kidney function. Severe cases require medical supervision to manage metal redistribution and prevent organ damage during treatment"
+  }
+}

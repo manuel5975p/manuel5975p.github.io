@@ -1,0 +1,12 @@
+{
+  "edibility": "Verpa bohemica is considered toxic raw and potentially dangerous even after cooking. While some European traditions involve consumption after thorough parboiling with water changes, modern toxicology recognizes the presence of gyromitrin and related hydrazines that can cause serious neurological effects. Caution is strongly advised; repeated consumption poses cumulative toxicity risk.",
+  "taste": "When prepared, early morels have a mild, delicate flavor reminiscent of true morels with subtle earthy notes. The taste is not particularly distinctive and does not justify the health risks associated with consumption.",
+  "search": "Verpa bohemica fruits in early spring (March-April), typically 1-2 weeks before true morels (Morchella species), in moist floodplain woodlands, stream banks, and disturbed areas. Key distinguishing feature: the cap hangs freely from the stem (not attached at the base like true morels). Look-alikes include true morels and false morels (Gyromitra); verify the cap attachment point carefully.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Loss of muscular coordination (ataxia), tremors, dizziness, nausea, vomiting, diarrhea, abdominal pain; in severe cases: seizures and loss of consciousness",
+    "onset": "Typically 30 minutes to 3 hours after consumption; can be delayed up to 24 hours",
+    "treatmentWindow": "Early medical intervention within 6-12 hours of exposure is critical; activated charcoal may be considered within the first hour if toxin absorption has not progressed significantly",
+    "antidote": "No specific antidote exists; treatment is supportive care including fluid replacement, monitoring of neurological status, and management of seizures if they occur. Pyridoxine (vitamin B6) supplementation has been studied with mixed results in gyromitrin poisoning"
+  }
+}

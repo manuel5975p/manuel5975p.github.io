@@ -1,0 +1,12 @@
+{
+  "edibility": "Hydnellum peckii is inedible and should not be consumed. While not deadly poisonous, it has an intensely bitter, hot, and acrid taste that persists even after cooking, with a tough, cork-like texture. The extreme bitterness is so unpleasant that no culinary use or recipes exist for this fungus.",
+  "taste": "The flesh has an extremely acrid, peppery, and hot flavor that is immediately unpalatable. Those few who have tasted it report an intensely bitter sensation that persists long after consumption, making even small samples inedible.",
+  "search": "Found in coniferous forests (pine, spruce, hemlock) on acidic soil among moss and pine needles from late summer to autumn (August–October) in northern temperate regions. Young specimens display distinctive bright red liquid droplets (guttation) on pale pink or white caps, creating a striking 'strawberries and cream' appearance; look for crowded small spines and velvety pinkish-buff stems. Key look-alike Mealy Tooth (Hydnellum repandum) has a mild, floury taste and lacks the red droplets.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Premier edible oyster highly prized in cuisine; eaten fresh, dried, or cooked; cultivated globally in commercial operations. Most individuals tolerate well, though some sensitive individuals may report mild gastrointestinal effects.",
+  "taste": "Mild, delicate flavor with subtle anise and seafood-like aroma; tender, velvety texture when cooked.",
+  "search": "Found fall through winter in clusters on dead or dying hardwoods, stumps, and fallen logs. Identify by decurrent gills extending down the eccentric stem, fan-like cap shape, and white spore print. Key look-alikes include Angel's Wings (thinner, smaller) and Lentinellus species (more robust, toothed gills).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

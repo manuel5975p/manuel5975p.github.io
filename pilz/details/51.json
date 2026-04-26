@@ -1,0 +1,12 @@
+{
+  "edibility": "Too tough to eat raw; traditionally consumed as a bitter tea or decoction for its medicinal properties. Has been used in traditional medicine for centuries, particularly in Asian herbalism.",
+  "taste": "Bitter and woody, characteristic of the decoction. The flavor is astringent and earthy.",
+  "search": "Found year-round as perennial conks on dead or weakened hardwoods, particularly birch and oak. Identifies by the distinctive concentric zones and chalky white underside when fresh. Look-alikes include other Ganoderma species; Artist's Conk is distinguished by its flattened, shelf-like fruiting body and lack of a stem.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

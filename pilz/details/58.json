@@ -1,0 +1,12 @@
+{
+  "edibility": "Too woody to eat; traditionally used as medicinal tea or extract for immune support and anti-inflammatory benefits. Historically valued as punkwood for carrying fire, soaking up liquids, and starting tinder.",
+  "taste": "Bitter and resinous with subtle lemony and piney notes when brewed as tea or decoction.",
+  "search": "Year-round perennial conk found on conifers (pine, fir, spruce) and dead/dying softwood snags. Distinctive reddish-orange to orange-yellow upper surface with concentric bands and black-brown lower surface. Key distinction from similar shelf fungi: characteristic color banding and hardwood-like density.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

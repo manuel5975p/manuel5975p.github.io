@@ -1,0 +1,12 @@
+{
+  "edibility": "Entoloma sinuatum is toxic and responsible for approximately 10% of all mushroom poisonings in Europe, making it one of the most common poisoning agents on the continent. It is frequently mistaken for edible species such as the Miller mushroom (Clitopilus), St. George's mushroom (Camarophyllus), and porcini due to its pale cream cap and initial appearance. The toxins remain unidentified but cause severe gastrointestinal distress.",
+  "taste": "The flesh is mealy (farinaceous) with a sweet, slightly pleasant smell when fresh, but develops an unpleasant, rancid odor when dehydrated or aged—a warning sign often ignored before poisoning.",
+  "search": "Found in deciduous and mixed forests from late summer through autumn (August-October), particularly following warm, moist Septembers. Prefers calcareous or neutral soils, often in fairy rings or near beech, oak, and hazel trees. Distinctive identifying features include pink mature gills (sinuate/notched), thick cream-colored stem without a ring, and large pale ivory cap that can reach 20 cm. Avoid confusion with edible species, especially the Miller mushroom.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Severe gastroenteritis with intense nausea, vomiting, diarrhea, abdominal cramps, headache, sweating, and dizziness. Dehydration and electrolyte imbalance can be life-threatening in vulnerable populations (elderly, children). Delirium and depression are uncommon but reported sequelae.",
+    "onset": "30 minutes to 3 hours after consumption",
+    "treatmentWindow": "Symptoms typically resolve within 24-48 hours with supportive care; longer onset allows for gastric decontamination if identified early",
+    "antidote": "No specific antidote. Treatment is supportive: fluid and electrolyte replacement, antiemetics for severe nausea/vomiting, and symptomatic care. Activated charcoal may be considered if treatment sought within the first few hours."
+  }
+}

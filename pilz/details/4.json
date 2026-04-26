@@ -1,0 +1,12 @@
+{
+  "edibility": "Cantharellus cibarius is one of Europe's most prized edible mushrooms and a gourmet delicacy. It is excellent fresh, sautéed, pickled, dried, or preserved, with many chefs ranking it alongside truffles and morels. It requires proper identification to avoid toxic lookalikes like Jack-o'-Lantern mushrooms.",
+  "taste": "The golden chanterelle has a pleasant fruity aroma reminiscent of apricots or dried fruit, with a mildly peppery taste when raw. When cooked, the peppery edge mellows, revealing a delicate, slightly sweet, and very aromatic flavor with firm, thick flesh.",
+  "search": "Found in mixed woodlands under birch, oak, hemlock, and other trees from late June through December, with peak season July to September. Prefers moist ground and humid conditions; fruiting typically occurs several days after rain. Key identification: funnel-shaped cap (light to egg-yolk yellow), thick blunt ridges extending down the stem, and apricot-like scent. False chanterelles and Jack-o'-Lanterns are dangerous lookalikes—distinguish chanterelles by their blunt ridges versus sharp gills in toxic species.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Ramaria aurea is inedible and causes gastrointestinal disturbances in most individuals. Multiple Ramaria species are easily confused, with many closely related species regarded as mildly to moderately toxic, necessitating precise identification before any consumption attempt.",
+  "taste": "Not recommended for consumption due to toxicity; flavor profile is irrelevant for safety purposes.",
+  "search": "Found in late summer and early fall during wet seasons in temperate forests (both hardwood and coniferous). Identification features include large, fleshy coral structures with a white base; easily confused with Ramaria formosa (deadly beautiful coral fungus), which causes more severe gastrointestinal effects. Microscopic examination required for certain identification.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Nausea, vomiting, diarrhea, stomach cramps, and loose stools; gastrointestinal distress typical of Ramaria species",
+    "onset": "Typically within 2-12 hours of consumption",
+    "treatmentWindow": "Symptoms are self-limiting and generally subside within 24 hours; supportive care during this window",
+    "antidote": "No specific antidote; treatment is supportive including hydration management and electrolyte replacement to counter gastrointestinal fluid loss"
+  }
+}

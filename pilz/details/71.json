@@ -1,0 +1,12 @@
+{
+  "edibility": "Eaten in some Southeast Asian, Mexican, and East African cuisines despite tough texture; Western mycology considers it inedible/medicinal; rare opportunistic infections in immunocompromised individuals are the primary concern.",
+  "taste": "Mild, slightly woody flavor with a characteristically tough, rubbery texture that persists even after cooking.",
+  "search": "Year-round on rotting hardwood worldwide, particularly on fallen logs and dead trees. Identify by distinctive split radial gills (bifurcate appearance), fan or funnel-like shape, and whitish to gray coloring. Similar genera include Trichaptum and Stereum, distinguished by gill structure and spore prints.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "Rare invasive infection in immunocompromised individuals; otherwise no toxicity",
+    "onset": "Days to weeks if invasive infection develops",
+    "treatmentWindow": "Immediate medical intervention required for invasive infections",
+    "antidote": "Antifungals (voriconazole) for invasive infection"
+  }
+}

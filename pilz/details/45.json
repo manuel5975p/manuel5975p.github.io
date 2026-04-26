@@ -1,0 +1,12 @@
+{
+  "edibility": "Sulfur Tuft is inedible and toxic, containing toxic steroids fusciculol E and F. The extremely bitter taste serves as a natural deterrent. While fatalities are rare, poisoning can cause severe symptoms including gastrointestinal distress, temporary paralysis, and distorted vision.",
+  "taste": "Intensely bitter and acrid. Even small amounts cause strong bitter sensations; the mushroom's main natural warning is its extreme bitterness which should deter consumption.",
+  "search": "Sulfur Tuft grows in dense clusters on hardwood stumps and decaying wood, appearing year-round in temperate regions. Identification features include greenish-yellow gills, bright yellow cap margin, and the clustered growth pattern. Look-alikes include Honey Fungus (Armillaria mellea) which is edible when cooked, and Galerina marginata which is also toxic; distinguished by taste testing and gill color.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Gastrointestinal distress including nausea, vomiting, explosive diarrhea, abdominal pain, excess protein in urine (proteinuria); severe cases may include temporary paralysis, impaired vision, and collapse.",
+    "onset": "5-10 hours after consumption",
+    "treatmentWindow": "Up to 10 hours from consumption; early supportive care and decontamination (activated charcoal) within first few hours if ingestion is recent",
+    "antidote": "No specific antidote; treatment is supportive care including fluid replacement for dehydration from gastrointestinal symptoms, antiemetics for vomiting, and monitoring for complications. Hospitalization may be required for severe cases."
+  }
+}

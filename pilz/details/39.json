@@ -1,0 +1,12 @@
+{
+  "edibility": "Geastrum triplex is inedible despite being nonpoisonous. The fruit bodies are tough, fibrous, and of no alimentary interest, with a bitter taste and poor texture making them unsuitable for consumption. While some sources suggest immature specimens may theoretically be edible when the gleba is white and firm, they are rarely found in this condition and not recommended for eating.",
+  "taste": "The collared earthstar has a bitter, unpalatable taste with a tough, fibrous texture. Tasters report no distinctive flavor or appealing sensory qualities, making it unsuitable for culinary purposes.",
+  "search": "Geastrum triplex fruiting season is mid-summer through winter (often extending into spring), triggered by rain in late summer to autumn. Found in deciduous woods among leaf litter, especially on chalky soils with beech, though also under conifers and in roadside hedgerows; distributed widely across Eurasia, Australasia, and the Americas. Distinguish by its distinctive split exoperidium forming four to eight pointed segments with a characteristic collar or saucer around the spore sac; other Geastrum species lack this prominent collar feature.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

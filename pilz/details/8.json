@@ -1,0 +1,12 @@
+{
+  "edibility": "Technically edible but not worthwhile for culinary use. The Parrot Waxcap is extremely slimy, gelatinous, and so small that it yields minimal flesh. Most foragers avoid it due to its unpalatable texture and minimal food value, despite it not being toxic.",
+  "taste": "Mild and bland with a slight earthy undertone, but the gelatinous, slimy texture is decidedly off-putting. Those who have sampled it report a thin, watery consistency with an acidic note.",
+  "search": "Found in summer and autumn on roadside verges, cropped grassland, and churchyards across western Britain, particularly Wales. Prefers unimproved acid or neutral grassland habitats. Identification: small convex cap up to 4 cm, green when young, yellowish or pinkish when mature; greenish-yellow stipe (2-8 cm tall); broad adnate gills with yellow edges; distinctly slimy texture when damp; white spore print.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "These are microscopic, obligate symbiotic fungi that do not form harvestable fruit bodies and are not consumed as food. They exist exclusively within plant root tissues and in soil as spore-producing structures too small for culinary use. Agricultural and horticultural industries culture and sell these as mycorrhizal inoculants for soil enhancement, but they are never foraged or eaten by humans.",
+  "taste": "Not applicable—these fungi are microscopic root symbionts that cannot be tasted. They produce no fruiting bodies or edible tissue accessible to human sensory evaluation.",
+  "search": "Detection requires laboratory analysis of soil samples using molecular techniques (DNA sequencing of ITS regions or rRNA genes) or specialized staining of root tissues. Scientists and foresters identify these fungi through spore morphology extracted from soil via flotation-based recovery methods, vital staining of living root colonization, or real-time PCR quantification. Field detection involves sampling plant roots and soil in agricultural plots, grasslands, and forests year-round, as these fungi colonize plant roots continuously across seasons.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

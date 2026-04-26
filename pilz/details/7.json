@@ -1,0 +1,12 @@
+{
+  "edibility": "Pink oyster mushrooms are entirely edible and widely cultivated with no inherent toxicity when properly sourced from reliable growers or correctly identified in the wild. They are best eaten fresh and cooked thoroughly—boiling or extended cooking can diminish flavor and texture. Raw consumption is not recommended due to poor taste and shorter shelf-life.",
+  "taste": "The flavor is distinctive and savory with meaty and umami characteristics, often described as fishy. When fried until crispy, they can resemble bacon or ham, making them a popular culinary choice in various cuisines.",
+  "search": "Pink oyster mushrooms grow on decaying hardwood, fallen logs, stumps, and agricultural waste in tropical and subtropical regions worldwide. They fruit prolifically after rainfall from spring through fall. Key identification features include distinctively pink, velvety, fan-shaped caps (2-15 cm), light pink to cream gills, white short or absent stems, and a pink spore print. Look-alikes include other oyster species, but the vibrant pink color and habitat on hardwoods distinguish them.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

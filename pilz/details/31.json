@@ -1,0 +1,12 @@
+{
+  "edibility": "Highly edible and prized as a choice mushroom. Young, firm specimens have pleasant, slightly crunchy texture and mild flavor. However, the edibility depends critically on the host: Hypomyces lactifluorum parasitizes Russula brevipes and Lactarius piperatus (both safe), but theoretically could infect toxic Russula species—always verify the host identity before consuming. No confirmed toxin cases despite this risk.",
+  "taste": "Mild, slightly sweet with a crunchy texture when young. Develops nutty, earthy notes with age. Firm flesh becomes soft and undesirable when overripe.",
+  "search": "Found in conifer and hardwood forests (oak, maple, beech, ponderosa pine) from late July to October, extending into November in the Pacific Northwest. Identify by bright orange-red hard exterior with tiny pimples covering the host mushroom; internally white with blunt, chanterelle-like ridges. Locate by finding white Russula or Lactarius species beneath the orange parasite coating.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic. Rare GI distress reported in sensitive individuals, but not poisoning. Risk exists only if host is toxic Russula species (uncommon in North America).",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic"
+  }
+}

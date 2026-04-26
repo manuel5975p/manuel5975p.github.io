@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxic — never eaten; sometimes confused with edible Agaricus or fairy ring mushrooms. Contains illudane-type sesquiterpenes and other toxins that cause severe gastrointestinal distress. Not suitable for consumption under any circumstances.",
+  "taste": "Bitter, acrid taste with a characteristic sharp radish smell that is distinctive in the field. The odor is one of the most reliable identification features.",
+  "search": "Found in fall (September to November) in temperate regions, mycorrhizal with birch, oak, beech, and spruce trees. Identification clues include the distinctive radish smell, weeping gill edges that produce droplets, and dark brown spots or stains on the gills. Look-alikes include edible Agaricus species and fairy ring mushrooms, but the strong radish odor and hygrophanous appearance distinguish it.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Severe gastrointestinal symptoms including nausea, vomiting, abdominal cramps, and persistent diarrhea",
+    "onset": "2-4 hours",
+    "treatmentWindow": "Seek medical care immediately; treatment is supportive care within first 24 hours",
+    "antidote": "Supportive care; hydration; antiemetics; symptomatic treatment for gastrointestinal symptoms"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Choice edible; cap commonly breaded and fried like a schnitzel. Stem usually too fibrous to eat, though the ring can be removed for cooking.",
+  "taste": "Nutty, mild, slightly sweet flavor. Firm meaty cap with pleasant texture when properly prepared.",
+  "search": "Found late summer through autumn in pastures and woodland clearings. ID features include a distinctive sliding ring on the stem, snakeskin pattern on the cap, and large size (can reach 40cm). DANGEROUS look-alikes include Chlorophyllum molybdites with green spores, which causes severe gastrointestinal poisoning.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic if correctly identified; warning: lookalikes may cause severe GI distress",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic if correctly identified"
+  }
+}

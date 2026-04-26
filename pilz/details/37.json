@@ -1,0 +1,12 @@
+{
+  "edibility": "Too tough to chew for culinary use, but highly valued as a medicinal mushroom. Consumed as a brewed tea or extracted supplement rather than eaten directly. Contains PSK (polysaccharide-K) and PSP compounds approved as medicinal adjuncts in cancer therapy since the 1970s.",
+  "taste": "Brewed tea has a semi-bitter, earthy flavor that can be balanced with honey or other teas. The leathery texture makes the mushroom itself unpalatable to chew, so preparation as a decoction is standard practice.",
+  "search": "Found year-round on dead hardwood logs and stumps, particularly on oak and birch. Distinctive fan-shaped caps with multicolored concentric banding in zones of brown, tan, white, blue. Pore surface (underside) distinguishes true turkey tail: 3-8 pores per millimeter with white color, differentiating it from look-alikes like Stereum (yellow smooth underside) and Trichaptum species.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

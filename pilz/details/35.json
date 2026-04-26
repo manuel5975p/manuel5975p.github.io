@@ -1,0 +1,12 @@
+{
+  "edibility": "A delicacy when young and firm with pure white interior throughout. Must be harvested at an immature stage before spore maturation (which turns flesh yellow, then brown). Excellent culinary mushroom that can be fried or prepared in various ways, but the critical rule is absolute purity of interior flesh—any discoloration indicates maturity and potential digestive upset or allergic reactions.",
+  "taste": "Mild, delicate flavor with a pleasant, firm texture when young. Often described as having a pleasant, slightly nutty taste with a tender yet substantial mouthfeel similar to tofu or firm cheese.",
+  "search": "Found in late summer and autumn in meadows, grasslands, fields, and deciduous forest edges in nutrient-rich areas. Can reach 10-70 cm in diameter. Key identification: must be pure white and firm throughout when cut in half. Main look-alikes include poisonous Earthballs (which develop dark purple-black interiors early on) and button-stage Amanita species (Death Cap, Destroying Angel) which show gill silhouettes when cut open, not uniform flesh.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

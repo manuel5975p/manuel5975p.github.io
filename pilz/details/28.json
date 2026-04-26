@@ -1,0 +1,12 @@
+{
+  "edibility": "Urnula craterium is inedible due to its tough, leathery, and cork-like consistency, making it unpalatable despite not being dangerously toxic. While some sources claim it is edible or even delicious, consensus among mycologists places it firmly in the inedible category due to its fibrous texture. No culinary preparations exist because of its unpleasant texture when cooked.",
+  "taste": "The flesh is tough and cork-like with a consistency that resists cooking. Few individuals have tasted it due to inedibility, but the primary complaint is the extremely tough, rubbery, and leathery texture rather than an unpleasant flavor.",
+  "search": "Found in early spring (March–May) on decaying hardwood, especially oak, in forests with melting snow and leaf litter. The distinctive dark, chalice-shaped fruiting body features a hollow urn or goblet form with star-shaped flared edges, matte black exterior, and smooth ebony interior surfaces. A notable identifying feature is its ability to actively puff out clouds of spores when air pressure changes—look for this 'puffer' behavior as a key field identification marker.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

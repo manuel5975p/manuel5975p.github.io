@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — extremely bitter and acrid with styptic (astringent) properties recognized in traditional folklore. Not definitively toxic at typical ingestion levels, but the intense bitterness and potential for GI irritation classify it as inedible.",
+  "taste": "Sharply, almost painfully bitter and acrid with a lingering peppery aftertaste that discourages consumption.",
+  "search": "Found in clusters on dead hardwoods (oak, beech, birch) in cool, moist conditions, typically fall through winter. Notable for bioluminescence in North American populations visible as a faint green glow at night. Distinguished from look-alikes like Crepidotus by its larger fruiting bodies, darker coloration, and growth directly from wood rather than on debris.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Gastrointestinal upset including nausea, vomiting, and abdominal discomfort if consumed in quantity",
+    "onset": "30 minutes to 3 hours after ingestion",
+    "treatmentWindow": "Symptoms typically resolve within 24 hours with supportive care",
+    "antidote": "Supportive care including hydration and rest; antiemetics may be considered for severe nausea; activated charcoal not typically indicated due to minimal toxicity profile"
+  }
+}

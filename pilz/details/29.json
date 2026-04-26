@@ -1,0 +1,12 @@
+{
+  "edibility": "Gyromitra esculenta is toxic and should not be consumed raw or inadequately prepared. While historically eaten in Scandinavia and Finland after parboiling to remove toxins, this practice is dangerous and not recommended. Proper detoxification requires repeated parboiling in copious water (3:1 water-to-mushroom ratio), which can reduce gyromitrin by ~99%, but residual toxins may remain and inhalation of cooking vapors poses additional risk. Only extremely experienced foragers in regions with established traditions should attempt preparation, with significant individual variation in tolerance.",
+  "taste": "When properly prepared, false morels are reported to have a mild, delicate flavor somewhat similar to true morels, with a tender to slightly firm texture depending on cooking method.",
+  "search": "False morels fruit in early spring (often before true morels), typically in sandy or loamy soil near coniferous and deciduous trees, especially near fallen logs and pine stands. Key identification: brain-like wrinkles and irregular cap (not honeycomb pits), cap attached only at top of stalk (not fused along entire length), and chambered or cottony-filled interior (not completely hollow like true Morchella morels). True morels are entirely hollow when cut in half; false morels show internal structures or fibers.",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "Gastrointestinal symptoms (vomiting, diarrhea) followed by neurological effects including dizziness, lethargy, headache, confusion, and potential delirium, seizures, or coma. Acute liver injury occurs over 24-48 hours. Gyromitrin is metabolized to monomethylhydrazine (MMH), a rocket fuel analog causing multi-organ damage.",
+    "onset": "More than 5-6 hours after consumption; neurological and hepatic injury develops over 24-48 hours",
+    "treatmentWindow": "Immediate medical attention essential; treatment most effective within first 12-24 hours of symptom onset",
+    "antidote": "Pyridoxine (vitamin B6) is the specific antidote, given intravenously or intramuscularly alongside supportive care including IV hydration, seizure management, and monitoring for liver and kidney damage. No universally proven antidote exists; pyridoxine is supportive therapy for MMH-related seizures."
+  }
+}

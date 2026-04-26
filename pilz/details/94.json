@@ -1,0 +1,12 @@
+{
+  "edibility": "Choice edible; one of the rarest edible mushrooms; protected by Italian law in Sicily; cultivated form increasingly available.",
+  "taste": "Mild, meaty, nutty — similar to king oyster.",
+  "search": "Wild only in Madonie mountains of Sicily; spring–summer; emerges from roots of Ferula plants. Do NOT harvest wild specimens — IUCN-listed endangered.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

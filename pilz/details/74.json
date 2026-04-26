@@ -1,0 +1,12 @@
+{
+  "edibility": "Generally considered inedible due to its tough, leathery texture. Some mycology guides note that very young specimens may be edible, but this species is rarely sought for culinary purposes.",
+  "taste": "Mild but tough and leathery in texture, making it unsuitable for consumption.",
+  "search": "Found in spring through early summer on dead hardwood twigs and branches. Identification is aided by its distinctive large diamond-shaped pores. Look-alikes include other polypores, but the hexagonal pore structure is characteristic.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

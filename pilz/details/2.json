@@ -1,0 +1,12 @@
+{
+  "edibility": "Amanita bisporigera is absolutely deadly and must never be consumed under any circumstances. It is considered the most toxic North American Amanita mushroom, with a single mushroom capable of causing fatal poisoning. The amatoxins present are not destroyed by boiling, freezing, or drying, making any consumption regardless of preparation method fatal.",
+  "taste": "Not applicable to record. Those who have survived accidental consumption report severe gastrointestinal distress, but this species should never be tasted or sampled in any quantity.",
+  "search": "Amanita bisporigera fruiting occurs June through November in deciduous and mixed woodlands, particularly near oak and hardwood trees. It is distinguished by its smooth white cap (up to 10 cm), white gills, a white ring on the stalk, and a distinctive sac-like volva at the base. Key look-alikes include edible paddy straw mushrooms and other white Amanita species—ensure positive identification before any mushroom consumption.",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "Severe abdominal pain, vomiting, diarrhea (6-24 hours); followed by deceptive remission period, then jaundice, gastrointestinal bleeding, liver and kidney failure, coma, and death",
+    "onset": "6-24 hours, followed by remission period; organ damage occurs during symptom-free window",
+    "treatmentWindow": "Medical intervention must begin within first 24-48 hours; after amatoxin absorption, damage is largely irreversible; treatment effectiveness decreases dramatically with time delay",
+    "antidote": "No specific antidote. Aggressive IV fluid therapy, liver enzyme and blood clotting factor monitoring, and supportive care; experimental silibinin may be used in severe cases. Fatality rate less than 5% with immediate intensive care in developed countries, but no cure exists"
+  }
+}

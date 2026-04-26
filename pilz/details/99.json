@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxicity disputed; many sources list as inedible or poisonous due to reported gastrointestinal effects. Best avoided due to inconsistent toxicity reports and lack of culinary value.",
+  "taste": "Mild and unremarkable flavor. The flesh blackens immediately upon handling or bruising, which is a distinctive characteristic.",
+  "search": "Found in old grasslands, meadows, and churchyards throughout temperate regions worldwide, fruiting summer through autumn. Key identification features: conical cap that bruises and ages jet-black; red or orange coloring when young. Similar species include other Hygrocybe species; distinguish by cap shape and blackening tendency.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Reports of gastrointestinal distress including nausea and stomach upset in some individuals; toxicity not consistently demonstrated across all sources",
+    "onset": "Hours after ingestion",
+    "treatmentWindow": "Within 12-24 hours of ingestion",
+    "antidote": "Supportive care including hydration and rest; consult poison control in case of severe symptoms"
+  }
+}

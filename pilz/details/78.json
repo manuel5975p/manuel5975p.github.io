@@ -1,0 +1,12 @@
+{
+  "edibility": "Stropharia coronilla is considered toxic and inedible. Although it superficially resembles some psilocybin-containing species, it contains no psychoactive compounds and is potentially harmful if ingested.",
+  "taste": "Not typically tasted due to toxicity. Reports suggest a mild, slightly bitter flavor if accidentally sampled.",
+  "search": "Found commonly on lawns, pastures, and grassy areas during summer and fall months. Identification features include a yellowish to brownish cap with a distinctive ring on the stem, and purplish-brown spore prints. Often confused with Psilocybe species, though Stropharia coronilla lacks the bruising reaction characteristic of psilocybin mushrooms.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Gastrointestinal symptoms — nausea, vomiting, diarrhea, and abdominal discomfort",
+    "onset": "30 minutes to 3 hours after ingestion",
+    "treatmentWindow": "Within 6 hours for activated charcoal consideration; symptom management is the primary approach",
+    "antidote": "Supportive care including hydration, electrolyte replacement, and anti-nausea medication as needed. No specific antidote; treatment is symptomatic and supportive"
+  }
+}

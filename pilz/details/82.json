@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — the fungus itself is just a thin crust; what people see is the ice the fungus shapes, not consumable.",
+  "taste": "Not consumed; the fungus crust is bland, the ice is... ice.",
+  "search": "Where/when to find — late autumn/winter at 45–55°N latitudes, just below freezing, on damp dead hardwood branches; the fine ice 'hair' is the giveaway.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

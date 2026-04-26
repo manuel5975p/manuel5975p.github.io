@@ -1,0 +1,12 @@
+{
+  "edibility": "While technically edible when thoroughly cooked, ringless honey mushrooms commonly cause gastrointestinal upset in many people, particularly in those with individual sensitivities. Must be boiled until very tender and drained before consumption. Some foragers discard the tough stems entirely, using only young, firm caps after thorough preparation.",
+  "taste": "Mild honey-like flavor with a tough, fibrous texture when raw or undercooked. Becomes more tender when boiled or steamed but retains a somewhat bitter, unpleasant taste to many palates.",
+  "search": "Fruits in dense clusters at the base of deciduous trees, stumps, or over buried wood from September to November. Distinctive features include lack of a ring (annulus) around the stalk, honey-brown to reddish-brown scaly caps, and clustered growth habit with fused base stalks. Key lookalikes include Jack-O-Lantern mushrooms, Galerina species, and Pholiota species, which are toxic.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Gastrointestinal upset including nausea, stomach cramps, diarrhea, and vomiting; chills and sweating in some cases",
+    "onset": "Typically 30 minutes to 3 hours after consumption",
+    "treatmentWindow": "Symptoms generally resolve within 12-24 hours with supportive care; seek medical attention if severe",
+    "antidote": "No specific antidote; treatment is supportive (hydration, rest, anti-nausea medication as needed). Activated charcoal may help if administered early. Always thoroughly cook and try small amounts first to test individual tolerance."
+  }
+}

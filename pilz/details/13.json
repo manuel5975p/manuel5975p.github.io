@@ -1,0 +1,12 @@
+{
+  "edibility": "Marasmius oreades is a widely regarded choice edible mushroom, excellent in soups, stews, and baked goods. The sweet flavor and firm, chewy texture make it versatile in cooking. Traditionally, the fibrous stems are removed and the tender caps are dried on strings for long-term storage. While the species itself is non-toxic, careful identification is essential because deadly look-alikes like Clitocybe rivulosa and Clitocybe dealbata may grow in similar grassy environments.",
+  "taste": "Sweet and nutty with a mild, spicy undertone and firm, chewy texture. The mushroom contains trehalose (a natural sugar), which gives it a distinctive sweet flavor and makes it particularly suitable for both savory and sweet dishes.",
+  "search": "Found exclusively in grassy areas such as lawns, meadows, pastures, golf courses, and coastal dunes, feeding on dead grass roots and thatch. Fruiting season is May–November in temperate climates, year-round in warmer areas, with peak abundance after rain or watering. Identification key: bell-shaped pale tan to buff caps (1–5 cm), extremely fibrous and flexible stems that can twist 360 degrees without snapping (unlike brittle poisonous look-alikes).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

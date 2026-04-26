@@ -1,0 +1,12 @@
+{
+  "edibility": "Not foraged — black mold fungus that contaminates indoor environments and food. Consumed only inadvertently as airborne spores. Medically significant as an opportunistic pathogen and common allergen in contaminated buildings, food storage, and spacecraft environments.",
+  "taste": "Microscopic fungus, not consumed. When present on food, imparts a musty, moldy taste characteristic of contaminated products.",
+  "search": "Found through environmental contamination surveys in Chernobyl reactor, International Space Station, contaminated buildings, and indoor air sampling. Identified via mycological culturing, genetic sequencing, and electron microscopy. Scientists study its melanin-based radiotrophy and adaptability to extreme environments.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Allergic reactions (allergic rhinitis, sinusitis, conjunctivitis), respiratory irritation, mold asthma; in immunocompromised individuals: invasive infections of skin, eye, sinuses, lungs, and rarely brain",
+    "onset": "Allergic reactions typically within hours to days of inhalation exposure; infections develop over days to weeks in susceptible individuals",
+    "treatmentWindow": "Early recognition and environmental remediation critical; antifungal treatment should begin within days of confirmed invasive infection for optimal outcomes",
+    "antidote": "Antifungals (voriconazole, posaconazole, amphotericin B) for invasive cases; environmental source removal and HEPA filtration for allergic management"
+  }
+}

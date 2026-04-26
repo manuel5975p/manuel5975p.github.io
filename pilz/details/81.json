@@ -1,0 +1,12 @@
+{
+  "edibility": "Extinct (Devonian, ~430-360 Mya). Not edible — exists only as fossils; speculation about edibility based on chemistry (organic-rich tissue)",
+  "taste": "Unknown — never tasted by humans; chemical analysis suggests woody/mossy composition",
+  "search": "Where to find — fossil specimens at Devonian deposits in Saudi Arabia, Canada, US, Australia; museum collections; not foraged",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — extinct, not consumed"
+  }
+}

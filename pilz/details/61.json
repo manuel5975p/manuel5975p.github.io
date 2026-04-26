@@ -1,0 +1,12 @@
+{
+  "edibility": "Toxic & psychoactive due to ibotenic acid which converts to muscimol in the body; historically detoxified by parboiling in some Siberian traditions to reduce water-soluble toxins; strongly not recommended for foragers due to variable alkaloid content and high poisoning risk.",
+  "taste": "Earthy, slightly nutty, and somewhat bland when properly cooked; rarely consumed due to toxicity concerns outweighing any culinary appeal.",
+  "search": "Found in late summer through fall in mycorrhizal associations with birch, pine, and spruce in temperate regions. Distinctive red to orange cap with white warty patches (patches wash off easily in rain). Key look-alikes include other deadly Amanita species (A. phalloides, A. virosa), distinguished by the prominent ring on the stem and basal cup.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Confusion, delirium, hallucinations, ataxia, tremors, excessive salivation, myosis, muscle twitching, and seizures in large doses; GABA-like effects on the nervous system",
+    "onset": "30 minutes to 2 hours",
+    "treatmentWindow": "Symptoms typically resolve within 24 hours with supportive care; decontamination effective if performed early (within 1-2 hours of ingestion)",
+    "antidote": "No specific antidote; treatment is supportive with benzodiazepines for agitation/seizures, activated charcoal if early decontamination attempted, IV fluids, and monitoring in ICU for severe cases"
+  }
+}

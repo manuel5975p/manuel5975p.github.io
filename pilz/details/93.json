@@ -1,0 +1,12 @@
+{
+  "edibility": "Microscopic yeast pathogen — never foraged or intentionally consumed. Cryptococcus neoformans causes cryptococcal meningitis and other serious fungal infections, particularly in immunocompromised individuals.",
+  "taste": "Microscopic organism with no sensory properties. Occasionally ingested passively through contaminated food or inhalation of spores from environmental sources, but never intentionally consumed.",
+  "search": "Occurs in pigeon guano, soil enriched with bird droppings, and decaying wood worldwide. Not deliberately searched for by foragers or consumers. Clinical detection accomplished through India ink stain microscopy, latex agglutination antigen testing, or culture methods.",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "Cryptococcal meningitis presents with headache, fever, neck stiffness, and altered mental status. Particularly affects immunocompromised patients including those with HIV/AIDS.",
+    "onset": "Days to weeks (subacute)",
+    "treatmentWindow": "High mortality if untreated; approximately 30% mortality rate even with appropriate treatment",
+    "antidote": "Antifungal therapy: amphotericin B plus flucytosine for induction phase, followed by fluconazole for consolidation and maintenance therapy; immune reconstitution critical in HIV patients"
+  }
+}

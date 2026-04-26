@@ -1,0 +1,12 @@
+{
+  "edibility": "DEADLY — responsible for ~90% of fatal mushroom poisonings worldwide; cooking does NOT destroy amatoxins; never eaten. The lethal dose is extremely small, with just half a cap capable of killing an adult.",
+  "taste": "Reportedly pleasant taste — described as 'good' by survivors, which contributes to fatal misidentifications. This deceptive palatability makes it particularly dangerous as victims may consume a lethal dose before any warning signs appear.",
+  "search": "Late summer/fall, especially under oaks (especially in California, US East coast, Pacific Northwest). Characterized by greenish-olive cap, white gills, white sac (volva) at base, and white ring. Dangerous look-alikes include edible paddy straw mushrooms (Volvariella) and grisettes, so extreme caution is needed for identification.",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "Phase 1 (6-24h): violent gastrointestinal distress including severe abdominal pain, vomiting, and diarrhea; Phase 2 (24-72h): false recovery with apparent improvement masking ongoing organ damage; Phase 3 (3-6d): hepatic and renal failure, coagulopathy, encephalopathy, and shock",
+    "onset": "6-24 hours after ingestion",
+    "treatmentWindow": "First 24-48 hours critical for activated charcoal, IV silibinin, and N-acetylcysteine; after significant liver damage, transplant may be the only option",
+    "antidote": "Silibinin (IV milk thistle extract) + N-acetylcysteine + activated charcoal + supportive care; possible liver transplant for acute liver failure"
+  }
+}

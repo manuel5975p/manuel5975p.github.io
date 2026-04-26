@@ -1,0 +1,12 @@
+{
+  "edibility": "Coprinus comatus is a choice edible prized for its delicate, nutty flavor. Must be used fresh and young, within 30 minutes of collection before it auto-digests into an inky mush. Popular in Asian cuisine and European cooking, enjoyed by foragers worldwide. Important: only use young specimens before gills blacken, and avoid specimens from contaminated soil due to heavy metal accumulation.",
+  "taste": "Sweet, nutty, mild earthy flavor with a delicate, buttery crunchy texture. The white flesh has a distinctive nutty aroma and pleasant mild taste.",
+  "search": "Found spring through fall in disturbed soil, lawns, parks, roadsides, pastures, and wood chip piles, especially after heavy rainfall. Appears singly or in large fruiting clusters. Distinctive identification: tall white cylindrical cap with shaggy fibrous scales, pale grey gills that rapidly darken to inky black. Key look-alike Coprinellus disseminatus is tiny; avoid darker Coprinellus or Coprinopsis species which may contain coprine.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

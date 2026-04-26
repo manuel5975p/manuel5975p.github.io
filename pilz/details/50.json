@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — hard, woody texture with no culinary value. While very young specimens may technically be edible, the fungus is consistently classified as inedible due to unpalatability and uncertain safety profile.",
+  "taste": "Not consumed. The fruiting bodies are too hard and woody to eat; any consumption would be accidental or experimental.",
+  "search": "Xylaria polymorpha grows from rotting or injured hardwood stumps and decaying logs, commonly found in woodlands and shaded, moist areas worldwide. It appears year-round but is most visible in summer-fall when fruiting bodies mature. Identify by distinctive finger-like black fruiting bodies (3-15 cm tall) arising in tufts, initially pale with whitish tips but turning dark brown to black when mature. Look-alikes are few due to the distinctive finger-like form and habitat on dead wood.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Members of Xylaria genus contain amatoxins and phallotoxins (same as deadly Amanita species), though exact concentrations in polymorpha are poorly studied. Potential mild gastrointestinal distress if consumed in small amounts; long-term or cumulative toxicity effects unknown.",
+    "onset": "Unknown; limited human consumption data",
+    "treatmentWindow": "Standard GI support; no specific antidote if amatoxins present",
+    "antidote": "Supportive care only (hydration, activated charcoal if ingested). If amatoxin exposure suspected, seek immediate medical attention for liver/kidney support. Note: amatoxin toxicity requires medical intervention within hours."
+  }
+}

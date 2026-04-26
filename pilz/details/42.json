@@ -1,0 +1,12 @@
+{
+  "edibility": "The Copper Spike is edible and considered a good mushroom for foragers. It has a firm, chewy texture and mild flavor that pairs well with butter, stews, and pickling. The slimy cap skin should be peeled before cooking, especially in wet conditions, and young specimens are particularly good for marinating.",
+  "taste": "Pleasant, mild flavor with a firm, chewy texture. The flesh remarkably transforms into a vivid purple or violet color when heated, creating a visually striking dish.",
+  "search": "Found in pine forests (occasionally spruce) from late August through November in coniferous or mixed woodlands. Look for the distinctive coppery-brown, slimy cap with deeply decurrent gills that turn grey-white to purple. Similar species include Gomphidius glutinosus (found under spruce with a grey-violet cap) and Chroogomphus fulmineus (southern European species with brighter orange tones).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

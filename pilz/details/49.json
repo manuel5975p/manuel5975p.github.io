@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — too small and fragile to harvest practically; not toxic but offers no culinary value and lacks the substance necessary for consumption. Chemical composition has not been fully cleared for human consumption.",
+  "taste": "Not consumed.",
+  "search": "Found in subtropical forests of Asia (India, Japan, Taiwan, Indonesia, Sri Lanka), Australia, and Brazil on decaying wood debris such as fallen twigs, branches, and logs. Identified by distinctive pale bioluminescent green glow in darkness on small pale brownish-grey sticky caps up to 30mm. Avoid confusion with Mycena haematopus (dark reddish latex when broken) and Mycena pura (lilac tone, radish odor).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

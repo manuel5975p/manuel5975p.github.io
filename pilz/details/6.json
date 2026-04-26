@@ -1,0 +1,12 @@
+{
+  "edibility": "The Amethyst Deceiver is edible and safe to eat, though the fibrous stems are too tough and should be discarded—only the caps are worth collecting. It has deep woodsy mushroom flavor but is somewhat flimsy in texture, so many prefer using it as a colorful garnish rather than a main dish. A significant caveat: this species can bioaccumulate arsenic from soil to elevated levels (up to 100 mg/kg or more), so occasional consumption is generally safe for adults, but frequent large-scale harvesting and eating is discouraged, especially from potentially polluted sites.",
+  "taste": "The Amethyst Deceiver offers a pleasant, deep woodsy mushroom flavor with a slightly sweet undertone, though the flesh is thin and somewhat flimsy. The caps are edible with pale lilac coloration, but the tough, fibrous stems are inedible and should be removed before cooking.",
+  "search": "These mycorrhizal fungi are very common and abundant in deciduous woodlands from July through November, particularly under beech trees with which they are ectomycorrhizal. Look for caps 2-7 cm wide that start deep purple when wet and fade to pale buff when dry, with broad, deeply-spaced gills and a narrow, hollow, tough stem; avoid confusing with Laccaria laccata (common Deceiver, paler when aged) or Mycena pura (lilac bonnet with pale gills and non-fibrous stem).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

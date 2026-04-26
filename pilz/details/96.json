@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — extremely bitter and peppery; not toxic but unpalatable; harvested only for natural dye (yellows/greens)",
+  "taste": "Sharply bitter, peppery, acrid — too unpleasant to swallow",
+  "search": "Where/when to find — late summer/autumn, mossy conifer forests with pine/spruce, bright red 'sap' droplets on young white caps; look-alikes (other Hydnellum spp.)",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic, just inedibly bitter; accumulates cesium-137 in fallout zones",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic"
+  }
+}

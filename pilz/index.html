@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="theme-color" content="#0a0612">
+<title>The Mushroom Compendium · 100 Fungi</title>
+<style>
+:root{
+  --bg:#07060d; --bg2:#100a1f; --ink:#f4ecff; --dim:#8a7fa3;
+  --acc:#a78bfa; --acc2:#34d399; --warn:#fb923c; --bad:#f87171; --gold:#fbbf24;
+  --glass: rgba(255,255,255,.04); --glass2: rgba(255,255,255,.07);
+  --line: rgba(255,255,255,.09);
+  --shadow: 0 30px 80px -20px rgba(120,80,255,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html,body{height:100%;background:var(--bg);color:var(--ink);font-family:"Inter","SF Pro Display",system-ui,sans-serif;overflow:hidden;-webkit-font-smoothing:antialiased}
+body{position:relative}
+
+/* --------- background atmosphere --------- */
+.bg{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(ellipse at 20% 10%, #2a1450 0%, transparent 55%),
+  radial-gradient(ellipse at 85% 90%, #0d3f50 0%, transparent 55%),
+  radial-gradient(ellipse at 50% 50%, #160928 0%, var(--bg) 70%);
+}
+.aurora{position:fixed;inset:-20%;z-index:-1;pointer-events:none;
+  background:
+    conic-gradient(from 0deg at 30% 20%, rgba(167,139,250,.25), transparent 20%),
+    conic-gradient(from 180deg at 70% 80%, rgba(52,211,153,.18), transparent 25%);
+  filter:blur(60px) saturate(1.3);
+  animation:swirl 32s linear infinite;
+}
+@keyframes swirl{ to{ transform:rotate(360deg) } }
+.stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+.stars b{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle 4s infinite ease-in-out}
+@keyframes twinkle{ 0%,100%{ opacity:.2; transform:scale(.6) } 50%{ opacity:1; transform:scale(1.2) } }
+
+/* --------- top bar --------- */
+.top{position:fixed;top:0;left:0;right:0;z-index:10;display:flex;align-items:center;justify-content:space-between;
+  padding:18px 28px;backdrop-filter:blur(20px);background:linear-gradient(180deg,rgba(10,6,20,.7),transparent);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:14px;font-size:14px;letter-spacing:.18em;text-transform:uppercase}
+.brand .mark{display:inline-block;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#a78bfa,#34d399);position:relative;box-shadow:0 0 24px rgba(167,139,250,.5)}
+.brand .mark::before{content:"";position:absolute;inset:6px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#0a0612 80%)}
+.brand .name{font-weight:600}
+.brand .name b{color:var(--acc);font-weight:700}
+.counter{font-variant-numeric:tabular-nums;font-size:14px;letter-spacing:.18em;color:var(--dim)}
+.counter #cur{color:var(--ink);font-weight:600;font-size:18px;margin-right:2px}
+
+/* --------- stage --------- */
+.stage{position:relative;width:100vw;height:100dvh;height:100vh;display:flex;align-items:center;justify-content:center;padding:90px 24px 130px}
+.slide{position:absolute;inset:90px 24px 130px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:28px;
+  opacity:0;pointer-events:none;transition:opacity .55s cubic-bezier(.5,0,.2,1);
+}
+.slide.active{opacity:1;pointer-events:auto}
+.slide.entering .img-pane{ animation:slideInL .65s cubic-bezier(.2,0,0,1) both }
+.slide.entering .info-pane{ animation:slideInR .65s cubic-bezier(.2,0,0,1) .05s both }
+.slide.entering .map-card{ animation:fadeUp .65s cubic-bezier(.2,0,0,1) .15s both }
+@keyframes slideInL{ from{ transform:translateX(-30px) scale(.97); opacity:0 } to{ transform:none; opacity:1 } }
+@keyframes slideInR{ from{ transform:translateX(30px); opacity:0 } to{ transform:none; opacity:1 } }
+@keyframes fadeUp{ from{ transform:translateY(16px); opacity:0 } to{ transform:none; opacity:1 } }
+
+/* --------- image pane --------- */
+.img-pane{position:relative;border-radius:24px;overflow:hidden;background:#000;box-shadow:var(--shadow);
+  border:1px solid var(--line);
+}
+.img-pane .frame{position:absolute;inset:0}
+.img-pane img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 1.2s ease}
+.img-pane img.show{opacity:1}
+.img-pane::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(7,6,13,.75) 100%);pointer-events:none}
+.img-pane .none{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--dim);
+  font-size:14px;letter-spacing:.2em;text-transform:uppercase;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.02) 0 12px,transparent 12px 24px);
+}
+.img-pane .none span{padding:14px 22px;border:1px dashed rgba(255,255,255,.15);border-radius:6px}
+.img-pane .badge{position:absolute;top:18px;left:18px;font:600 11px/1 "JetBrains Mono",ui-monospace,monospace;
+  letter-spacing:.18em;text-transform:uppercase;padding:8px 12px;border-radius:6px;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12)}
+.img-pane .index-num{position:absolute;bottom:18px;left:24px;font:800 60px/1 "JetBrains Mono",monospace;
+  color:rgba(255,255,255,.92);text-shadow:0 4px 24px rgba(0,0,0,.6);font-feature-settings:"tnum"}
+.img-pane .index-num small{font-size:18px;color:var(--dim);font-weight:500;margin-left:4px}
+.img-pane .dotline{position:absolute;bottom:24px;right:24px;display:flex;gap:6px}
+.img-pane .dotline i{width:24px;height:3px;border-radius:2px;background:rgba(255,255,255,.25);transition:all .4s}
+.img-pane .dotline i.on{background:var(--acc);width:36px;box-shadow:0 0 12px var(--acc)}
+
+/* --------- info pane --------- */
+.info-pane{display:flex;flex-direction:column;gap:18px;min-width:0}
+.tagcat{display:inline-flex;align-items:center;gap:10px;font:600 11px/1 "JetBrains Mono",monospace;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.tagcat .key{padding:6px 10px;border-radius:5px;background:var(--glass);border:1px solid var(--line);color:var(--ink)}
+.tagcat .swatch{width:14px;height:14px;border-radius:3px;border:1px solid rgba(255,255,255,.15)}
+.title-block .common{font:700 clamp(28px,4.5vw,52px)/1.05 "Inter",sans-serif;letter-spacing:-.02em;
+  background:linear-gradient(180deg,#fff,#c4b8ff);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:6px}
+.title-block .sci{font:italic 400 clamp(14px,1.6vw,20px)/1.2 "Inter",serif;color:var(--acc)}
+.tag{font-size:14px;color:var(--dim);padding-left:14px;border-left:2px solid var(--acc);font-style:italic}
+
+.edib{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;font:600 12px/1 "Inter",sans-serif;
+  letter-spacing:.12em;text-transform:uppercase;align-self:flex-start;border:1px solid currentColor;width:auto}
+.edib::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 8px currentColor}
+.edib.edible{color:#34d399}
+.edib.choice{color:#fbbf24}
+.edib.medicinal{color:#a78bfa}
+.edib.psychoactive{color:#f472b6}
+.edib.inedible{color:#94a3b8}
+.edib.toxic{color:#fb923c}
+.edib.deadly{color:#f87171}
+.edib.pathogenic{color:#fb7185}
+.edib.extinct{color:#64748b}
+.edib.symbiont{color:#22d3ee}
+
+.fact{font-size:15px;line-height:1.55;color:#e0d6ff;padding:18px 20px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(167,139,250,.08),rgba(52,211,153,.05));
+  border:1px solid var(--line);position:relative}
+.fact::before{content:"FACT";position:absolute;top:-8px;left:14px;font:700 9px/1 "JetBrains Mono",monospace;
+  letter-spacing:.25em;background:var(--bg);padding:2px 8px;color:var(--acc)}
+.habitat{font-size:13px;color:var(--dim);line-height:1.5}
+.habitat b{color:var(--acc2);font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:11px;margin-right:6px}
+
+/* --------- map --------- */
+.map-card{border-radius:18px;border:1px solid var(--line);background:var(--glass);padding:18px 18px 12px;position:relative;overflow:hidden;margin-top:auto}
+.map-card .h{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.map-card .h b{font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.25em;color:var(--acc2)}
+.map-card .h em{font-style:normal;font-size:11px;color:var(--dim);font-family:"JetBrains Mono",monospace;letter-spacing:.1em}
+.world{display:block;width:100%;height:auto;aspect-ratio:1000/500}
+.world .land{fill:#1c1530;stroke:rgba(255,255,255,.06);stroke-width:.6;transition:all .8s cubic-bezier(.2,0,0,1)}
+.world .land.hl{fill:url(#hlgrad);stroke:#a78bfa;stroke-width:1.2;filter:drop-shadow(0 0 12px rgba(167,139,250,.6));animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{ 0%,100%{ filter:drop-shadow(0 0 6px rgba(167,139,250,.4)) } 50%{ filter:drop-shadow(0 0 18px rgba(167,139,250,.85)) } }
+.world .grat{stroke:rgba(255,255,255,.04);stroke-width:.5;fill:none}
+.region-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.region-pills span{font:600 10px/1 "JetBrains Mono",monospace;letter-spacing:.18em;padding:5px 9px;border-radius:4px;
+  background:rgba(167,139,250,.12);color:var(--acc);border:1px solid rgba(167,139,250,.25)}
+
+/* --------- details block --------- */
+.info-pane{overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(167,139,250,.4) transparent}
+.info-pane::-webkit-scrollbar{width:6px}
+.info-pane::-webkit-scrollbar-thumb{background:rgba(167,139,250,.35);border-radius:3px}
+.details{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+.d-card{padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--glass);
+  font-size:12.5px;line-height:1.5;color:#e0d6ff;position:relative;min-width:0}
+.d-card.full{grid-column:1 / -1}
+.d-h{font:700 9.5px/1 "JetBrains Mono",monospace;letter-spacing:.25em;color:var(--acc2);
+  text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.d-body{color:#d8ccf5}
+.d-tox-grid{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:12px}
+.d-tox-grid b{font:700 9px/1.4 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--dim);
+  text-transform:uppercase;padding-top:2px;white-space:nowrap}
+.d-sev{font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.2em;padding:4px 8px;border-radius:4px;
+  border:1px solid currentColor;text-transform:uppercase}
+.d-sev.none{color:#34d399}
+.d-sev.mild{color:#facc15}
+.d-sev.severe{color:#fb923c}
+.d-sev.deadly{color:#f87171;animation:tox-pulse 2s ease-in-out infinite}
+@keyframes tox-pulse{0%,100%{box-shadow:0 0 0 0 rgba(248,113,113,.5)}50%{box-shadow:0 0 0 4px rgba(248,113,113,0)}}
+.d-card.tox.deadly{border-color:rgba(248,113,113,.35);background:linear-gradient(135deg,rgba(248,113,113,.07),rgba(0,0,0,0))}
+.d-card.tox.severe{border-color:rgba(251,146,60,.3);background:linear-gradient(135deg,rgba(251,146,60,.06),rgba(0,0,0,0))}
+.d-card.tox.mild{border-color:rgba(250,204,21,.25);background:linear-gradient(135deg,rgba(250,204,21,.05),rgba(0,0,0,0))}
+
+/* --------- controls --------- */
+.controls{position:fixed;bottom:0;left:0;right:0;z-index:10;padding:18px 28px 22px;display:flex;align-items:center;gap:16px;
+  background:linear-gradient(0deg,rgba(10,6,20,.85),transparent);backdrop-filter:blur(12px);
+  border-top:1px solid var(--line);
+}
+.btn{appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);
+  width:46px;height:46px;border-radius:12px;display:grid;place-items:center;cursor:pointer;
+  font-size:18px;transition:all .25s;flex-shrink:0}
+.btn:hover{background:var(--glass2);border-color:var(--acc);transform:translateY(-1px)}
+.btn:active{transform:scale(.95)}
+.dotrow{flex:1;min-width:0;display:flex;gap:3px;overflow:hidden}
+.dotrow b{flex:1;height:6px;background:rgba(255,255,255,.08);border-radius:1px;cursor:pointer;transition:background .2s}
+.dotrow b.on{background:var(--acc);box-shadow:0 0 8px var(--acc)}
+.dotrow b.done{background:rgba(167,139,250,.35)}
+.dotrow b:hover{background:rgba(255,255,255,.2)}
+.bar{position:fixed;left:0;bottom:0;height:2px;background:var(--acc);width:0%;z-index:20;
+  transition:width .15s linear;box-shadow:0 0 12px var(--acc)}
+
+.hint{position:fixed;bottom:78px;left:50%;transform:translateX(-50%);font:500 11px/1 "JetBrains Mono",monospace;
+  letter-spacing:.2em;color:var(--dim);opacity:.7;pointer-events:none;text-transform:uppercase}
+.hint kbd{padding:2px 6px;border-radius:3px;background:var(--glass);border:1px solid var(--line);color:var(--ink);margin:0 2px}
+
+/* --------- responsive --------- */
+@media (max-width: 900px){
+  .stage{padding:78px 14px 110px}
+  .slide{inset:78px 14px 110px;grid-template-columns:1fr;grid-template-rows:42% auto;gap:14px;overflow-y:auto}
+  .img-pane{min-height:0}
+  .info-pane{gap:12px;overflow-y:visible}
+  .img-pane .index-num{font-size:42px}
+  .top{padding:14px 18px}
+  .brand .name{font-size:11px}
+  .controls{padding:12px 14px 16px;gap:10px}
+  .btn{width:40px;height:40px}
+  .hint{display:none}
+  .map-card{margin-top:8px}
+  .details{grid-template-columns:1fr}
+}
+@media (max-width: 500px){
+  .brand .name span{display:none}
+  .brand .name b{font-size:13px}
+  .title-block .common{font-size:28px}
+  .fact{font-size:13.5px;padding:14px 16px}
+}
+
+/* category palette overrides */
+.cat-COLOR .tagcat .key{background:var(--catcolor,#333);border-color:transparent;color:#000;font-weight:800}
+.cat-TECH .tagcat .key{background:rgba(52,211,153,.15);color:#34d399;border-color:rgba(52,211,153,.4)}
+.cat-TAROT .tagcat .key{background:rgba(192,132,252,.15);color:#c084fc;border-color:rgba(192,132,252,.4)}
+.cat-PLANET .tagcat .key{background:rgba(251,146,60,.15);color:#fb923c;border-color:rgba(251,146,60,.4)}
+.cat-MOON .tagcat .key{background:rgba(203,213,225,.12);color:#cbd5e1;border-color:rgba(203,213,225,.3)}
+.cat-COSMIC .tagcat .key{background:rgba(129,140,248,.15);color:#818cf8;border-color:rgba(129,140,248,.4)}
+.cat-ELEMENT .tagcat .key{background:rgba(250,204,21,.15);color:#facc15;border-color:rgba(250,204,21,.4)}
+.cat-TEMPO .tagcat .key,.cat-INSTRUMENT .tagcat .key{background:rgba(212,165,116,.15);color:#d4a574;border-color:rgba(212,165,116,.4)}
+.cat-GENRE .tagcat .key{background:rgba(244,114,182,.15);color:#f472b6;border-color:rgba(244,114,182,.4)}
+.cat-ACOUSTICS .tagcat .key,.cat-FREQ .tagcat .key{background:rgba(56,189,248,.15);color:#38bdf8;border-color:rgba(56,189,248,.4)}
+.cat-VIBE .tagcat .key{background:rgba(244,114,182,.13);color:#f9a8d4;border-color:rgba(244,114,182,.35)}
+.cat-GEOMETRY .tagcat .key{background:rgba(226,232,240,.1);color:#e2e8f0;border-color:rgba(226,232,240,.3)}
+.cat-MATH .tagcat .key{background:rgba(45,212,191,.15);color:#2dd4bf;border-color:rgba(45,212,191,.4)}
+.cat-ERA .tagcat .key{background:rgba(217,119,6,.18);color:#f59e0b;border-color:rgba(217,119,6,.4)}
+.cat-TIME .tagcat .key{background:rgba(99,102,241,.15);color:#818cf8;border-color:rgba(99,102,241,.4)}
+.cat-SEASON .tagcat .key{background:rgba(34,197,94,.15);color:#86efac;border-color:rgba(34,197,94,.4)}
+.cat-CRYPTO .tagcat .key{background:rgba(245,158,11,.18);color:#fbbf24;border-color:rgba(245,158,11,.4)}
+.cat-STATUS .tagcat .key{background:rgba(239,68,68,.18);color:#f87171;border-color:rgba(239,68,68,.4)}
+.cat-MYTH .tagcat .key{background:rgba(234,179,8,.15);color:#facc15;border-color:rgba(234,179,8,.4)}
+
+/* --------- title menu --------- */
+.menu{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;
+  padding:60px 24px;background:rgba(7,6,13,.86);backdrop-filter:blur(16px);
+  transition:opacity .55s cubic-bezier(.5,0,.2,1), transform .55s cubic-bezier(.5,0,.2,1)}
+.menu.hidden{opacity:0;pointer-events:none;transform:scale(.97)}
+.menu-inner{width:100%;max-width:1100px;display:flex;flex-direction:column;align-items:center}
+.menu h1{font:700 clamp(38px,7vw,80px)/1 "Inter",sans-serif;letter-spacing:-.03em;
+  background:linear-gradient(135deg,#fff,#a78bfa 40%,#34d399 80%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:14px;text-align:center}
+.menu .lede{font:500 12px/1.4 "JetBrains Mono",monospace;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--dim);margin-bottom:48px;text-align:center}
+.menu .cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%}
+.menu-card{appearance:none;border:1px solid var(--line);background:var(--glass);color:var(--ink);
+  padding:30px 26px 22px;border-radius:20px;text-align:left;cursor:pointer;
+  transition:all .35s cubic-bezier(.2,0,0,1);
+  display:flex;flex-direction:column;gap:12px;font-family:inherit;position:relative;overflow:hidden;min-height:240px}
+.menu-card::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--mc-1),transparent 60%);opacity:0;transition:opacity .35s;pointer-events:none}
+.menu-card:hover{transform:translateY(-6px);border-color:var(--mc-1);box-shadow:0 20px 60px -10px var(--mc-shadow)}
+.menu-card:hover::before{opacity:.16}
+.menu-card .ico{font-size:42px;line-height:1}
+.menu-card .for{font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.3em;color:var(--mc-1);text-transform:uppercase}
+.menu-card .ttl{font:700 32px/1.04 "Inter",sans-serif;letter-spacing:-.02em}
+.menu-card .desc{font-size:13.5px;line-height:1.55;color:var(--dim);flex:1}
+.menu-card .cta{margin-top:auto;font:700 10px/1 "JetBrains Mono",monospace;letter-spacing:.28em;
+  color:var(--mc-1);text-transform:uppercase;padding-top:10px;border-top:1px dashed rgba(255,255,255,.08)}
+.menu-card.chefs{--mc-1:#fbbf24;--mc-shadow:rgba(251,191,36,.22)}
+.menu-card.controleurs{--mc-1:#f87171;--mc-shadow:rgba(248,113,113,.22)}
+.menu-card.nerds{--mc-1:#34d399;--mc-shadow:rgba(52,211,153,.22)}
+.menu .skip{margin-top:32px;background:none;border:1px solid transparent;color:var(--dim);
+  font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.3em;text-transform:uppercase;
+  cursor:pointer;padding:10px 18px;border-radius:6px;transition:all .25s}
+.menu .skip:hover{color:var(--ink);border-color:var(--line);background:var(--glass)}
+@media (max-width:900px){
+  .menu .cards{grid-template-columns:1fr;gap:12px;max-width:480px}
+  .menu-card{min-height:0;padding:18px 18px;flex-direction:row;align-items:center;gap:14px}
+  .menu-card .ico{font-size:34px}
+  .menu-card .for{display:none}
+  .menu-card .cta{display:none}
+  .menu-card .ttl{font-size:22px}
+  .menu-card .desc{font-size:12.5px}
+  .menu h1{font-size:36px;margin-bottom:8px}
+  .menu .lede{margin-bottom:28px}
+}
+
+/* --------- mode tag in top bar --------- */
+.mode-tag{display:none;align-items:center;gap:6px;font:700 10px/1 "JetBrains Mono",monospace;
+  letter-spacing:.28em;text-transform:uppercase;padding:6px 10px;border-radius:5px;
+  border:1px solid currentColor;margin-left:14px}
+.mode-tag::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;box-shadow:0 0 6px currentColor}
+body.mode-chefs .mode-tag{display:inline-flex;color:#fbbf24}
+body.mode-controleurs .mode-tag{display:inline-flex;color:#f87171}
+body.mode-nerds .mode-tag{display:inline-flex;color:#34d399}
+.brand{cursor:pointer}
+.brand:hover .mark{box-shadow:0 0 32px rgba(167,139,250,.7)}
+
+/* --------- mode enrichment block --------- */
+.enrich{display:none;padding:14px 18px 16px;border-radius:14px;border:1px solid currentColor;
+  background:linear-gradient(135deg,rgba(255,255,255,.04),transparent);position:relative;margin-top:6px}
+.enrich::before{content:attr(data-label);position:absolute;top:-8px;left:14px;
+  font:700 9px/1 "JetBrains Mono",monospace;letter-spacing:.28em;background:var(--bg);padding:2px 8px}
+body.mode-chefs .enrich.chef{display:block;color:#fbbf24}
+body.mode-controleurs .enrich.controleur{display:block;color:#f87171}
+body.mode-nerds .enrich.nerd{display:block;color:#34d399}
+.enrich .score{font:800 26px/1 "JetBrains Mono",monospace;color:currentColor;
+  margin-bottom:6px;display:flex;align-items:baseline;gap:8px;font-feature-settings:"tnum"}
+.enrich .score small{font-size:10px;color:var(--dim);letter-spacing:.25em;font-weight:600}
+.enrich .body{color:#e0d6ff;font-size:13.5px;line-height:1.55;margin-top:2px}
+
+body.mode-chefs .img-pane{box-shadow:0 30px 80px -20px rgba(251,191,36,.4)}
+body.mode-controleurs .img-pane{box-shadow:0 30px 80px -20px rgba(248,113,113,.4)}
+body.mode-nerds .img-pane{box-shadow:0 30px 80px -20px rgba(52,211,153,.4)}
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="aurora"></div>
+<div class="stars" id="stars"></div>
+
+<header class="top">
+  <div class="brand" id="brand" title="Back to menu">
+    <div class="mark"></div>
+    <div class="name"><b>Mycelia</b><span> · The Mushroom Compendium</span></div>
+    <span class="mode-tag" id="modeTag"></span>
+  </div>
+  <div class="counter"><span id="cur">001</span> / 100</div>
+</header>
+
+<div class="menu" id="menu">
+  <div class="menu-inner">
+    <h1>The Mushroom Compendium</h1>
+    <p class="lede">100 Fungi · Choose Your Path</p>
+    <div class="cards">
+      <button class="menu-card chefs" data-mode="chefs">
+        <div class="ico">🍳</div>
+        <div class="for">For the</div>
+        <div class="ttl">Chefs</div>
+        <div class="desc">Sorted by tastiest first. Culinary tips, where to forage, how to cook.</div>
+        <div class="cta">Enter the Kitchen →</div>
+      </button>
+      <button class="menu-card controleurs" data-mode="controleurs">
+        <div class="ico">⚠️</div>
+        <div class="for">For the</div>
+        <div class="ttl">Contrôleurs</div>
+        <div class="desc">Sorted by toxicity &amp; danger. Symptoms, antidotes, treatment windows, remedies.</div>
+        <div class="cta">Enter the Triage →</div>
+      </button>
+      <button class="menu-card nerds" data-mode="nerds">
+        <div class="ico">🔬</div>
+        <div class="for">For the</div>
+        <div class="ttl">Nerds</div>
+        <div class="desc">Sorted by sheer fact density. The weirdest biology, the most surprising science.</div>
+        <div class="cta">Enter the Lab →</div>
+      </button>
+    </div>
+    <button class="skip" id="skipMenu">or browse all 100 in order →</button>
+  </div>
+</div>
+
+<main class="stage" id="stage"></main>
+
+<div class="controls">
+  <button class="btn" id="prev" aria-label="Previous">‹</button>
+  <button class="btn" id="play" aria-label="Play/Pause">▶</button>
+  <button class="btn" id="next" aria-label="Next">›</button>
+  <div class="dotrow" id="dots"></div>
+</div>
+<div class="bar" id="bar"></div>
+
+<!-- world map gradient defs (used in every slide via reference) -->
+<svg width="0" height="0" style="position:absolute"><defs>
+  <linearGradient id="hlgrad" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0%" stop-color="#a78bfa"/>
+    <stop offset="100%" stop-color="#34d399"/>
+  </linearGradient>
+</defs></svg>
+
+<script src="details.js"></script>
+<script src="continents.js"></script>
+<script src="extras.js"></script>
+<script>
+/* -------------- graticule (lat/lng grid) -------------- */
+const GRATICULE = (()=>{
+  let p="";
+  for(let y=50;y<=450;y+=50){ p+=`M0,${y} L1000,${y} `; }
+  for(let x=100;x<=900;x+=100){ p+=`M${x},40 L${x},480 `; }
+  return p;
+})();
+
+/* -------------- mushroom data (100 entries) -------------- */
+const M = [
+{n:1,name:"Bleeding Tooth Fungus",sci:"Hydnellum peckii",cat:"COLOR",ck:"0x8B0000",col:"#8B0000",tag:"Hex color matching its dark red sap",e:"inedible",fact:"Its blood-red sap contains atromentin — a natural anticoagulant being studied as a heparin alternative.",hab:"Coniferous forests; mycorrhizal with pine and spruce.",r:["NA","EU","AS"]},
+{n:2,name:"Destroying Angel",sci:"Amanita bisporigera",cat:"COLOR",ck:"0xFFFFFF",col:"#FFFFFF",tag:"Hex for its pure white, deadly appearance",e:"deadly",fact:"A single cap can kill an adult; amatoxins shut down RNA polymerase II and dissolve the liver.",hab:"Mixed and deciduous woodlands; mycorrhizal with oaks and birches.",r:["NA","EU"]},
+{n:3,name:"Black Truffle",sci:"Tuber melanosporum",cat:"COLOR",ck:"0x000000",col:"#0a0a0a",tag:"Hex for its dark, earthy exterior",e:"choice",fact:"A trained dog can scent a single ripe Périgord truffle through 30 cm of soil — and they sell for €2,000+ /kg.",hab:"Underground in calcareous soils with oak, hazel, and hornbeam.",r:["EU"]},
+{n:4,name:"Golden Chanterelle",sci:"Cantharellus cibarius",cat:"COLOR",ck:"0xFFD700",col:"#FFD700",tag:"Hex matching its prized yellow-gold hue",e:"choice",fact:"It smells faintly of apricots — and has false gills (forked ridges) instead of true sharp ones.",hab:"Mossy ground in conifer and hardwood forests across the North.",r:["NA","EU","AS"]},
+{n:5,name:"Indigo Milk Cap",sci:"Lactarius indigo",cat:"COLOR",ck:"0x0000FF",col:"#1d4ed8",tag:"Hex for its striking blue flesh and milk",e:"edible",fact:"When cut, it bleeds dark blue latex — the only natural occurrence of an azulene pigment in fungi.",hab:"Oak and pine forests; sold fresh in Mexican markets.",r:["NA","SA","AS"]},
+{n:6,name:"Amethyst Deceiver",sci:"Laccaria amethystina",cat:"COLOR",ck:"0x8A2BE2",col:"#8A2BE2",tag:"Hex for its deep purple coloring",e:"edible",fact:"It hyperaccumulates arsenic from soil — surprising amounts end up in the cap.",hab:"Beech and oak woodlands across the Northern Hemisphere.",r:["NA","EU","AS"]},
+{n:7,name:"Pink Oyster Mushroom",sci:"Pleurotus djamor",cat:"COLOR",ck:"0xFF69B4",col:"#FF69B4",tag:"Hex for its vibrant pink gills",e:"edible",fact:"Among the fastest-growing cultivated fungi — it can also break down petroleum and certain plastics.",hab:"Tropical and subtropical hardwoods.",r:["AS","OC","NA","SA"]},
+{n:8,name:"Parrot Waxcap",sci:"Gliophorus psittacinus",cat:"COLOR",ck:"0x00FF00",col:"#00FF00",tag:"Hex for its bright green, slimy cap",e:"inedible",fact:"It shifts through green, yellow, orange, and pink as it ages — and indicates ancient, unfertilized grassland.",hab:"Mossy meadows and old lawns.",r:["EU","NA","OC"]},
+{n:9,name:"Sky Blue Mushroom",sci:"Entoloma hochstetteri",cat:"COLOR",ck:"0xADD8E6",col:"#9bd2ec",tag:"Hex matching its rare azure tone",e:"inedible",fact:"It appears on the New Zealand $50 banknote — one of the few fungi on a national currency.",hab:"Damp native forests of New Zealand and India.",r:["OC","AS"]},
+{n:10,name:"Chicken of the Woods",sci:"Laetiporus sulphureus",cat:"COLOR",ck:"0xFFA500",col:"#FFA500",tag:"Hex for its bright orange shelves",e:"choice",fact:"Its meaty texture and mild flavor really do recall cooked chicken — beloved by foragers worldwide.",hab:"Brackets on oak and other hardwoods.",r:["NA","EU"]},
+
+{n:11,name:"Texas Star",sci:"Chorioactis geaster",cat:"TECH",ck:"Error 404",tag:"Highly elusive, found only in disjunct regions",e:"inedible",fact:"Splits open with an audible hiss, releasing a visible cloud of spores — known only from Texas and Japan.",hab:"Buried roots of cedar elm (TX) and oak (Japan).",r:["NA","AS"]},
+{n:12,name:"Death Cap",sci:"Amanita phalloides",cat:"TECH",ck:"Error 500",tag:"Causes catastrophic internal system failure",e:"deadly",fact:"Responsible for ~90% of all fatal mushroom poisonings worldwide. Cooking does not destroy the toxin.",hab:"Native to Europe; invasive in North America under oaks.",r:["EU","NA","OC","SA"]},
+{n:13,name:"Fairy Ring Champignon",sci:"Marasmius oreades",cat:"TECH",ck:"Loop: While(True)",tag:"Grows outward in a continuous, endless circle",e:"choice",fact:"Some fairy rings are centuries old — the mycelium expands radially, leaving lush rings of grass behind.",hab:"Lawns, pastures, and golf courses across the Northern Hemisphere.",r:["NA","EU","AS"]},
+{n:14,name:"Mycorrhizal Network",sci:"Glomus / Rhizophagus spp.",cat:"TECH",ck:"Root Access",tag:"Taps directly into the root systems of trees",e:"symbiont",fact:"Trees swap carbon, nitrogen, water, and chemical alarm signals through the underground 'wood-wide web'.",hab:"Soils worldwide; allies with ~90% of land plants.",r:["WW"]},
+{n:15,name:"Corn Smut (Huitlacoche)",sci:"Ustilago maydis",cat:"TECH",ck:"Data Corruption",tag:"Infects and overwrites the kernels of corn",e:"choice",fact:"Despised in the U.S. corn belt — but a delicacy in Mexico, with more lysine than the corn it replaces.",hab:"Wherever maize is cultivated.",r:["WW"]},
+{n:16,name:"Matsutake",sci:"Tricholoma matsutake",cat:"TECH",ck:"Encryption Key",tag:"Hidden underground, highly valuable, hard to decode",e:"choice",fact:"Top-grade Japanese matsutake fetches over US $1,000 per kilo — its scent is iconic of autumn.",hab:"Ectomycorrhizal with red pine, especially in Japan, Korea, and the PNW.",r:["AS","NA","EU"]},
+{n:17,name:"Wrinkled Peach",sci:"Rhodotus palmatus",cat:"TECH",ck:"Glitch",tag:"Looks visually distorted, like a rendering error",e:"inedible",fact:"Mature specimens 'cry' blood-red droplets — the species is now red-listed across Europe.",hab:"Rotting elm logs; rare and declining.",r:["EU","NA","AS"]},
+{n:18,name:"Birch Polypore",sci:"Fomitopsis betulina",cat:"TECH",ck:"Firewall",tag:"Forms a tough, impenetrable bracket on trees",e:"medicinal",fact:"Ötzi the 5,300-year-old Iceman carried pieces on a leather thong — likely as antiparasitic medicine.",hab:"Almost exclusively on dead and dying birch trees.",r:["NA","EU","AS"]},
+{n:19,name:"Honey Fungus",sci:"Armillaria mellea",cat:"TECH",ck:"Malware",tag:"Aggressively attacks and overtakes forest root systems",e:"toxic",fact:"Spreads via black 'shoestring' rhizomorphs and glows green in the dark — classic forest 'foxfire'.",hab:"Worldwide on living and dead wood.",r:["WW"]},
+{n:20,name:"Stinkhorn",sci:"Phallus impudicus",cat:"TECH",ck:"Ping: 999ms",tag:"You smell its rotting odor before you see it",e:"inedible",fact:"Charles Darwin's daughter Etty crusaded against them, burning specimens to protect Victorian morals.",hab:"Woodlands and gardens with rich humus.",r:["EU","NA"]},
+
+{n:21,name:"Shaggy Ink Cap",sci:"Coprinus comatus",cat:"TAROT",ck:"The Tower",tag:"Rapidly collapses and auto-digests into black ooze",e:"choice",fact:"Liquefies into actual ink within hours — historically used for writing; spores remain in old documents.",hab:"Disturbed soil, lawns, and roadsides.",r:["NA","EU","AS"]},
+{n:22,name:"Autumn Skullcap",sci:"Galerina marginata",cat:"TAROT",ck:"Death",tag:"A harbinger of demise if consumed",e:"deadly",fact:"Carries the same amatoxins as the Death Cap — and is regularly mistaken for psychoactive mushrooms.",hab:"Decaying logs across the Northern Hemisphere.",r:["WW"]},
+{n:23,name:"Psilocybe cubensis",sci:"Psilocybe cubensis",cat:"TAROT",ck:"The Magician",tag:"Alters perception and reality",e:"psychoactive",fact:"The most cultivated psilocybin mushroom — at the center of modern clinical trials for depression and PTSD.",hab:"Cattle dung and pastures in tropical climates.",r:["NA","SA","AS","OC"]},
+{n:24,name:"White Truffle",sci:"Tuber magnatum",cat:"TAROT",ck:"The Hermit",tag:"Solitary, hidden deep in the earth",e:"choice",fact:"Cannot be cultivated — every white truffle on the market is wild-foraged. One sold for over US $300,000.",hab:"Calcareous soils with oak, hazel, and poplar in northern Italy.",r:["EU"]},
+{n:25,name:"Golden Oyster",sci:"Pleurotus citrinopileatus",cat:"TAROT",ck:"The Sun",tag:"Bright, clustering, and life-giving",e:"edible",fact:"Escaped from cultivation kits — now an invasive species in North American forests, displacing natives.",hab:"Dead hardwoods, native to East Asia.",r:["AS","NA"]},
+{n:26,name:"Ghost Fungus",sci:"Omphalotus nidiformis",cat:"TAROT",ck:"The Moon",tag:"Glows in the dark under the night sky",e:"toxic",fact:"Its gills emit a soft green glow bright enough to read by — Aboriginal lore called it spirit-light.",hab:"Eucalyptus trees in southern Australia.",r:["OC"]},
+{n:27,name:"Veiled Lady",sci:"Phallus indusiatus",cat:"TAROT",ck:"The Empress",tag:"Wears a majestic, intricate lace skirt",e:"choice",fact:"Extends its lacy 'skirt' fully in 1–2 hours — popular in time-lapse footage and imperial Chinese cuisine.",hab:"Tropical forests and bamboo groves.",r:["AS","AF","SA","NA","OC"]},
+{n:28,name:"Devil's Urn",sci:"Urnula craterium",cat:"TAROT",ck:"The Devil",tag:"Dark, cup-shaped, and ominous",e:"inedible",fact:"Releases a visible puff of spores when struck by a raindrop — and reliably announces morel season.",hab:"Buried hardwood branches in spring.",r:["NA","AS"]},
+{n:29,name:"False Morel",sci:"Gyromitra esculenta",cat:"TAROT",ck:"The Fool",tag:"Easily mistaken for a safe choice, but risky",e:"toxic",fact:"Its toxin metabolizes into monomethylhydrazine — the same compound used in rocket fuel.",hab:"Sandy conifer forests in spring.",r:["NA","EU","AS"]},
+{n:30,name:"Earthstar",sci:"Geastrum triplex",cat:"TAROT",ck:"The Star",tag:"Splits open to reveal a star-shaped base",e:"inedible",fact:"Raindrops act as bellows on the spore sac — every drop puffs a visible cloud through the apical pore.",hab:"Leaf litter in deciduous woods worldwide.",r:["WW"]},
+
+{n:31,name:"Lobster Mushroom",sci:"Hypomyces lactifluorum",cat:"PLANET",ck:"Mars",tag:"Covered in a hard, rusty-red crust",e:"choice",fact:"Two organisms in one — a parasite has hijacked and reshaped a Russula into a single firm, seafood-like body.",hab:"Conifer forests across North America.",r:["NA"]},
+{n:32,name:"Rose Comb",sci:"Agaricus bisporus (mut.)",cat:"PLANET",ck:"Venus",tag:"Mutated, strange, and heavily atmospheric",e:"edible",fact:"A developmental glitch triggered by hydrocarbon fumes — entire commercial crops can mutate together.",hab:"Mushroom farms and rich compost.",r:["WW"]},
+{n:33,name:"Humongous Fungus",sci:"Armillaria ostoyae",cat:"PLANET",ck:"Jupiter",tag:"Massive in scale, the largest organism on Earth",e:"toxic",fact:"A single Oregon individual covers 9.6 km², weighs ~30,000 tons, and is 2,400+ years old.",hab:"Coniferous forests of the Northern Hemisphere.",r:["NA","EU","AS"]},
+{n:34,name:"Ringless Honey Mushroom",sci:"Desarmillaria caespitosa",cat:"PLANET",ck:"Saturn",tag:"Defined by its notable lack of an annulus",e:"toxic",fact:"Its rhizomorphs are bioluminescent — the gentle 'foxfire' that haunts old folk tales.",hab:"Hardwoods of eastern and southern North America.",r:["NA","EU","AS"]},
+
+{n:35,name:"Giant Puffball",sci:"Calvatia gigantea",cat:"MOON",ck:"Full",tag:"Large, spherical, and glowing white in the grass",e:"choice",fact:"A mature puffball releases ~7 trillion spores — enough that two ungoverned generations would mass more than Earth.",hab:"Pastures and woodland edges.",r:["NA","EU"]},
+{n:36,name:"Horn of Plenty",sci:"Craterellus cornucopioides",cat:"MOON",ck:"Crescent",tag:"Dark and curved like a sliver of the moon",e:"choice",fact:"Known in French as 'trumpet of death' — the morbid name refers to its color, not its taste, which is gourmet.",hab:"Beech and oak woodlands.",r:["NA","EU","AS"]},
+
+{n:37,name:"Turkey Tail",sci:"Trametes versicolor",cat:"COSMIC",ck:"Nebula",tag:"Banded with cosmic, swirling colors",e:"medicinal",fact:"Source of polysaccharide-K (Krestin) — an approved adjunct cancer therapy in Japan and China.",hab:"Dead hardwoods on every continent except Antarctica.",r:["WW"]},
+{n:38,name:"Black Trumpet",sci:"Craterellus cornucopioides",cat:"COSMIC",ck:"Black Hole",tag:"A dark, funnel-like void on the forest floor",e:"choice",fact:"So well camouflaged that foragers describe spotting one as 'finding a hole in the ground.'",hab:"Mossy hardwood forests worldwide.",r:["NA","EU","AS"]},
+{n:39,name:"Collared Earthstar",sci:"Geastrum triplex",cat:"COSMIC",ck:"Supernova",tag:"Looks like an explosive celestial event",e:"inedible",fact:"The largest *Geastrum* — its rays open hygroscopically, lifting the spore sac like a launching rocket.",hab:"Beech leaf litter, often in groups.",r:["WW"]},
+{n:40,name:"Chaga",sci:"Inonotus obliquus",cat:"COSMIC",ck:"Meteorite",tag:"Resembles a charred rock crashed onto a birch trunk",e:"medicinal",fact:"Concentrates betulin from its host birch — Siberians have brewed it as antitumor tea for centuries.",hab:"Living birch trees in boreal forests.",r:["NA","EU","AS"]},
+
+{n:41,name:"Golden Coral Fungus",sci:"Ramaria aurea",cat:"ELEMENT",ck:"Au",tag:"Strikingly similar to golden reef structures",e:"inedible",fact:"Coral fungi are notorious for being inseparable in the field — even mycologists need a microscope.",hab:"Beech and oak forests of Europe and North America.",r:["NA","EU"]},
+{n:42,name:"Copper Spike",sci:"Chroogomphus rutilus",cat:"ELEMENT",ck:"Cu",tag:"Features a distinct coppery-brown cap",e:"edible",fact:"A secret mycoparasite — it hijacks the mycelium of *Suillus* mushrooms to feed.",hab:"Pine forests of Europe, Asia, and North America.",r:["NA","EU","AS"]},
+{n:43,name:"Beefsteak Fungus",sci:"Fistulina hepatica",cat:"ELEMENT",ck:"Fe",tag:"Bleeds red juice and resembles raw meat",e:"edible",fact:"Stains oak heartwood a luxurious 'brown oak' — wood prized by furniture makers for centuries.",hab:"Living oaks and chestnuts.",r:["NA","EU","OC","AF"]},
+{n:44,name:"Radiotrophic Fungi",sci:"Cladosporium sphaerospermum",cat:"ELEMENT",ck:"U",tag:"Feeds on gamma radiation inside Chernobyl",e:"pathogenic",fact:"Performs 'radiosynthesis' via melanin and grows toward radiation — being tested as Mars-mission shielding.",hab:"Inside the Chernobyl sarcophagus, ISS panels, Antarctic rocks.",r:["WW"]},
+{n:45,name:"Sulfur Tuft",sci:"Hypholoma fasciculare",cat:"ELEMENT",ck:"S",tag:"Bright yellow-green and bitter to the taste",e:"toxic",fact:"Has caused fatalities in Japan; bitterness usually saves victims, but lookalikes have killed.",hab:"Clustered on hardwood stumps worldwide.",r:["WW"]},
+{n:46,name:"Silver Leaf Fungus",sci:"Chondrostereum purpureum",cat:"ELEMENT",ck:"Ag",tag:"Causes leaves of infected trees to turn silver",e:"pathogenic",fact:"Studied as a biological herbicide — sprayed onto stumps to prevent unwanted hardwood regrowth.",hab:"Plums, cherries, and other Prunus worldwide.",r:["WW"]},
+{n:47,name:"King Coal Fungus",sci:"Daldinia concentrica",cat:"ELEMENT",ck:"C",tag:"Looks exactly like a lump of burnt carbon",e:"inedible",fact:"Bushcrafters have prized it as natural tinder since prehistory — catches a spark, smolders for hours.",hab:"Dead ash and beech wood.",r:["NA","EU"]},
+{n:48,name:"Leaden Entoloma",sci:"Entoloma sinuatum",cat:"ELEMENT",ck:"Pb",tag:"Features a dull, heavy gray appearance",e:"toxic",fact:"Mimics the edible Miller, St. George's, and porcini — one of Europe's most common poisoning culprits.",hab:"Calcareous soils under oak, beech, and lime.",r:["EU","NA"]},
+{n:49,name:"Mycena chlorophos",sci:"Mycena chlorophos",cat:"ELEMENT",ck:"Ne",tag:"Emits a bright, neon-green bioluminescence",e:"inedible",fact:"One of the brightest glowing fungi — Japanese folklore calls the eerie green light *kitsunebi* (fox-fire).",hab:"Decaying wood in tropical forests.",r:["AS","OC","SA"]},
+{n:50,name:"Dead Man's Fingers",sci:"Xylaria polymorpha",cat:"ELEMENT",ck:"Ca",tag:"Looks like pale, calcified bones reaching from the dirt",e:"inedible",fact:"Releases sexual spores slowly over many months — an exceptionally long fruiting cycle for any fungus.",hab:"Rotting hardwood stumps, especially beech.",r:["NA","EU","AS"]},
+
+{n:51,name:"Artist's Conk",sci:"Ganoderma applanatum",cat:"TEMPO",ck:"Largo",tag:"Grows incredibly slowly, adding one layer per year",e:"medicinal",fact:"Its white pore surface darkens permanently when scratched — used as a natural canvas for centuries.",hab:"Living and dead hardwoods worldwide.",r:["WW"]},
+{n:52,name:"Ink Cap",sci:"Coprinopsis atramentaria",cat:"TEMPO",ck:"Presto",tag:"Grows and dissolves within a matter of hours",e:"toxic",fact:"Edible *unless* eaten with alcohol — coprine triggers a violent disulfiram reaction up to 72 hours later.",hab:"Lawns, parks, and woodland edges.",r:["NA","EU","AS"]},
+
+{n:53,name:"Fluted Bird's Nest",sci:"Cyathus striatus",cat:"INSTRUMENT",ck:"Flute",tag:"Ridged edges resembling a wind instrument",e:"inedible",fact:"Uses splash-cup dispersal — a single raindrop launches its tiny 'eggs' up to a meter onto vegetation.",hab:"Decaying wood and mulched garden beds.",r:["WW"]},
+{n:54,name:"Black Trumpet",sci:"Craterellus cornucopioides",cat:"INSTRUMENT",ck:"Trumpet",tag:"Shaped exactly like the bell of a horn",e:"choice",fact:"Camouflage so total that, once you spot one, dozens suddenly resolve at your feet.",hab:"Mossy hardwood forests.",r:["NA","EU","AS"]},
+{n:55,name:"Bell Morel",sci:"Verpa bohemica",cat:"INSTRUMENT",ck:"Bell",tag:"Conical cap resting like a bell on a stem",e:"toxic",fact:"Its cap hangs free from the stem — the single feature that distinguishes it from prized true morels.",hab:"Floodplain woodlands in early spring.",r:["NA","EU"]},
+
+{n:56,name:"Heavy Metal Fungi",sci:"Suillus / Agaricus spp.",cat:"GENRE",ck:"Heavy Metal",tag:"Hyperaccumulates toxic metals from soil",e:"edible",fact:"Some species concentrate cadmium, lead, and radiocesium up to 100× soil levels — useful for mycoremediation.",hab:"Roadside soils, smelter zones, and Chernobyl/Fukushima fallout regions.",r:["WW"]},
+{n:57,name:"Porcini",sci:"Boletus edulis",cat:"GENRE",ck:"Classical",tag:"A timeless, foundational culinary staple",e:"choice",fact:"Truly cosmopolitan — populations across Europe, Asia, and North America share genes despite oceans between them.",hab:"Mycorrhizal with conifers and hardwoods worldwide.",r:["NA","EU","AS"]},
+{n:58,name:"Punkwood Fungus",sci:"Fomitopsis pinicola",cat:"GENRE",ck:"Punk",tag:"Breaks down wood into a soft, rebellious rot",e:"medicinal",fact:"The 'punky' wood it leaves behind has carried fire between human camps for thousands of years.",hab:"Standing snags and fallen conifers.",r:["WW"]},
+
+{n:59,name:"Echo Fungus",sci:"Pleurotus ostreatus",cat:"ACOUSTICS",ck:"Reverb",tag:"Grows in hollow, resonant logs",e:"choice",fact:"Heart-rot fungi engineer the cavities that owls, woodpeckers, bats, and bears depend on for shelter.",hab:"Hollow trunks and standing snags.",r:["WW"]},
+
+{n:60,name:"Lion's Mane",sci:"Hericium erinaceus",cat:"FREQ",ck:"432Hz",tag:"Associated with brain health and neural harmony",e:"medicinal",fact:"Contains erinacines that stimulate Nerve Growth Factor — under active study for cognitive and nerve repair.",hab:"Wounds high on beech and oak trunks.",r:["NA","EU","AS"]},
+
+{n:61,name:"Fly Agaric",sci:"Amanita muscaria",cat:"VIBE",ck:"Cottagecore",tag:"The classic red-and-white fairytale toadstool",e:"toxic",fact:"Used in Siberian shamanic rituals — and the inspiration for Mario's Super Mushroom.",hab:"Mycorrhizal with birch and pine, now globally distributed.",r:["WW"]},
+{n:62,name:"Black Witch's Butter",sci:"Exidia glandulosa",cat:"VIBE",ck:"Goth",tag:"Dark, gelatinous, and mysterious",e:"inedible",fact:"In folklore, finding it on your gate meant a witch had cursed you — pierce it with pins to break the spell.",hab:"Dead oak branches after rain.",r:["NA","EU"]},
+{n:63,name:"Rusty Porecrust",sci:"Phellinus ferruginosus",cat:"VIBE",ck:"Steampunk",tag:"Looks like oxidized gears on dead wood",e:"inedible",fact:"A white-rot fungus — its enzymes target the lignin that makes wood woody.",hab:"Underside of fallen hardwood branches.",r:["NA","EU"]},
+{n:64,name:"Bioluminescent Panellus",sci:"Panellus stipticus",cat:"VIBE",ck:"Cyberpunk",tag:"Glowing tech-green on decaying urban timber",e:"toxic",fact:"North American populations glow vividly; European ones are dark — a famous case of regional biochemistry.",hab:"Dead hardwoods, especially oak, beech, and birch.",r:["NA","EU","AS","OC"]},
+{n:65,name:"White Button Mushroom",sci:"Agaricus bisporus",cat:"VIBE",ck:"Minimalist",tag:"Simple, clean, and unpretentious",e:"edible",fact:"Cremini and portobello are the same species — just older. Accounts for ~90% of US mushroom consumption.",hab:"Cultivated on pasteurized compost worldwide.",r:["WW"]},
+{n:66,name:"Cauliflower Mushroom",sci:"Sparassis crispa",cat:"VIBE",ck:"Maximalist",tag:"Complex, folding, and heavily textured",e:"choice",fact:"A single specimen can weigh several kilograms and fruit from the same root system year after year.",hab:"Roots and bases of conifers.",r:["NA","EU","AS"]},
+{n:67,name:"Snow Fungus",sci:"Tremella fuciformis",cat:"VIBE",ck:"Ethereal",tag:"Translucent, ruffled, and ghost-like",e:"edible",fact:"Holds 500× its weight in water — marketed as natural hyaluronic acid in skincare for over 2,000 years.",hab:"Tropical hardwoods; widely cultivated in China.",r:["AS","NA","SA","AF"]},
+{n:68,name:"Slippery Jack",sci:"Suillus luteus",cat:"VIBE",ck:"Grungy",tag:"Covered in a thick, sticky, brown slime",e:"edible",fact:"Has hitchhiked the world with pine plantations — now invasive in the Southern Hemisphere.",hab:"Wherever pines have been planted.",r:["WW"]},
+{n:69,name:"King Oyster",sci:"Pleurotus eryngii",cat:"VIBE",ck:"Royal",tag:"Tall, thick-stemmed, and highly regarded",e:"choice",fact:"Vegan kitchens slice its dense stem into perfect 'scallops' — a uniquely meaty fungal stem.",hab:"Mediterranean grasslands; weakly parasitic on umbellifers.",r:["EU","AF","AS"]},
+{n:70,name:"Poison Pie",sci:"Hebeloma crustuliniforme",cat:"VIBE",ck:"Cursed",tag:"Looks like a bakery treat but is toxic",e:"toxic",fact:"Its gills weep tiny droplets that dry into dark spots — and it smells unmistakably of raw radish.",hab:"Mycorrhizal with birch, oak, beech, and spruce.",r:["NA","EU"]},
+
+{n:71,name:"Split Gill",sci:"Schizophyllum commune",cat:"GEOMETRY",ck:"Fractal",tag:"Gills split and curl in complex mathematical patterns",e:"inedible",fact:"Has more than 23,000 distinct mating types — by far the highest known number of biological sexes.",hab:"Rotting wood on every continent except Antarctica.",r:["WW"]},
+{n:72,name:"Puffball",sci:"Lycoperdon perlatum",cat:"GEOMETRY",ck:"Sphere",tag:"Perfectly round until disturbed",e:"edible",fact:"A single mature puffball releases up to 7 trillion spores — visible puffs each time a raindrop lands.",hab:"Woodlands and meadows worldwide.",r:["NA","EU","AS"]},
+{n:73,name:"Scarlet Caterpillarclub",sci:"Cordyceps militaris",cat:"GEOMETRY",ck:"Cylinder",tag:"Grows in a straight, cylindrical spike",e:"medicinal",fact:"Sprouts from a buried, mummified moth pupa — a sustainable substitute for the rare Tibetan caterpillar fungus.",hab:"Grasslands and woodland leaf litter.",r:["NA","EU","AS"]},
+{n:74,name:"Hexagonal-pored Polypore",sci:"Neofavolus alveolaris",cat:"GEOMETRY",ck:"Hexagon",tag:"Underbelly features perfect geometric honeycombs",e:"inedible",fact:"Its diamond-shaped pores are so geometric they look almost machine-made.",hab:"Dead hardwood twigs in spring.",r:["NA","EU","AS"]},
+{n:75,name:"Conical Waxcap",sci:"Hygrocybe conica",cat:"GEOMETRY",ck:"Cone",tag:"Pointed like a geometric cone",e:"toxic",fact:"Bruises and ages dramatically jet-black — also known as the witch's hat waxcap.",hab:"Ancient unimproved grasslands worldwide.",r:["WW"]},
+
+{n:76,name:"Turkey Tail",sci:"Trametes versicolor",cat:"MATH",ck:"Fibonacci",tag:"Grows in concentric, expanding arcs",e:"medicinal",fact:"Each ring lays down at a regular interval — a natural growth-rate logbook visible at a glance.",hab:"Dead hardwood logs and stumps.",r:["WW"]},
+{n:77,name:"Mycelial Mat",sci:"Armillaria ostoyae",cat:"MATH",ck:"Infinity",tag:"Spreads boundlessly beneath the soil",e:"symbiont",fact:"Mycelium is the dominant biomass in many forest soils — invisible to us, planet-spanning.",hab:"Soils, leaf litter, and decaying wood worldwide.",r:["WW"]},
+{n:78,name:"Roundhead Mushroom",sci:"Stropharia coronilla",cat:"MATH",ck:"Pi",tag:"Features a perfectly circular cap",e:"toxic",fact:"Often misidentified as its psychoactive cousins — but contains no psilocybin, only nausea.",hab:"Lawns and pastures.",r:["NA","EU","AS","OC"]},
+{n:79,name:"Parasol Mushroom",sci:"Macrolepiota procera",cat:"MATH",ck:"Golden Ratio",tag:"Stem-to-cap proportions match the golden mean",e:"choice",fact:"Its movable ring slides up and down the stem — a uniquely diagnostic field feature.",hab:"Pastures and woodland clearings.",r:["NA","EU","AS","SA"]},
+{n:80,name:"Earth Tongue",sci:"Geoglossum glabrum",cat:"MATH",ck:"Zero",tag:"Looks like a black void emerging from the ground",e:"inedible",fact:"An ascomycete that signals ancient, low-nutrient grassland — a bioindicator of conservation value.",hab:"Mossy unfertilized turf.",r:["NA","EU","AS"]},
+
+{n:81,name:"Prototaxites",sci:"Prototaxites",cat:"ERA",ck:"Jurassic",tag:"Ancient 20-foot tall fungi that dominated prehistory",e:"extinct",fact:"Up to 8 m tall — the tallest known land organisms of the Devonian, when plants were still tiny.",hab:"Extinct (430–360 Mya, worldwide).",r:["WW"]},
+{n:82,name:"Ice Fungus",sci:"Exidiopsis effusa",cat:"ERA",ck:"Ice Age",tag:"Produces hair-like ice crystals on dead wood",e:"inedible",fact:"Releases lignin compounds that prevent fine ice hairs from melting into bulk ice — physics in action.",hab:"Damp hardwood branches at 45–55°N, just below freezing.",r:["NA","EU"]},
+{n:83,name:"Renaissance Truffle",sci:"Tuber magnatum",cat:"ERA",ck:"Renaissance",tag:"Highly sought after by European nobility",e:"choice",fact:"Auctions in Alba routinely fetch €3,000–6,000/kg; a single specimen has gone for hundreds of thousands.",hab:"Calcareous soils with oak, hazel, and poplar.",r:["EU"]},
+{n:84,name:"Veiled Lady",sci:"Phallus indusiatus",cat:"ERA",ck:"Victorian",tag:"Adorned in a modest but intricate lace veil",e:"choice",fact:"One of the fastest-growing fungi — its lace skirt unfurls fully within an hour of emerging from its egg.",hab:"Tropical and subtropical bamboo groves.",r:["AS","AF","SA","NA","OC"]},
+
+{n:85,name:"Midnight Blue Entoloma",sci:"Entoloma hochstetteri",cat:"TIME",ck:"Midnight",tag:"Dark as the night sky",e:"inedible",fact:"Its three azulene pigments make it one of the most vividly blue mushrooms in nature.",hab:"Damp native forests of New Zealand.",r:["OC","AS"]},
+{n:86,name:"Rosy Veined Entoloma",sci:"Entoloma rhodopolium",cat:"TIME",ck:"Dawn",tag:"Pinkish hues resembling a sunrise",e:"toxic",fact:"Its pink-maturing gills give it the look — but the toxin gives a memorable two-day lesson.",hab:"Beech and oak humus.",r:["NA","EU","AS"]},
+{n:87,name:"Dusky Puffball",sci:"Lycoperdon nigrescens",cat:"TIME",ck:"Dusk",tag:"Muted, twilight colors",e:"inedible",fact:"Its dark spines fall away as it ages, leaving a netted, twilight pattern beneath.",hab:"Acidic woodlands and heaths.",r:["NA","EU"]},
+
+{n:88,name:"Yellow Morel",sci:"Morchella esculenta",cat:"SEASON",ck:"Spring",tag:"The universal sign of spring foraging",e:"choice",fact:"Notoriously difficult to cultivate — and *must* be cooked, since raw morels contain hydrazine toxins.",hab:"Floodplains, orchards, and burn scars in spring.",r:["NA","EU","AS"]},
+{n:89,name:"Pumpkin Mushroom",sci:"Omphalotus illudens",cat:"SEASON",ck:"Autumn",tag:"Orange and prevalent during the fall harvest",e:"toxic",fact:"Its gills bioluminesce — the original Jack-O-Lantern. The same illudin compounds are now in cancer trials.",hab:"Bases of hardwood stumps.",r:["NA","EU"]},
+{n:90,name:"Velvet Foot",sci:"Flammulina velutipes",cat:"SEASON",ck:"Winter",tag:"Thrives and fruits even in freezing snow",e:"choice",fact:"Cultivated as 'enoki' in CO₂-rich darkness — and one of the first fungi grown aboard a space station.",hab:"Dead elm, willow, poplar, and ash.",r:["NA","EU","AS"]},
+
+{n:91,name:"Gold Tops",sci:"Psilocybe cubensis",cat:"CRYPTO",ck:"BTC",tag:"A highly valued, underground commodity",e:"psychoactive",fact:"The 'Golden Teacher' strain emerged in the 1980s — now the most cultivated psilocybin mushroom worldwide.",hab:"Cattle pastures in tropical climates.",r:["NA","SA","AS","OC"]},
+{n:92,name:"Smart Contract Fungus",sci:"Rhizophagus irregularis",cat:"CRYPTO",ck:"ETH",tag:"Forms multi-party symbiotic agreements with roots",e:"symbiont",fact:"Plants reward generous fungal partners with extra carbon — a fully observed underground reciprocal market.",hab:"Soils worldwide; 80% of all land plants depend on it.",r:["WW"]},
+
+{n:93,name:"Cryptococcus neoformans",sci:"Cryptococcus neoformans",cat:"STATUS",ck:"Classified",tag:"Space-tested fungi with radiation-eating abilities",e:"pathogenic",fact:"Cryptococcal meningitis kills 100,000+ people each year — yet birds carry it harmlessly.",hab:"Pigeon guano and decaying wood, worldwide.",r:["WW"]},
+{n:94,name:"Lost Agaric",sci:"Pleurotus nebrodensis",cat:"STATUS",ck:"Extinct",tag:"Known only from historical records and illustrations",e:"choice",fact:"Once feared extinct, rediscovered in 1990s Sicily — one of the only fungi formally protected by IUCN.",hab:"Madonie mountains, Sicily.",r:["EU"]},
+{n:95,name:"Death Cap (North America)",sci:"Amanita phalloides",cat:"STATUS",ck:"Invasive",tag:"Spread globally via imported oak trees",e:"deadly",fact:"In California it reproduces unisexually — a single haploid genotype clones itself across the continent.",hab:"Native and ornamental oaks, especially the US West Coast.",r:["NA"]},
+
+{n:96,name:"Dragon's Blood Mushroom",sci:"Hydnellum peckii",cat:"MYTH",ck:"Dragon",tag:"Exudes a dark red resin when cut",e:"inedible",fact:"Also accumulates cesium-137 — a useful biomarker of nuclear fallout in forest soils.",hab:"Conifer forests of the Northern Hemisphere.",r:["NA","EU","AS"]},
+{n:97,name:"Fairy Ring Mushroom",sci:"Marasmius oreades",cat:"MYTH",ck:"Fairy",tag:"Believed to be the dancing grounds of sprites",e:"choice",fact:"European folklore variously blamed rings on dancing fairies, witches' covens, or dragon footprints.",hab:"Lawns, meadows, and pastures.",r:["NA","EU","AS"]},
+{n:98,name:"Goblin's Gold",sci:"Schistostega pennata",cat:"MYTH",ck:"Goblin",tag:"Luminescent moss/fungus hybrid found in dark caves",e:"inedible",fact:"It doesn't actually glow — its lens-shaped cells reflect dim light. Folklore promised treasure; only dirt was found.",hab:"Caves, badger setts, and old mine shafts.",r:["NA","EU","AS"]},
+{n:99,name:"Witch's Hat",sci:"Hygrocybe conica",cat:"MYTH",ck:"Witch",tag:"Pointed cap that turns black when bruised",e:"toxic",fact:"Likely a hidden biotrophic partner of mosses or grass roots — a major unsolved mystery in fungal ecology.",hab:"Old grasslands and churchyards.",r:["WW"]},
+{n:100,name:"Ophiocordyceps unilateralis",sci:"Ophiocordyceps unilateralis",cat:"MYTH",ck:"Zombie",tag:"Takes mind control of ants to spread spores",e:"pathogenic",fact:"It steers ants to a precise leaf-vein height before killing them — yet doesn't actually invade the brain.",hab:"Tropical rainforests worldwide.",r:["SA","AF","AS"]}
+];
+
+/* -------------- world map renderer -------------- */
+function buildMap(highlight){
+  const set = new Set(highlight.includes("WW") ? ["NA","SA","EU","AF","AS","OC"] : highlight);
+  let paths = "";
+  for(const k of ["AN","NA","SA","EU","AF","AS","OC"]){
+    const cls = set.has(k) ? "land hl" : "land";
+    paths += `<path class="${cls}" d="${CONTINENTS[k]}"/>`;
+  }
+  return `<svg class="world" viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
+    <path class="grat" d="${GRATICULE}"/>
+    ${paths}
+  </svg>`;
+}
+
+/* -------------- slide rendering -------------- */
+const stage = document.getElementById('stage');
+const cur = document.getElementById('cur');
+const dotrow = document.getElementById('dots');
+const bar = document.getElementById('bar');
+
+let idx = 0;
+let imgIdx = 0;
+let imgTimer = null;
+let advanceTimer = null;
+let progressTimer = null;
+let playing = false;
+const SLIDE_MS = 9000;
+const IMG_ROTATE_MS = 3500;
+
+/* mode state — null = chronological default */
+let MODE = null;
+let ORDER = [];
+
+const MODE_LABELS = {chefs:"For Chefs", controleurs:"For Contrôleurs", nerds:"For Nerds"};
+
+function tasteFallback(m){
+  return ({choice:9,edible:6,medicinal:5,psychoactive:3,symbiont:2,inedible:1,toxic:0,deadly:0,pathogenic:0,extinct:0})[m.e] ?? 1;
+}
+function dangerFallback(m){
+  const d = (typeof DETAILS !== 'undefined') ? DETAILS[String(m.n)] : null;
+  const sev = d && d.toxicity ? (d.toxicity.severity||'none').toLowerCase() : 'none';
+  if(sev==='deadly') return 10;
+  if(sev==='severe') return 7;
+  if(sev==='mild') return 4;
+  return ({deadly:10,pathogenic:9,toxic:6,psychoactive:4}[m.e]) ?? 0;
+}
+function nerdFallback(m){
+  return Math.min(10, Math.round((m.fact||"").length / 22));
+}
+function modeScore(mode, m){
+  const e = (typeof EXTRAS !== 'undefined') ? EXTRAS[String(m.n)] : null;
+  if(mode==='chefs')        return (e && e.chef       && typeof e.chef.score==='number')       ? e.chef.score       : tasteFallback(m);
+  if(mode==='controleurs')  return (e && e.controleur && typeof e.controleur.score==='number') ? e.controleur.score : dangerFallback(m);
+  if(mode==='nerds')        return (e && e.nerd       && typeof e.nerd.score==='number')       ? e.nerd.score       : nerdFallback(m);
+  return 0;
+}
+
+function recomputeOrder(){
+  if(!MODE){ ORDER = M.map((_,i)=>i); return; }
+  ORDER = M.map((_,i)=>i).sort((a,b)=>{
+    const sa = modeScore(MODE, M[a]);
+    const sb = modeScore(MODE, M[b]);
+    if(sb !== sa) return sb - sa;     // higher score first
+    return M[a].n - M[b].n;            // tie-break: original id order
+  });
+}
+
+function fmtNum(n){ return String(n).padStart(3,'0'); }
+
+function regionList(rs){
+  const all = ["NA","SA","EU","AF","AS","OC"];
+  if(rs.includes("WW")) return ["WORLDWIDE"];
+  const map = {NA:"NORTH AM.",SA:"SOUTH AM.",EU:"EUROPE",AF:"AFRICA",AS:"ASIA",OC:"OCEANIA"};
+  return rs.filter(r=>all.includes(r)).map(r=>map[r]);
+}
+
+function esc(s){ return String(s).replace(/[&<>]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c])); }
+
+function buildDetails(n){
+  const d = (typeof DETAILS !== 'undefined') ? DETAILS[String(n)] : null;
+  if(!d) return "";
+  const tox = d.toxicity || {};
+  const sev = (tox.severity || "none").toLowerCase();
+  return `
+    <div class="details">
+      <div class="d-card full"><div class="d-h">Edibility</div><div class="d-body">${esc(d.edibility||"")}</div></div>
+      <div class="d-card"><div class="d-h">Taste</div><div class="d-body">${esc(d.taste||"")}</div></div>
+      <div class="d-card"><div class="d-h">Where to look</div><div class="d-body">${esc(d.search||"")}</div></div>
+      <div class="d-card tox ${sev} full">
+        <div class="d-h">Toxicity <span class="d-sev ${sev}">${esc(sev)}</span></div>
+        <div class="d-tox-grid">
+          <b>Symptoms</b><span>${esc(tox.symptoms||"—")}</span>
+          <b>Onset</b><span>${esc(tox.onset||"—")}</span>
+          <b>Window</b><span>${esc(tox.treatmentWindow||"—")}</span>
+          <b>Antidote</b><span>${esc(tox.antidote||"—")}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function render(i){
+  const m = M[ORDER[i]];
+  const swatch = m.col ? `<span class="swatch" style="background:${m.col}"></span>` : "";
+  const styleVar = m.col ? `style="--catcolor:${m.col}"` : "";
+  const ex = (typeof EXTRAS !== 'undefined') ? EXTRAS[String(m.n)] : null;
+  const chef = (ex && ex.chef) || {};
+  const ctr = (ex && ex.controleur) || {};
+  const nerd = (ex && ex.nerd) || {};
+  const cs = (typeof chef.score === 'number') ? chef.score : tasteFallback(m);
+  const ds = (typeof ctr.score === 'number') ? ctr.score : dangerFallback(m);
+  const ns = (typeof nerd.score === 'number') ? nerd.score : nerdFallback(m);
+  const ct = chef.tip || (['choice','edible','medicinal'].includes(m.e) ? 'Worth cooking — see edibility notes below.' : 'Not for the kitchen.');
+  const cr = ctr.remedy || 'See toxicity panel below.';
+  const nb = nerd.bonus || '—';
+  const enrichHTML = `
+    <div class="enrich chef" data-label="CHEF'S TIP">
+      <div class="score">${cs}<small>/ 10 TASTINESS</small></div>
+      <div class="body">${esc(ct)}</div>
+    </div>
+    <div class="enrich controleur" data-label="EMERGENCY">
+      <div class="score">${ds}<small>/ 10 DANGER</small></div>
+      <div class="body">${esc(cr)}</div>
+    </div>
+    <div class="enrich nerd" data-label="BONUS FACT">
+      <div class="score">${ns}<small>/ 10 NERD-O-METER</small></div>
+      <div class="body">${esc(nb)}</div>
+    </div>`;
+  const html = `
+    <div class="slide active entering cat-${m.cat}" ${styleVar}>
+      <div class="img-pane">
+        <div class="frame" id="frame">
+          <img id="img1" loading="lazy" alt="">
+          <img id="img2" loading="lazy" alt="">
+          <img id="img3" loading="lazy" alt="">
+        </div>
+        <div class="none" id="none" hidden><span>NO IMAGE</span></div>
+        <div class="badge">${m.cat}</div>
+        <div class="index-num">${fmtNum(m.n)}<small>/100</small></div>
+        <div class="dotline" id="dotline"><i class="on"></i><i></i><i></i></div>
+      </div>
+      <div class="info-pane">
+        <div class="title-block">
+          <div class="common">${m.name}</div>
+          <div class="sci">${m.sci}</div>
+        </div>
+        <div class="tag">"${m.tag}"</div>
+        <span class="edib ${m.e}">${m.e}</span>
+        <div class="fact">${m.fact}</div>
+        ${enrichHTML}
+        <div class="habitat"><b>Habitat</b>${m.hab}</div>
+        <div class="map-card">
+          <div class="h"><b>DISTRIBUTION</b><em>${m.r.includes("WW")?"global":m.r.length+" region"+(m.r.length>1?"s":"")}</em></div>
+          ${buildMap(m.r)}
+          <div class="region-pills">${regionList(m.r).map(r=>`<span>${r}</span>`).join("")}</div>
+        </div>
+        ${buildDetails(m.n)}
+      </div>
+    </div>`;
+  stage.innerHTML = html;
+  startImageRotation(m.n);
+  cur.textContent = fmtNum(i+1);
+  updateDots();
+}
+
+/* -------------- image rotation w/ graceful 404 -------------- */
+function startImageRotation(n){
+  if(imgTimer) clearInterval(imgTimer);
+  const slots=[1,2,3];
+  const imgs = slots.map(s=>document.getElementById('img'+s));
+  const dots = document.querySelectorAll('#dotline i');
+  const none = document.getElementById('none');
+  const valid = [];
+  let pending = slots.length;
+  slots.forEach((s,i)=>{
+    const el = imgs[i];
+    el.onload = ()=>{ valid.push(i); checkDone(); };
+    el.onerror = ()=>{ el.remove(); checkDone(); };
+    el.src = `images/${n}/img_${s}.jpg`;
+  });
+  function checkDone(){
+    if(--pending<=0){
+      if(valid.length===0){ none.hidden=false; return; }
+      none.hidden = true;
+      let v=0;
+      const showAt = j=>{
+        imgs.forEach(im=>im && im.classList.remove('show'));
+        dots.forEach(d=>d.classList.remove('on'));
+        if(imgs[valid[j]]) imgs[valid[j]].classList.add('show');
+        if(dots[valid[j]]) dots[valid[j]].classList.add('on');
+      };
+      showAt(0);
+      if(valid.length>1){
+        imgTimer = setInterval(()=>{ v=(v+1)%valid.length; showAt(v); }, IMG_ROTATE_MS);
+      }
+      // hide unused dots
+      slots.forEach((_,i)=>{ if(!valid.includes(i) && dots[i]) dots[i].style.display='none'; });
+    }
+  }
+}
+
+/* -------------- nav --------------- */
+function go(delta){
+  idx = (idx + delta + M.length) % M.length;
+  render(idx);
+  resetTimer();
+}
+function jump(i){ idx=i; render(idx); resetTimer(); }
+function resetTimer(){
+  if(advanceTimer) clearTimeout(advanceTimer);
+  if(progressTimer) clearInterval(progressTimer);
+  bar.style.width = '0%';
+  if(!playing) return;
+  let t = 0;
+  progressTimer = setInterval(()=>{
+    t += 50;
+    bar.style.width = (t/SLIDE_MS*100)+'%';
+  }, 50);
+  advanceTimer = setTimeout(()=>go(1), SLIDE_MS);
+}
+
+document.getElementById('prev').onclick = ()=>go(-1);
+document.getElementById('next').onclick = ()=>go(1);
+document.getElementById('play').onclick = (e)=>{
+  playing = !playing;
+  e.currentTarget.textContent = playing ? '⏸' : '▶';
+  resetTimer();
+};
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowLeft') go(-1);
+  else if(e.key==='ArrowRight') go(1);
+  else if(e.key===' '){ document.getElementById('play').click(); e.preventDefault(); }
+});
+
+/* -------------- swipe (mobile) -------------- */
+let touchX=0, touchY=0;
+document.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; touchY=e.touches[0].clientY }, {passive:true});
+document.addEventListener('touchend', e=>{
+  const dx = e.changedTouches[0].clientX - touchX;
+  const dy = e.changedTouches[0].clientY - touchY;
+  if(Math.abs(dx)>60 && Math.abs(dx)>Math.abs(dy)) go(dx<0?1:-1);
+}, {passive:true});
+
+/* -------------- dot bar --------------- */
+function buildDots(){
+  let html = "";
+  for(let i=0;i<ORDER.length;i++) html += `<b data-i="${i}" title="${esc(M[ORDER[i]].name)}"></b>`;
+  dotrow.innerHTML = html;
+}
+dotrow.addEventListener('click', e=>{
+  const t = e.target.closest('b');
+  if(!t) return;
+  jump(parseInt(t.dataset.i));
+});
+function updateDots(){
+  dotrow.querySelectorAll('b').forEach((b,i)=>{
+    b.className = i===idx ? 'on' : (i<idx ? 'done' : '');
+  });
+}
+
+/* -------------- stars --------------- */
+(function stars(){
+  const root = document.getElementById('stars');
+  let html = "";
+  for(let i=0;i<70;i++){
+    const x = Math.random()*100, y = Math.random()*100, d = (Math.random()*4+2).toFixed(1), del = Math.random()*4;
+    html += `<b style="left:${x}%;top:${y}%;animation-duration:${d}s;animation-delay:${del}s"></b>`;
+  }
+  root.innerHTML = html;
+})();
+
+/* -------------- mode + menu wiring --------------- */
+const menuEl = document.getElementById('menu');
+const modeTagEl = document.getElementById('modeTag');
+
+function setMode(mode){
+  MODE = mode;
+  document.body.classList.remove('mode-chefs','mode-controleurs','mode-nerds');
+  if(mode){
+    document.body.classList.add('mode-'+mode);
+    modeTagEl.textContent = MODE_LABELS[mode];
+  } else {
+    modeTagEl.textContent = '';
+  }
+  recomputeOrder();
+  idx = 0;
+  buildDots();
+  render(0);
+  // stop autoplay between mode switches; user controls
+  if(advanceTimer) clearTimeout(advanceTimer);
+  if(progressTimer) clearInterval(progressTimer);
+  bar.style.width='0%';
+  playing = false;
+  document.getElementById('play').textContent = '▶';
+}
+
+function openMenu(){ menuEl.classList.remove('hidden'); }
+function closeMenu(){ menuEl.classList.add('hidden'); }
+
+document.querySelectorAll('.menu-card').forEach(b=>{
+  b.addEventListener('click', ()=>{ setMode(b.dataset.mode); closeMenu(); });
+});
+document.getElementById('skipMenu').addEventListener('click', ()=>{
+  setMode(null); closeMenu();
+});
+document.getElementById('brand').addEventListener('click', openMenu);
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape' && !menuEl.classList.contains('hidden')) return; // menu visible, do nothing extra
+  if(e.key==='Escape'){ openMenu(); }
+});
+
+/* -------------- start --------------- */
+recomputeOrder();
+buildDots();
+render(0);              // render mushroom #1 as backdrop behind menu
+
+// Optional deep-link via URL hash: #chefs / #controleurs / #nerds / #all
+(function applyHash(){
+  const h = (location.hash || '').replace('#','').toLowerCase();
+  if(h==='chefs' || h==='controleurs' || h==='nerds'){ setMode(h); closeMenu(); }
+  else if(h==='all'){ setMode(null); closeMenu(); }
+  // otherwise menu is shown by default
+})();
+window.addEventListener('hashchange', ()=>{
+  const h = (location.hash || '').replace('#','').toLowerCase();
+  if(h==='chefs' || h==='controleurs' || h==='nerds'){ setMode(h); closeMenu(); }
+  else if(h==='all'){ setMode(null); closeMenu(); }
+  else { openMenu(); }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "edibility": "Not edible as food due to its extremely tough, leathery texture and bitter, acrid taste that make it unsuitable for culinary use. However, it is prized for medicinal preparations including decoctions and alcohol extracts, traditionally used for immune support, wound healing, and anti-parasitic effects. The mushroom is non-toxic but not meant for eating in the conventional sense.",
+  "taste": "Bitter with slight acidity and an earthy, umami aftertaste that lingers. The flesh is tough and leathery with a texture unsuitable for normal cooking; young specimens may have light citrusy notes. The bitterness and astringency dominate the sensory experience.",
+  "search": "Found year-round on dead or dying birch trees (Betula spp.) in temperate and subarctic regions of the Northern Hemisphere, with emergence primarily in spring and summer. Identifier by its pale greyish-brown top surface, creamy white pore underside, soft leathery texture, and short fat stalks. Key look-alikes include Fomitopsis pinicola (grows on conifers with reddish band when mature) and Ganoderma applanatum (bruises brown when scratched, unlike birch polypore); birch-specific habitat is the most reliable ID clue.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

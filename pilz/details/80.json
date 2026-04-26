@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — small, rubbery, no culinary value; considered a conservation indicator species, harvest discouraged.",
+  "taste": "Not consumed.",
+  "search": "Found in autumn on mossy, unfertilized turf. Dark club-shaped fruiting bodies are distinctive. Key ID features include glabrous (smooth) surface and small size. Look-alikes include other Geoglossum species, particularly G. viscosum which has a viscid surface.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

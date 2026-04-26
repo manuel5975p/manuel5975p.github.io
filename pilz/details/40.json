@@ -1,0 +1,12 @@
+{
+  "edibility": "Chaga is not eaten fresh due to its hard, woody texture. It is traditionally brewed as a decoction—pieces are simmered in hot water to create a medicinal tea. Traditional hot-water extraction dilutes oxalates compared to powder consumption. Avoid high-dose powders (over 3 grams daily long-term) due to risk of kidney oxalate accumulation and potential synergistic bleeding effects with anticoagulant medications like warfarin.",
+  "taste": "Chaga tea has an earthy, slightly bitter taste with mild vanilla notes and a woody character. The flavor is relatively subtle and well-tolerated when properly brewed.",
+  "search": "Chaga appears as hard, irregular, charcoal-black growths protruding from living white or yellow birch trees. The interior is rusty-orange or amber, never black. Found year-round but best located in winter against snow; peak nutrient concentration occurs in autumn after 20+ nights below 5°C (41°F). Sustainable harvest requires leaving sufficient sclerotia on the host tree. Common look-alikes include tree burls (smooth wood grain interior), black knot fungus (typically on fruit trees), and corky bark disease—none are toxic but true chaga is only valuable from birch.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Excessive oxalate consumption may cause kidney stone formation, acute oxalate nephropathy, and nephrotic syndrome in susceptible individuals. Combined use with warfarin or other anticoagulants increases bleeding and bruising risk. Kidney disease or history of kidney stones increases risk.",
+    "onset": "Chronic condition: kidney stone formation develops over weeks to months with sustained high-dose use (3–22 grams daily). Bleeding risk is immediate with concurrent anticoagulant use.",
+    "treatmentWindow": "Kidney damage from oxalate accumulation: discontinue use immediately and monitor kidney function. Bleeding events: seek immediate medical attention. No specific reversal agent; depends on underlying anticoagulant.",
+    "antidote": "Supportive care only. Discontinue chaga immediately if kidney disease symptoms develop or if taking anticoagulants. Adequate hydration helps reduce kidney stone risk. Consult healthcare provider before use if taking warfarin, other blood thinners, or if you have kidney disease or kidney stone history."
+  }
+}

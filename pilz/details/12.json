@@ -1,0 +1,12 @@
+{
+  "edibility": "Amanita phalloides is absolutely inedible and among the deadliest mushrooms known. As little as half a mushroom contains enough toxin to kill an adult human. No preparation method makes it safe; even experienced foragers can be fatally poisoned.",
+  "taste": "Unknown and irrelevant due to extreme lethality. Those who have survived ingestion report severe nausea and gastrointestinal distress within hours.",
+  "search": "Found in woodlands, parks, gardens, and urban areas near oak, beech, and chestnut trees, typically summer through autumn after rain. Identify by white gills, a cup-like volva at the base, a ring on the stem, and greenish-yellow to olive cap with white patches. Key look-alikes include field mushrooms (which have pink-to-brown gills), paddy straw mushrooms (pink spore print), and young puffballs (which are uniform white inside).",
+  "toxicity": {
+    "severity": "deadly",
+    "symptoms": "Gastrointestinal distress (nausea, vomiting, diarrhea, abdominal pain) followed by apparent recovery, then liver failure with jaundice, seizures, and coma. Liver and kidneys are primary target organs.",
+    "onset": "6-24 hours, with severe symptoms developing over 1-4 days",
+    "treatmentWindow": "36 hours for best outcomes with aggressive treatment, but prognosis declines rapidly after initial symptom onset",
+    "antidote": "Supportive care with aggressive hydration and electrolyte replacement; intravenous silibinin (licensed in Europe); liver transplantation may be necessary. Most survivors recover completely if treated within 36 hours."
+  }
+}

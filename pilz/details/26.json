@@ -1,0 +1,12 @@
+{
+  "edibility": "Omphalotus nidiformis is toxic and must never be consumed. It contains illudin S and illudin M, sesquiterpenoid toxins that cause gastrointestinal distress. The danger of poisoning is heightened by its resemblance to edible Pleurotus oyster mushrooms, leading to serious misidentification incidents among foragers, including documented cases in Indonesia.",
+  "taste": "Those who have accidentally ingested it report gastrointestinal distress and cramping. The mushroom itself has a modest, unremarkable taste that may not deter consumption before symptoms appear, making misidentification particularly dangerous.",
+  "search": "Ghost Fungus grows on decaying wood, stumps, and logs in damp, shaded Australian forests (Queensland, New South Wales, Victoria) during late summer to autumn. Key identification: cream to smoky-brown fan or funnel-shaped caps up to 30cm across, with a distinctive bioluminescent greenish glow on the gills in darkness. Critical distinction from Pleurotus: smooth, woody stems and different gill attachment patterns.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Nausea, vomiting, abdominal cramping, diarrhea, weakness, sweating, and trembling. Symptoms can last several hours to 48 hours depending on sensitivity and amount consumed.",
+    "onset": "30 minutes to 3 hours",
+    "treatmentWindow": "Several hours; symptoms may persist 24-48 hours but are not typically fatal in healthy individuals",
+    "antidote": "Supportive care only. Seek medical attention for severe cases. Supportive treatment includes hydration and electrolyte management; no specific antidote exists."
+  }
+}

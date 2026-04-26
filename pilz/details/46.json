@@ -1,0 +1,12 @@
+{
+  "edibility": "Tree pathogen, not edible; causes silverleaf disease in plants. Extremely rare human infection documented in one immunocompromised mycologist; most people have no risk.",
+  "taste": "Not eaten; texture is thin, leathery, tough, and papery with poor palatability.",
+  "search": "Found on Prunus species (plums, cherries, peaches, apples) and other Rosaceae family trees; thin purple-tinged or gray-brown brackets with whitish hairy margins that darken with age. Look-alikes include Stereum species, but Chondrostereum has smoother hymenium. Most commonly seen in UK woodlands on decaying hardwood.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "In the single documented human case: hoarseness, cough, recurrent pharyngitis, fatigue, difficulty swallowing, anorexia. Plant pathogen; human infection extremely rare.",
+    "onset": "Unknown; documented case developed symptoms over extended occupational exposure to plant fungi",
+    "treatmentWindow": "Unknown; fungal infections typically require weeks to months of antifungal therapy",
+    "antidote": "Antifungal medications (itraconazole or voriconazole) if systemic infection suspected; seek medical care immediately if respiratory symptoms develop after exposure"
+  }
+}

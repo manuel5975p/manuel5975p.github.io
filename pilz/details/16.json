@@ -1,0 +1,12 @@
+{
+  "edibility": "Matsutake is a choice edible mushroom highly prized in Japanese and Korean cuisines. The firm, meaty mushroom is best prepared through cooking methods such as sautéing, grilling, or steaming, and pairs well with traditional ingredients like dashi and soy sauce. It is widely consumed and nutritious, containing high protein and minerals, though proper identification is critical as toxic lookalikes exist.",
+  "taste": "Matsutake has a distinctive spicy, pungent flavor with notes of cinnamon, pine, and cedar, paired with a firm, meaty, slightly crunchy texture. The mushroom is particularly prized for its potent aromatic qualities that evoke the essence of autumn.",
+  "search": "Found in conifer forests, particularly with lodgepole pine, Douglas fir, hemlock, and other conifers in spodosol soil, primarily September through January in the Pacific Northwest but also in California, the Rockies, and the Northeast. Identify by the distinctive cinnamon/spicy aroma, white partial veil leaving a ring on the stem, white cap becoming tan with reddish-brown scales, and firm texture. Key lookalikes include the highly toxic Amanita smithiana (which has a bulbous stem base) and the booted knight (Tricholoma focale, with a flour-like scent).",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

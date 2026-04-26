@@ -1,0 +1,12 @@
+{
+  "edibility": "The Indigo Milk Cap is edible and non-toxic, widely consumed in many regions. It requires thorough cooking before consumption to break down its chitin and prevent gastrointestinal discomfort; raw or undercooked specimens can cause digestive upset. It is foraged and enjoyed in soups, stews, stir-fries, and sautéed preparations, particularly in southeastern North America and Mexico.",
+  "taste": "Flavor is typically nutty, earthy, and mildly sweet with a subtle peppery finish. Texture is tender yet slightly chewy and holds up well to cooking; the striking indigo color fades to grayish upon heating. Some report slight variations in flavor depending on habitat, with most specimens offering mild umami notes similar to portobello mushrooms.",
+  "search": "Found in summer through fall (June-November) in mixed forests across southeastern and eastern North America, most common along the Gulf Coast, Mexico, and Central America. Key identifiers include the 5-15 cm indigo-blue cap fading to greenish-gray with age, blue gills, blue stem, and distinctive indigo-blue latex that turns green on air exposure. Main lookalikes are Lactarius chelidonium and L. paradoxus (brown/yellow when mature) and purple Cortinarius species (avoid all purple Cortinarius as some are toxic); definitively identify by the blue latex which is unmistakable.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

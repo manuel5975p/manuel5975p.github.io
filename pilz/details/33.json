@@ -1,0 +1,12 @@
+{
+  "edibility": "Armillaria ostoyae is edible only after thorough cooking, specifically parboiling for 10-15 minutes with water discarded. Raw or inadequately cooked specimens are toxic and cause gastrointestinal distress. Even when properly cooked, some individuals remain sensitive and may experience nausea or cramping. The stems contain higher concentrations of irritants and are often discarded by experienced foragers.",
+  "taste": "When properly prepared, honey fungus has a mild, delicate flavor with a tender texture in the caps. The stems are tough and fibrous, which is another reason they are typically discarded.",
+  "search": "Found on dead hardwood trees and stumps, typically in late summer through fall in temperate forests. The species forms distinctive honey-colored fruiting bodies with a ring on the stalk. Key look-alikes include deadly Galerina marginata (much smaller, lacking ring, growing on conifers) and benign Armillaria mellea (lighter colored, more common in Europe).",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Gastrointestinal distress including nausea, vomiting, stomach cramps, and diarrhea from raw or undercooked consumption. Thermolabile irritants are responsible; some individuals remain sensitive even after cooking.",
+    "onset": "30 minutes to 3 hours after consumption",
+    "treatmentWindow": "Symptoms typically resolve naturally within 24-48 hours; supportive care and hydration management is standard",
+    "antidote": "No specific antidote; treatment is supportive care. Prevention through proper preparation (thorough parboiling and water discarding) is essential."
+  }
+}

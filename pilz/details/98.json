@@ -1,0 +1,12 @@
+{
+  "edibility": "Inedible — a tiny moss, not a fungus; tissues too small to consume; not toxic, just irrelevant culinary.",
+  "taste": "Not consumed",
+  "search": "Year-round in dark moist places: caves, badger setts, old mine shafts, under uprooted trees. The lens-shaped cells reflect dim light, producing a distinctive green-gold glow.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

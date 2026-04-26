@@ -1,0 +1,12 @@
+{
+  "edibility": "Too tough to chew; consumed as tea or extract for medicinal benefits. Contains PSK (polysaccharide-K), a compound studied extensively in cancer therapy and immune support.",
+  "taste": "Earthy, mildly bitter when brewed as tea.",
+  "search": "Found year-round on dead hardwood logs and stumps in woodlands; perennial fruiting body persists through seasons. Identify by distinctive concentric rings in bands of white, brown, and blue-green colors, resembling a turkey's tail feathers. Fibonacci-like growth pattern is characteristic. Avoid confusion with false turkey tail (Stereum ostrea) which lacks color variation, and Trichaptum species.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Tuber melanosporum is a highly prized edible fungus with no toxicity. It is consumed as a luxury ingredient in French, Spanish, and Italian cuisines. The distinctive umami flavor develops fully when heated and pairs well with eggs, pasta, and cream-based dishes. Safe for all consumers including children and pregnant individuals when cooked properly.",
+  "taste": "Black truffles have a complex, earthy flavor that is slightly peppery and bitter, with aromatic notes reminiscent of undergrowth, strawberries, wet earth, and a hint of cocoa. The aroma intensifies rather than diminishes with heating, and the texture is dense and firm.",
+  "search": "Tuber melanosporum grows in calcareous (limestone-rich) forests across Mediterranean regions, particularly France (Perigord), Spain, Italy, and Croatia. Peak season runs November to March. Look for them 1-6 inches deep near roots of holm oaks, hazel, or beech trees. Evidence of small animal digging indicates a promising search area; trained truffle dogs can detect ripe fruiting bodies from over 100 yards away.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

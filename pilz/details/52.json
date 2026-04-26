@@ -1,0 +1,12 @@
+{
+  "edibility": "Edible when young and cooked, but causes severe disulfiram-like reaction when consumed with alcohol within 72 hours. The alcohol interaction can occur up to several days after mushroom consumption and produces life-threatening symptoms.",
+  "taste": "Mild, delicate flavor when young; becomes inky and unpalatable with age. Best consumed when the caps are still closed or just opening.",
+  "search": "Found on disturbed soil, lawns, parks, and woodland edges from spring through fall. Identified by inky black caps, whitish rings on stem, and the characteristic black spore deposit. Often confused with Shaggy Mane (Coprinus comatus), which lacks the gray-brown cap and has prominent shaggy scales.",
+  "toxicity": {
+    "severity": "severe",
+    "symptoms": "Coprine + alcohol → facial flushing, burning sensation in chest and limbs, palpitations, tachycardia, hypotension, nausea, vomiting, abdominal cramps, headache, and in severe cases, cardiac arrhythmias and respiratory distress",
+    "onset": "15-30 minutes to 2 hours after alcohol consumption following mushroom ingestion",
+    "treatmentWindow": "Supportive care within hours of symptom onset; alcohol must be avoided immediately. Most symptoms resolve within 24 hours with proper medical support",
+    "antidote": "No specific antidote; treatment is supportive (IV fluids, cardiac monitoring, antiemetics). Avoid all alcohol for minimum 72 hours after mushroom consumption"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "edibility": "Edible only when interior is pure white; sliced and fried; do NOT eat once interior is yellow/green/brown. Young specimens must be completely firm throughout to ensure safety.",
+  "taste": "Mild, slightly nutty flavor with a somewhat marshmallow-like texture when fresh. Best enjoyed when cooked rather than raw.",
+  "search": "Found in late summer through fall in woodlands, meadows, and grasslands across temperate regions. Identify by distinctive pear shape, netted surface pattern, and white interior when young. Dangerous look-alikes include young Amanita muscaria in its 'egg' stage and the toxic pigskin puffball (Scleroderma species), which has thick, dark interior.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "Mature spore mass can cause lycoperdonosis (inhalation-related lung inflammation) if large quantities are inhaled; culinary use does not present inhalation risk",
+    "onset": "Hours to days after significant inhalation exposure",
+    "treatmentWindow": "Seek medical attention if respiratory symptoms develop after inhalation of spore cloud",
+    "antidote": "Supportive respiratory care and corticosteroids for confirmed lycoperdonosis; hospital evaluation recommended"
+  }
+}

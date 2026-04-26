@@ -1,0 +1,12 @@
+{
+  "edibility": "Edible only when interior is pure white (very young stage); generally listed as inedible due to bitter, dark mature spores; lycoperdonosis (respiratory inflammation) risk if mature spores are inhaled in significant quantities.",
+  "taste": "Mild and bland when very young and flesh is still white; bitter and unpleasant when older as flesh darkens and spores mature.",
+  "search": "Found in late summer through autumn in acidic woodlands, heaths, and grasslands. Look for the distinctive dark/dusky spines covering the globe-shaped fruiting body. Similar Lycoperdon species may be confused with it, so check spore color and spine characteristics.",
+  "toxicity": {
+    "severity": "mild",
+    "symptoms": "Lycoperdonosis (lung inflammation/bronchitis) if mature spores inhaled in quantity; gastrointestinal distress (nausea, vomiting) if mature flesh ingested.",
+    "onset": "Hours after exposure or ingestion",
+    "treatmentWindow": "24-48 hours for supportive intervention",
+    "antidote": "Corticosteroids if respiratory involvement; supportive care and monitoring for gastrointestinal cases"
+  }
+}

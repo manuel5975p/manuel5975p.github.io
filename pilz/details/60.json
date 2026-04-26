@@ -1,0 +1,12 @@
+{
+  "edibility": "Excellent edible and medicinal mushroom highly valued in Asian cuisine and traditional medicine. Consumed fresh-cooked, as tea, or in capsule supplements for its potential nerve growth factor benefits and cognitive support.",
+  "taste": "Delicate seafood-like flavor reminiscent of lobster or crab meat with a tender, almost delicate texture that absorbs flavors well when cooked.",
+  "search": "Found late summer through fall on dead or dying hardwoods, particularly beech, oak, and maple trees at various heights. Identify by distinctive long, downward-hanging spine-like structures with no visible cap and pure white color when fresh. Other Hericium species are also edible and similarly distinctive.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

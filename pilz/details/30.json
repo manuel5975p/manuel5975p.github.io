@@ -1,0 +1,12 @@
+{
+  "edibility": "Geastrum triplex is non-toxic but inedible due to its tough, leathery texture and lack of nutritional value. While some sources report that immature specimens with white firm gleba may be theoretically edible, they are rarely found in this stage and consumption is not recommended. The dry, powdery spore mass is unpleasant and can cause mild gastrointestinal upset or stomach irritation.",
+  "taste": "The fungus has an unpleasant taste with a dry, powdery quality from the spore mass. Those who have tasted immature specimens report no significant flavor, and the overall experience is characterized by the tough, fibrous texture rather than any palatable taste.",
+  "search": "Found in leaf litter of deciduous woods, especially on chalky soils with beech, but also under conifers, on sand dunes, and along hedgerows. The fruiting season is late summer through early winter, often visible year-round after rain. Identification is based on the distinctive star-like rays (5-8) formed by the peridium splitting, with a distinctive collar-like structure between the inner spore sac and outer rays; expanded specimens reach up to 11.5 cm across, making it the largest Geastrum species.",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A — not toxic",
+    "treatmentWindow": "N/A — not toxic",
+    "antidote": "N/A — not toxic"
+  }
+}

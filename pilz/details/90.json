@@ -1,0 +1,12 @@
+{
+  "edibility": "Choice edible; wild form differs from pale cultivated 'enoki'; eaten in soups/stir-fries/hot pots; rare reports of E. coli contamination on commercial enoki",
+  "taste": "Mild, slightly fruity; firm crunchy texture",
+  "search": "Late fall to winter, dead/dying elm/willow/poplar/ash; ID clues include orange-brown sticky cap and blackish velvet stem; look-alikes including DEADLY Galerina marginata",
+  "toxicity": {
+    "severity": "none",
+    "symptoms": "N/A — not toxic",
+    "onset": "N/A",
+    "treatmentWindow": "N/A",
+    "antidote": "N/A — not toxic if correctly identified; verify with spore print"
+  }
+}
