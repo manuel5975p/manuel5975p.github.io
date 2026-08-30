@@ -131,7 +131,7 @@ textarea{width:100%;height:96px;background:#0c1018;border:1px solid var(--border
     <div class="row">
       <label for="dtype">Type</label>
       <select id="dtype">
-        <option value="opt" selected>Optimize: flattest to f₁ (12-bit)</option>
+        <option value="opt" selected>Optimize: flattest to f₁ (14-bit)</option>
         <option value="frac">Fractional delay (sinc)</option>
         <option value="lp">Low-pass</option>
         <option value="hp">High-pass</option>
@@ -239,7 +239,9 @@ const S = {
   hw: true,         // integer taps with Σ = HW_SUM (forces DC normalization)
   fs: 20,           // MSps, 0 = show cycles/sample
 };
-const HW_SUM = 8192, HW_MIN = -2048, HW_MAX = 2047;   // signed 12-bit taps, Σ of all taps = 8192
+const HW_SUM = 8192, HW_MIN = -8192, HW_MAX = 8191;   // signed 14-bit taps, Σ of all taps = 8192
+// 14 bits (not 12): a 16-tap δ needs the centre pair at 4096 each. With 12-bit taps (max 2047)
+// the L2 projection smears the excess uniformly over the other taps (292/293), so zeros aren't zero.
 // Total tap count of the current filter (sym: 2·half+1, s16: 16).
 const tapCount = () => S.mode === 'sym' ? 2*S.half+1 : 16;
 // Weight of each unique coefficient in the tap sum (centre tap counts once, mirrored pairs twice).
@@ -734,10 +736,10 @@ function exportText() {
     const uq = R.q, full = R.hq;
     const cm = S.mode === 'sym' ? `${uq.length} programmable coefficients (centre + ${uq.length-1} mirrored pairs)` : `8 programmable coefficients, mirrored to 16 taps`;
     switch (S.fmt) {
-      case 'hw':   return `// ${cm}; signed 12-bit, Σ of all ${full.length} taps = ${full.reduce((a,b)=>a+b,0)}\n` + uq.map((v,i)=>`FIR_COEF_${i} = ${v}`).join('\n');
+      case 'hw':   return `// ${cm}; signed 14-bit, Σ of all ${full.length} taps = ${full.reduce((a,b)=>a+b,0)}\n` + uq.map((v,i)=>`FIR_COEF_${i} = ${v}`).join('\n');
       case 'json': return JSON.stringify({mode:S.mode, length:tapCount(), sum:HW_SUM, unique:uq, taps:full}, null, 1);
       case 'py':   return `import numpy as np\n# ${cm}, integer Q13, sum ${HW_SUM}\n${name}_int = np.array([${full.join(', ')}])\n${name} = ${name}_int / ${HW_SUM}`;
-      default:     return `// ${cm}, signed 12-bit, Σ = ${HW_SUM}\nstatic const int16_t ${name}_coef[${uq.length}] = { ${uq.join(', ')} };\nstatic const int16_t ${name}[${full.length}] = {\n  ${full.join(', ')}\n};`;
+      default:     return `// ${cm}, signed 14-bit, Σ = ${HW_SUM}\nstatic const int16_t ${name}_coef[${uq.length}] = { ${uq.join(', ')} };\nstatic const int16_t ${name}[${full.length}] = {\n  ${full.join(', ')}\n};`;
     }
   }
   switch (S.fmt) {
@@ -753,7 +755,7 @@ function update() {
   document.querySelectorAll('#coefs .norm').forEach(el => { const i=+el.dataset.n; el.textContent = R.q ? String(R.q[i]) : fmt(S.raw[i]/R.g, 4); el.style.color = R.q ? 'var(--accent2)' : ''; });
   $('#legend').style.display = R.q ? '' : 'none';
   $('#fmthw').style.display = '';
-  $('#hwNote').innerHTML = `Taps are signed 12-bit integers (<b>${HW_MIN}…${HW_MAX}</b>) with Σ of all 16 taps = <b>${HW_SUM}</b> → DC gain exactly 1 = 0 dB. Out-of-range designs are L2-projected onto the feasible set. Coefficient column shows the integer value; ideal (unconstrained) response dashed.`;
+  $('#hwNote').innerHTML = `Taps are signed 14-bit integers (<b>${HW_MIN}…${HW_MAX}</b>) with Σ of all 16 taps = <b>${HW_SUM}</b> → DC gain exactly 1 = 0 dB. Out-of-range designs are L2-projected onto the feasible set. Coefficient column shows the integer value; ideal (unconstrained) response dashed.`;
   drawTaps(); drawMag(); drawPhase(); tiles();
   $('#out').value = exportText();
   $('#tapHint').textContent = S.mode === 'sym' ? `${tapCount()} taps, indices −${S.half}…${S.half}, h[n] = h[−n]` : '16 taps, h[i] = h[15−i]';
